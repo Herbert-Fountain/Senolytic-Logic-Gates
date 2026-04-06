@@ -420,3 +420,41 @@ Based on cross-study support, intracellular retention, and mechanistic plausibil
 10. Henriques V et al. Cancer Gene Ther. 2023. PMC: PMC10581906
 11. Casella G et al. Nucleic Acids Res. 2019;47(14):7294-7305. PMID: 31251810
 12. Munk R et al. Int J Mol Sci. 2017. PMID: 28838538
+
+
+---
+
+## ADDENDUM: Natural Aging miRNA Datasets (Added 2026-04-06)
+
+### Wagner et al. (2024) — Body-Wide ncRNA Aging Map (16 Mouse Tissues)
+
+**Citation:** Wagner V, Kern F, Hahn O, Schaum N, Ludwig N, Fehlmann T, Engel A, Henn D, Rishik S, Isakova A, Tan M, Sit R, Neff N, Hart M, Meese E, Quake S, Wyss-Coray T, Keller A. Characterizing expression changes in noncoding RNAs during aging and heterochronic parabiosis across mouse tissues. *Nature Biotechnology*. 2024;42:109-118.
+
+**PMID:** [37106037](https://pubmed.ncbi.nlm.nih.gov/37106037/)
+**DOI:** 10.1038/s41587-023-01751-6
+**PMC:** [PMC10791587](https://pmc.ncbi.nlm.nih.gov/articles/PMC10791587/)
+
+**GEO Accessions:** GSE217458, GSE222857
+
+**Organism:** *Mus musculus*
+
+**Tissues (16):** Bone (femur/tibia), brain (hemibrain), brown adipose tissue (BAT), gonadal adipose tissue (GAT), heart, kidney, limb muscle (tibialis anterior), liver, lung, bone marrow, mesenteric adipose tissue (MAT), pancreas, skin, small intestine (duodenum), spleen, subcutaneous adipose tissue (SCAT)
+
+**Ages:** 10 timepoints from 1 to 27 months
+
+**Method:** Small RNA-seq; 771 samples; reads annotated to 87,590 RNA reference sequences across 8 RNA classes
+
+**Cohort:** Tabula Muris Senis (TMS) — publicly available aging atlas
+
+**Key Findings:**
+- Molecular aging trajectories are largely **tissue-specific**
+- **8 broadly deregulated miRNAs** found across tissues:
+  - Positively correlated with age: **miR-29a-3p, miR-29c-3p, miR-155-5p, miR-184-3p, miR-1895**
+  - Negatively correlated with age: **miR-300-3p, miR-487b-3p, miR-541-5p**
+- miR-29c-3p showed the largest correlation with aging in solid organs, plasma, and EVs
+- In mice rejuvenated by heterochronic parabiosis, miR-29c-3p was restored to young levels in liver
+- miR-29c-3p targets extracellular matrix and secretion pathways
+
+**Priority:** **VERY HIGH.** This is the most comprehensive natural aging miRNA dataset available. 16 tissues × 10 ages × replicates = 771 samples. Direct comparison of natural aging vs. chemotherapy-induced senescence miRNA changes is possible using this data.
+
+**Note on comparison with senescence data:** Natural aging produces a mix of senescent and non-senescent cells in tissues. Comparing bulk tissue aging miRNA changes with in vitro senescence-specific changes can help distinguish miRNAs that are universal markers of cellular aging vs. those specific to pure senescent cell populations.
