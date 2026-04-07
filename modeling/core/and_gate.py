@@ -183,6 +183,17 @@ class ANDGateModel:
         peak_l7ae = np.max(trajectories['L7Ae'])
         sensor_remaining = trajectories['M_sensor_free'][-1]
 
+        # Free payload reference (for efficiency calculation)
+        k_tr = p['k_translate']; g_m = p['gamma_mRNA']; g_g = p['gamma_GFP']
+        if abs(g_m - g_g) > 1e-10:
+            t_pk = np.log(g_m / g_g) / (g_m - g_g)
+        else:
+            t_pk = 1.0 / g_m
+        sfgfp_per_copy = k_tr / (g_g - g_m) * (
+            np.exp(-g_m * t_pk) - np.exp(-g_g * t_pk))
+        free_peak = payload_copies * sfgfp_per_copy
+        efficiency = peak_sfgfp / free_peak * 100 if free_peak > 0 else 0
+
         return {
             't': sol.t,
             'trajectories': trajectories,
@@ -190,7 +201,9 @@ class ANDGateModel:
             'peak_sfgfp': peak_sfgfp,
             'final_sfgfp': final_sfgfp,
             'peak_l7ae': peak_l7ae,
-            'sensor_remaining_72h': sensor_remaining,
+            'free_payload_peak': free_peak,
+            'circuit_efficiency_pct': efficiency,
+            'sensor_remaining': sensor_remaining,
             'mirna_copies': mirna_copies,
             'sensor_copies': sensor_copies,
             'payload_copies': payload_copies,

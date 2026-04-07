@@ -52,6 +52,7 @@ page = st.sidebar.radio('Navigate', [
     'Design Experiment',
     'Enter Results',
     'Calibrate Model',
+    'Sensitivity Analysis',
     'Experiment History',
 ])
 
@@ -155,6 +156,17 @@ if page == 'Simulate':
         })
         st.line_chart(chart2, x='Time (h)')
 
+        # Export trajectory
+        st.subheader('Export Data')
+        traj_df = pd.DataFrame({'time_hr': t})
+        for name in r['species_names']:
+            traj_df[name] = traj[name]
+        st.download_button(
+            'Download trajectory CSV',
+            traj_df.to_csv(index=False),
+            file_name='trajectory.csv',
+            mime='text/csv')
+
 
 # ================================================================
 # PAGE: Optimize Ratio
@@ -237,6 +249,32 @@ elif page == 'Optimize Ratio':
         st.subheader('Activation vs Sensor:Payload Ratio')
         st.line_chart(chart_df, x='S:P Ratio')
 
+        # Export
+        st.subheader('Export')
+        col_e1, col_e2, col_e3 = st.columns(3)
+        with col_e1:
+            sweep_csv = pd.DataFrame([{
+                'sp_ratio': r['sp_ratio'],
+                'sensor_ng': r['sensor_ng'],
+                'payload_ng': r['payload_ng'],
+                'on_pct': r['on_pct'],
+                'off_pct': r['off_pct'],
+                'ratio': r['ratio'],
+            } for r in result['sweep']])
+            st.download_button('Download sweep CSV', sweep_csv.to_csv(index=False),
+                               'optimization_sweep.csv', 'text/csv')
+        with col_e2:
+            from modeling.core.autoprotocol import AutoProtocolExporter
+            exporter = AutoProtocolExporter()
+            proto = exporter.from_optimization_result(
+                result, use_profiles,
+                cells_per_well=cells_per_well)
+            st.download_button('Download AutoProtocol JSON',
+                               exporter.to_json(proto),
+                               'optimized_protocol.json',
+                               'application/json',
+                               help='Load in Transfection AutoProtocol')
+
 
 # ================================================================
 # PAGE: Design Experiment
@@ -308,9 +346,35 @@ elif page == 'Design Experiment':
         st.markdown(f'- Payload: {payload_ng}ng/well')
         st.markdown(f'- Sensor: {sensor_list} ng/well')
 
-        # Experiment plan text
+        # Export buttons
+        st.subheader('Export')
+        col_exp1, col_exp2 = st.columns(2)
+
+        with col_exp1:
+            # Experiment plan text
+            plan_text = designer.format_experiment_plan(design)
+            st.download_button(
+                'Download Experiment Plan (text)',
+                plan_text,
+                file_name='experiment_plan.txt',
+                mime='text/plain')
+
+        with col_exp2:
+            # AutoProtocol JSON export
+            from modeling.core.autoprotocol import AutoProtocolExporter
+            exporter = AutoProtocolExporter()
+            protocol_state = exporter.from_experiment_design(
+                design, cells_per_well=design_cells_per_well)
+            protocol_json = exporter.to_json(protocol_state)
+            st.download_button(
+                'Download AutoProtocol JSON',
+                protocol_json,
+                file_name='autoprotocol_experiment.json',
+                mime='application/json',
+                help='Load this file in the Transfection AutoProtocol tool')
+
         with st.expander('Full Experiment Plan (text)'):
-            st.code(designer.format_experiment_plan(design))
+            st.code(plan_text)
 
 
 # ================================================================
@@ -319,14 +383,84 @@ elif page == 'Design Experiment':
 elif page == 'Enter Results':
     st.title('Enter Experimental Results')
     st.markdown(
-        'Record flow cytometry results from your experiment. '
-        'This data is saved and used to improve the model.')
+        'Record flow cytometry results. Upload your NovoExpress CSV '
+        'directly or enter data manually. Saved for model calibration.')
 
     exp_name = st.text_input('Experiment name',
                               'ON Switch Titration')
     exp_date = st.date_input('Experiment date')
 
-    st.subheader('Enter conditions and observed sfGFP+ %')
+    # File upload option
+    st.subheader('Option 1: Upload NovoExpress CSV')
+    uploaded_file = st.file_uploader(
+        'Upload your Summary Table CSV from NovoExpress',
+        type=['csv'],
+        help='The CSV exported from NovoExpress with specimen statistics.')
+
+    if uploaded_file is not None:
+        from modeling.core.flow_parser import FlowDataParser
+        import tempfile
+
+        # Save uploaded file temporarily
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.csv',
+                                          delete=False, encoding='utf-8') as tmp:
+            content = uploaded_file.read().decode('utf-8-sig')
+            tmp.write(content)
+            tmp_path = tmp.name
+
+        parser = FlowDataParser()
+        parse_result = parser.parse_novoexpress_csv(tmp_path)
+        os.unlink(tmp_path)
+
+        if parse_result['warnings']:
+            for w in parse_result['warnings']:
+                st.warning(w)
+
+        st.success(
+            f'Parsed {parse_result["n_specimens"]} specimens, '
+            f'{parse_result["n_observations"]} conditions')
+
+        # Show parsed data
+        summary_rows = []
+        for s in parse_result['specimen_summary']:
+            summary_rows.append({
+                'Cell Type': s['cell_type'],
+                'Condition': s['condition'],
+                'Sensor (ng)': s['sensor_ng'],
+                'Payload (ng)': s['payload_ng'],
+                'Mean sfGFP+ %': f'{s["mean_pct"]:.1f}',
+                'SD': f'{s["std_pct"]:.1f}',
+                'n': s['n'],
+            })
+        st.dataframe(pd.DataFrame(summary_rows), use_container_width=True)
+
+        # Filter to circuit conditions for calibration
+        circuit_obs = [o for o in parse_result['observations']
+                       if o['observed_pct'] is not None]
+
+        col1, col2 = st.columns(2)
+        with col1:
+            constructs = st.text_input('Constructs used',
+                'p065 (2xKt-sfGFP) + p069B (5\'MRE-L7Ae)',
+                key='upload_constructs')
+        with col2:
+            cytometer = st.text_input('Cytometer', 'NovoCyte Quanteon',
+                key='upload_cytometer')
+
+        if st.button('Save Uploaded Results', type='primary'):
+            metadata = {
+                'date': str(exp_date),
+                'constructs': constructs,
+                'cytometer': cytometer,
+                'source_file': uploaded_file.name,
+            }
+            idx = history.add_experiment(exp_name, circuit_obs, metadata)
+            st.success(
+                f'Saved as experiment #{idx}: "{exp_name}" '
+                f'with {len(circuit_obs)} conditions.')
+
+    st.markdown('---')
+    st.subheader('Option 2: Enter data manually')
     st.markdown('Add one row per condition (cell type + dose combination).')
 
     profiles = get_cell_profiles()
@@ -487,6 +621,63 @@ elif page == 'Calibrate Model':
 
                     st.success('Parameters updated and calibration recorded.')
                     st.rerun()
+
+
+# ================================================================
+# PAGE: Sensitivity Analysis
+# ================================================================
+elif page == 'Sensitivity Analysis':
+    st.title('Parameter Sensitivity Analysis')
+    st.markdown(
+        'See which parameters have the most impact on circuit performance. '
+        'Each parameter is varied +/- 50% while others are held constant.')
+
+    col1, col2 = st.columns(2)
+    with col1:
+        sa_mirna_on = st.number_input('ON cell miR-122 copies', 0, 200000, 50000,
+                                       key='sa_mirna')
+        sa_sensor = st.number_input('Sensor copies', 100, 10000, 2000,
+                                     key='sa_sensor')
+    with col2:
+        sa_mirna_off = st.number_input('OFF cell miR-122 copies', 0, 200000, 0,
+                                        key='sa_mirna_off')
+        sa_payload = st.number_input('Payload copies', 100, 10000, 2000,
+                                      key='sa_payload')
+
+    if st.button('Run Sensitivity Analysis', type='primary'):
+        from modeling.core.sensitivity import SensitivityAnalyzer
+        analyzer = SensitivityAnalyzer()
+
+        with st.spinner('Running sensitivity sweep...'):
+            results = analyzer.one_at_a_time(
+                {}, {},
+                mirna_on=sa_mirna_on, mirna_off=sa_mirna_off,
+                sensor=sa_sensor, payload=sa_payload)
+
+        # Display as table
+        rows = []
+        for param, data in sorted(results.items(),
+                key=lambda x: max(abs(x[1].get('sensitivity_on_off_ratio', 0)),
+                                  abs(x[1].get('sensitivity_circuit_efficiency', 0))),
+                reverse=True):
+            rows.append({
+                'Parameter': param,
+                'Sensitivity (ON:OFF)': f'{data.get("sensitivity_on_off_ratio", 0):.2f}',
+                'Sensitivity (efficiency)': f'{data.get("sensitivity_circuit_efficiency", 0):.2f}',
+                'Sensitivity (sfGFP)': f'{data.get("sensitivity_peak_sfgfp", 0):.2f}',
+                'Low value': f'{data["values"][0]:.4g}',
+                'Baseline': f'{data["values"][1]:.4g}',
+                'High value': f'{data["values"][2]:.4g}',
+            })
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+
+        st.info(
+            'Sensitivity index = (% change in output) / (% change in input). '
+            'Values > 1 mean the output is MORE sensitive than the input change. '
+            'Sorted by impact on ON:OFF ratio.')
+
+        with st.expander('Full report (text)'):
+            st.code(analyzer.format_report(results))
 
 
 # ================================================================

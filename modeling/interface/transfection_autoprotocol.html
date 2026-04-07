@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transfection AutoProtocol</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%233d6b5e'/%3E%3Cg fill='%23fff' opacity='0.9'%3E%3Ccircle cx='16' cy='18' r='4.5'/%3E%3Ccircle cx='32' cy='18' r='4.5'/%3E%3Ccircle cx='48' cy='18' r='4.5'/%3E%3Ccircle cx='16' cy='32' r='4.5'/%3E%3Ccircle cx='32' cy='32' r='4.5'/%3E%3Ccircle cx='48' cy='32' r='4.5'/%3E%3Ccircle cx='16' cy='46' r='4.5'/%3E%3Ccircle cx='32' cy='46' r='4.5'/%3E%3Ccircle cx='48' cy='46' r='4.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='18' r='4.5' fill='%23c0884a'/%3E%3Ccircle cx='32' cy='18' r='4.5' fill='%237b6ea6'/%3E%3Ccircle cx='48' cy='32' r='4.5' fill='%23c26e6e'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f3ee;--surface:#fff;--border:#e0ded6;--text:#2c2a25;--text-muted:#8a8780;--accent:#3d6b5e;--accent-light:#e8f0ed;--accent-dark:#2d4f45;--warn:#c0884a;--warn-light:#fdf5ec;--danger:#b8454a;--danger-light:#fdf0f0;--shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.03);--radius:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:36px 24px 80px}
+.header{margin-bottom:32px;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:4px;margin-bottom:12px}
+.header h1{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:4px}
+.header p{font-size:14px;color:var(--text-muted)}
+.header-title-input{font-family:'DM Sans',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.02em;text-align:center;border:none;background:transparent;color:var(--text);outline:none;width:100%;padding:2px 0;border-bottom:2px solid transparent;transition:border-color .2s}
+.header-title-input:hover{border-bottom-color:var(--border)}
+.header-title-input:focus{border-bottom-color:var(--accent)}
+.header-meta{display:flex;justify-content:center;gap:20px;margin-top:10px;flex-wrap:wrap}
+.header-meta .meta-field{display:flex;align-items:center;gap:6px;font-size:13px}
+.header-meta .meta-field label{color:var(--text-muted);font-weight:500;white-space:nowrap}
+.header-meta .meta-field input{font-family:'DM Sans',sans-serif;font-size:13px;border:none;border-bottom:1px solid var(--border);background:transparent;color:var(--text);outline:none;padding:2px 4px;width:140px;transition:border-color .2s}
+.header-meta .meta-field input:focus{border-bottom-color:var(--accent)}
+.header-meta .meta-field input[type=date]{width:150px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow)}
+.card-title{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.row:last-child{margin-bottom:0}
+.field{display:flex;flex-direction:column;flex:1;min-width:120px}
+.field label{font-size:12.5px;font-weight:500;margin-bottom:5px}
+.field label .u{color:var(--text-muted);font-weight:400}
+.field input,.field select{font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,107,94,.1)}
+.hint{font-size:11px;color:var(--text-muted);margin-top:3px}
+
+/* Toggle switches */
+.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toggle-row label{font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px}
+.toggle-switch{position:relative;width:36px;height:20px;background:var(--border);border-radius:10px;transition:background .2s;cursor:pointer;flex-shrink:0}
+.toggle-switch.on{background:var(--accent)}
+.toggle-switch::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.toggle-switch.on::after{transform:translateX(16px)}
+
+/* Group cards */
+.group-list{display:flex;flex-direction:column;gap:12px}
+.group-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .2s;cursor:pointer;position:relative}
+.group-card:hover{border-color:#ccc}
+.group-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px rgba(61,107,94,.18)}
+.group-card .sel-badge{display:none;position:absolute;top:10px;right:12px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:2px 8px;border-radius:4px}
+.group-card.selected .sel-badge{display:block}
+.group-card-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.group-swatch{width:14px;height:14px;border-radius:4px;flex-shrink:0;border:1px solid rgba(0,0,0,.08)}
+.group-card input,.group-card select{font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);outline:none}
+.group-card input:focus,.group-card select:focus{border-color:var(--accent)}
+.gc-name{flex:1;min-width:100px}.gc-type{width:130px}
+.gc-wells-display{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted);white-space:nowrap}
+.remove-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:18px;padding:2px 6px;border-radius:4px;transition:color .15s,background .15s;flex-shrink:0}
+.remove-btn:hover{color:var(--danger);background:var(--danger-light)}
+.mrna-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.mrna-section-label{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.cotx-badge{display:inline-block;font-size:10px;font-weight:600;color:var(--warn);background:var(--warn-light);padding:2px 7px;border-radius:4px;margin-left:6px;text-transform:none}
+.mrna-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.mrna-row input,.mrna-row select{font-family:'DM Sans',sans-serif;font-size:12.5px;padding:5px 8px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--text);outline:none}
+.mrna-row input:focus,.mrna-row select:focus{border-color:var(--accent)}
+.mr-name{flex:1;min-width:80px}.mr-conc{width:85px;font-family:'JetBrains Mono',monospace;font-size:12px}.mr-dose{width:70px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.mrna-row .remove-btn{font-size:15px;padding:1px 5px}
+.mrna-header{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.mrna-header span{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.03em;text-transform:uppercase}
+.mh-name{flex:1;min-width:80px}.mh-conc{width:85px}.mh-dose{width:70px}.mh-rm{width:27px}
+.add-mrna-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--accent);cursor:pointer;padding:4px 0;margin-top:2px}
+.add-mrna-btn:hover{opacity:.7}
+.add-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--accent);cursor:pointer;margin-top:8px;transition:all .15s}
+.add-btn:hover{border-color:var(--accent);background:var(--accent-light)}
+
+/* Cell type cards */
+.ct-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ct-card:hover{border-color:#ccc}
+.ct-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px rgba(61,107,94,.18)}
+.ct-card .sel-badge{display:none;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:2px 8px;border-radius:4px;margin-left:auto}
+.ct-card.selected .sel-badge{display:block}
+.ct-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0;border:2px dashed}
+.ct-card input{font-family:'DM Sans',sans-serif;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--text);outline:none}
+.ct-card input:focus{border-color:var(--accent)}
+.ct-name{flex:1;min-width:80px}
+.ct-density{width:100px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.ct-wells-display{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted)}
+
+/* Plate toolbar */
+.plate-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.plate-toolbar .tool-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted)}
+.eraser-btn,.clear-btn{display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;border:1px solid var(--border);background:var(--surface);color:var(--text)}
+.eraser-btn:hover,.clear-btn:hover{border-color:#bbb}
+.eraser-btn.active{border-color:var(--danger);color:var(--danger);background:var(--danger-light)}
+.clear-btn{color:var(--text-muted);margin-left:auto}
+.clear-btn:hover{border-color:var(--danger);color:var(--danger)}
+
+/* Paint mode tabs */
+.paint-tabs{display:flex;gap:4px;margin-bottom:14px}
+.paint-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:7px 16px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:all .15s}
+.paint-tab:hover{border-color:#ccc}
+.paint-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Plate */
+.plate-wrapper{overflow-x:auto;padding-bottom:6px;user-select:none;-webkit-user-select:none}
+.plate{display:grid;grid-template-columns:28px repeat(12,1fr);gap:4px;min-width:500px}
+.plate .col-label,.plate .row-label{font-size:11px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;justify-content:center}
+.plate .row-label{justify-content:flex-end;padding-right:4px;cursor:pointer;border-radius:4px;transition:background .12s}
+.plate .row-label:hover{background:var(--accent-light)}
+.well{aspect-ratio:1;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(0,0,0,.45);cursor:pointer;transition:transform .1s,box-shadow .1s;position:relative;overflow:hidden}
+.well.assigned{border-color:transparent;color:rgba(255,255,255,.9);text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.well:hover{transform:scale(1.12);z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.well .cotx-dot{position:absolute;bottom:2px;right:2px;width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.75);border:.5px solid rgba(0,0,0,.12)}
+/* Cell type ring */
+.well .ct-ring{position:absolute;inset:0;border-radius:50%;pointer-events:none}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12.5px}
+.legend-swatch{width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.06)}
+.legend-label{font-weight:500}
+.legend-detail{color:var(--text-muted);font-size:11.5px}
+
+.note{display:flex;gap:10px;background:var(--warn-light);border:1px solid rgba(192,136,74,.2);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:12.5px;color:#7a6240;line-height:1.5}
+.note .icon{flex-shrink:0}
+
+/* Results */
+.results-table{width:100%;border-collapse:collapse;font-size:13px}
+.results-table thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);padding:0 0 8px;border-bottom:2px solid var(--border)}
+.results-table thead th:nth-child(n+2){text-align:right}
+.results-table tbody td{padding:10px 0;border-bottom:1px solid var(--border)}
+.results-table tbody td:nth-child(n+2){text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500}
+.results-table tbody tr:last-child td{border-bottom:none}
+.results-table .section-label td{font-weight:700;font-size:12px;letter-spacing:.02em;color:var(--text-muted);padding-top:16px;border-bottom:none}
+.results-table .sub{font-size:11px;color:var(--text-muted);margin-top:1px}
+.results-table .group-color-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:middle;border:1px solid rgba(0,0,0,.06)}
+
+/* Protocol with checkboxes */
+.protocol-steps{counter-reset:step;list-style:none}
+.protocol-steps li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);font-size:13.5px;line-height:1.6}
+.protocol-steps li:last-child{border-bottom:none}
+.step-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#edecea;color:#a8a49c;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.vol{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--accent-dark);background:var(--accent-light);padding:1px 5px;border-radius:4px;font-size:12.5px}
+.time-badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--warn);font-weight:500}
+
+/* Checkboxes */
+.chk-line{display:flex;align-items:flex-start;gap:8px;padding:3px 0}
+.chk-line input[type=checkbox]{margin-top:5px;accent-color:var(--accent);cursor:pointer;width:15px;height:15px;flex-shrink:0}
+.chk-line.checked>span{text-decoration:line-through;color:var(--text-muted)}
+
+/* Group blocks in master mix */
+.mm-block{margin-bottom:4px}
+
+/* Sub-steps (individual groups within step 3) */
+.protocol-steps li.sub-step{padding:4px 0 4px 36px;border-bottom:none}
+.protocol-steps li.sub-step .step-num{visibility:hidden}
+
+.print-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--border);border-radius:8px;padding:10px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:all .2s;margin-top:10px}
+.print-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* BW patterns */
+.bw-mode .well.assigned{color:rgba(0,0,0,.7)!important;text-shadow:none!important;border:1.5px solid #666!important}
+
+@media print{
+  /* 1in top, 0.6in bottom; user unchecks "Headers and footers" manually */
+  @page{
+    margin:1in 0 0.6in 0;
+    @bottom-right{
+      content: counter(page);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      color: #333;
+      padding-right: 0.5in;
+      padding-bottom: 0.1in;
+    }
+  }
+
+  /* Arial font for print */
+  *{font-family:Arial,Helvetica,sans-serif!important}
+
+  /* Side and bottom padding via body (only affects first page flow, but sides are consistent) */
+  body{background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:0 0.5in 0!important;margin:0!important}
+  .container{padding:0!important;margin:0!important;max-width:100%}
+
+  /* Hide interactive-only sections */
+  #settingsCard,#groupsCard,#cellTypesCard,#buttonBar,
+  .print-btn,.add-btn,.add-mrna-btn,.remove-btn,.eraser-btn,.clear-btn,
+  .sel-badge,.paint-tabs,.plate-toolbar,.note,.toggle-row,
+  #saveIndicator,#loadFileInput{display:none!important}
+
+  /* Page numbers via @page margin box; hide the fallback fixed footer */
+  .page-number-footer{display:none!important}
+
+  /* Header */
+  .header{margin-bottom:10px!important}
+  .header .tag{display:none!important}
+  .header p{display:none!important}
+  .header-title-input{font-size:20px!important;border:none!important}
+  .header-meta{margin-top:6px!important;gap:12px!important}
+  .header-meta .meta-field input{border-bottom:none!important;font-weight:600}
+
+  /* Cards */
+  .card{box-shadow:none;padding:10px 0!important;margin-bottom:0!important;border:none!important;border-radius:0!important}
+  #plateCard{border:1px solid #ddd!important;border-radius:8px!important;padding:10px 14px!important}
+
+  /* Section titles */
+  .card-title{margin-bottom:10px!important;font-size:14px!important;font-weight:700!important;letter-spacing:.02em!important;color:var(--text)!important}
+
+  /* Plate */
+  .well{print-color-adjust:exact;-webkit-print-color-adjust:exact;font-size:8px!important}
+  .plate{gap:2px!important}
+  .legend{margin-top:8px!important;gap:6px!important;font-size:11px!important}
+  .legend-item{font-size:11px!important}
+  .legend-detail{font-size:10px!important}
+
+  /* Master mix blocks — each group block avoids splitting */
+  .mm-block{break-inside:avoid;margin-bottom:4px!important;padding-bottom:2px!important}
+  .results-table{font-size:12px!important}
+  .results-table thead th{padding-bottom:5px!important;font-size:10px!important}
+  .results-table tbody td{padding:4px 0!important}
+  .results-table tbody td:nth-child(n+2){font-size:11.5px!important}
+  .results-table .section-label td{padding-top:6px!important;font-size:11px!important}
+  .results-table .sub{font-size:10px!important}
+  .well-list{font-size:10px!important}
+
+  /* Protocol steps — each step and sub-step avoids splitting */
+  .protocol-steps li{padding:6px 0!important;font-size:12.5px!important;break-inside:avoid}
+  .protocol-steps li.sub-step{padding:4px 0 4px 36px!important;border-bottom:none!important}
+  .step-num{width:22px!important;height:22px!important;font-size:11px!important}
+  .chk-line{padding:1px 0!important}
+  .chk-line input[type=checkbox]{width:12px!important;height:12px!important;margin-top:4px!important}
+  .vol{font-size:11.5px!important;padding:0 3px!important}
+
+  /* Page flow */
+  #masterMixCard{break-before:page}
+  #protocolCard{break-before:page}
+}
+@media(max-width:600px){.container{padding:20px 14px 60px}.header h1{font-size:22px}.card{padding:18px}.row{flex-direction:column}.field{min-width:0}.mrna-header{display:none}.group-card-header{gap:6px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="tag">96-Well · mRNA Transfection</div>
+    <input class="header-title-input" id="protocolTitle" value="Transfection AutoProtocol" placeholder="Protocol title">
+    <p>Define groups &amp; cell types, paint wells, generate master mixes</p>
+    <div class="header-meta">
+      <div class="meta-field">
+        <label>Researcher:</label>
+        <input type="text" id="researcherName" placeholder="Your name">
+      </div>
+      <div class="meta-field">
+        <label>Date:</label>
+        <input type="date" id="protocolDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="card" id="settingsCard">
+    <div class="card-title">General Settings</div>
+    <div class="row">
+      <div class="field">
+        <label>Lipofectamine 2000 <span class="u">(µL/well)</span></label>
+        <select id="lipoPerWell" onchange="calculate()">
+          <option value="0.20">0.20 µL</option><option value="0.30" selected>0.30 µL</option>
+          <option value="0.40">0.40 µL</option><option value="0.50">0.50 µL</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Extra volume <span class="u">(%)</span></label>
+        <input type="number" id="extraPct" value="10" min="0" max="50" step="5" oninput="calculate()">
+        <span class="hint">Pipetting overage</span>
+      </div>
+    </div>
+    <div class="toggle-row" style="margin-top:10px">
+      <label onclick="toggleBW()">
+        <span class="toggle-switch" id="bwToggle"></span>
+        Black &amp; white plate (printer-friendly)
+      </label>
+    </div>
+  </div>
+
+  <!-- mRNA Groups -->
+  <div class="card" id="groupsCard">
+    <div class="card-title">mRNA Groups</div>
+    <div class="group-list" id="groupList"></div>
+    <button class="add-btn" onclick="addGroup()">+ Add Group</button>
+  </div>
+
+  <!-- Cell Types -->
+  <div class="card" id="cellTypesCard">
+    <div class="card-title">Cell Types</div>
+    <div class="group-list" id="cellTypeList"></div>
+    <button class="add-btn" onclick="addCellType()">+ Add Cell Type</button>
+  </div>
+
+  <!-- Plate -->
+  <div class="card" id="plateCard">
+    <div class="card-title">Plate Layout</div>
+    <div class="paint-tabs">
+      <button class="paint-tab active" id="tabMRNA" onclick="setPaintMode('mrna')">Paint mRNA Groups</button>
+      <button class="paint-tab" id="tabCells" onclick="setPaintMode('cells')">Paint Cell Types</button>
+    </div>
+    <div class="plate-toolbar">
+      <span class="tool-label" id="toolLabel">Selected: —</span>
+      <button class="eraser-btn" id="eraserBtn" onclick="toggleEraser()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20H7L3 16c-.8-.8-.8-2 0-2.8L14.6 1.6c.8-.8 2-.8 2.8 0L21.2 5.4c.8.8.8 2 0 2.8L12 17.4"/><path d="M6 12l6 6"/></svg>
+        Eraser
+      </button>
+      <button class="clear-btn" onclick="clearCurrentLayer()">Clear layer</button>
+    </div>
+    <div class="plate-wrapper"><div class="plate" id="plateDiagram"></div></div>
+    <div class="legend" id="plateLegend"></div>
+    <div class="note" style="margin-top:12px">
+      <span class="icon">💡</span>
+      <span>Select a group/cell type, then click or drag wells. Click row letters to fill a row. Switch tabs to paint mRNA groups vs cell types independently.</span>
+    </div>
+  </div>
+
+  <!-- Master mixes -->
+  <div class="card" id="masterMixCard">
+    <div class="card-title">Master Mix Volumes</div>
+    <div id="noWellsMsg" style="display:none;font-size:13px;color:var(--text-muted);font-style:italic;">Assign wells to see volumes.</div>
+    <div id="masterMixContent"></div>
+  </div>
+
+  <!-- Protocol -->
+  <div class="card" id="protocolCard">
+    <div class="card-title">Step-by-Step Protocol</div>
+    <ol class="protocol-steps" id="protocolSteps"></ol>
+  </div>
+
+  <div id="buttonBar" style="display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+    <button class="print-btn" onclick="doPrint()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>
+      Print
+    </button>
+    <button class="print-btn" onclick="exportState()" style="color:var(--accent)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Save Protocol
+    </button>
+    <button class="print-btn" onclick="document.getElementById('loadFileInput').click()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Load Protocol
+    </button>
+    <input type="file" id="loadFileInput" accept=".json" style="display:none" onchange="importState(this)">
+    <button class="print-btn" onclick="resetState()" style="color:var(--danger);border-color:var(--border)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-.7 12.1A2 2 0 0 1 16.3 20H7.7a2 2 0 0 1-2-1.9L5 6"/></svg>
+      Reset
+    </button>
+    <button class="print-btn" onclick="loadExample()" style="color:var(--warn);border-color:var(--warn)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Load Example
+    </button>
+    <span id="saveIndicator" style="font-size:12px;font-weight:500;color:var(--accent);opacity:0;transition:opacity .3s;margin-left:4px"></span>
+  </div>
+</div>
+
+<!-- Page number for print (hidden on screen) -->
+<div class="page-number-footer" style="display:none"></div>
+<svg style="position:absolute;width:0;height:0">
+<defs>
+  <pattern id="pat0" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><line x1="0" y1="0" x2="6" y2="6" stroke="#333" stroke-width="1.2"/></pattern>
+  <pattern id="pat1" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><circle cx="3" cy="3" r="1.5" fill="#333"/></pattern>
+  <pattern id="pat2" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><line x1="0" y1="3" x2="6" y2="3" stroke="#333" stroke-width="1.2"/></pattern>
+  <pattern id="pat3" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><line x1="0" y1="6" x2="6" y2="0" stroke="#333" stroke-width="1.2"/></pattern>
+  <pattern id="pat4" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="#333"/><rect x="3" y="3" width="3" height="3" fill="#333"/></pattern>
+  <pattern id="pat5" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><line x1="3" y1="0" x2="3" y2="6" stroke="#333" stroke-width="1.2"/></pattern>
+  <pattern id="pat6" patternUnits="userSpaceOnUse" width="8" height="8"><rect width="8" height="8" fill="#fff"/><line x1="0" y1="0" x2="8" y2="8" stroke="#333" stroke-width="1"/><line x1="0" y1="8" x2="8" y2="0" stroke="#333" stroke-width="1"/></pattern>
+  <pattern id="pat7" patternUnits="userSpaceOnUse" width="4" height="4"><rect width="4" height="4" fill="#333"/><circle cx="2" cy="2" r="1.2" fill="#fff"/></pattern>
+  <pattern id="pat8" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#fff"/><rect x="1" y="1" width="4" height="4" fill="none" stroke="#333" stroke-width="1"/></pattern>
+  <pattern id="pat9" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#ccc"/><line x1="0" y1="0" x2="6" y2="6" stroke="#fff" stroke-width="2"/></pattern>
+</defs>
+</svg>
+
+<script>
+const COLORS=['#5b8c78','#c0884a','#7b6ea6','#c26e6e','#4a8fa8','#a08c5a','#8a6d9e','#5a9a7a','#b07850','#6888a8'];
+const CT_COLORS=['#d4896a','#6a9fd4','#8bc275','#c7a84e','#b577b5','#5bc2c2'];
+const ROWS='ABCDEFGH';
+
+let plateMRNA=new Array(96).fill(-1);
+let plateCells=new Array(96).fill(-1); // can hold array for mixed: [0,1]
+
+let groups=[
+  {name:'Positive Control',type:'positive',mRNAs:[{name:'Control mRNA',conc:500,dose:100}]},
+  {name:'Negative Control',type:'negative',mRNAs:[]},
+  {name:'mRNA Group 1',type:'experimental',mRNAs:[{name:'mRNA-A',conc:500,dose:100}]},
+];
+
+let cellTypes=[
+  {name:'HuH7',density:4000},
+  {name:'NIH3T3',density:30000},
+];
+
+let selectedGroup=0;
+let selectedCellType=0;
+let eraserMode=false;
+let isPainting=false;
+let paintMode='mrna'; // 'mrna' or 'cells'
+let bwMode=false;
+
+function getColor(i){return COLORS[i%COLORS.length]}
+function getCTColor(i){return CT_COLORS[i%CT_COLORS.length]}
+function esc(s){return s.replace(/"/g,'&quot;')}
+function fmt(n){return n>=100?n.toFixed(1):n>=10?n.toFixed(1):n>=1?n.toFixed(2):n.toFixed(3)}
+function wellCount(gi){return plateMRNA.filter(v=>v===gi).length}
+function ctWellCount(ci){
+  let count=0;
+  for(let i=0;i<96;i++){
+    const v=plateCells[i];
+    if(Array.isArray(v)){if(v.includes(ci))count++}
+    else if(v===ci)count++;
+  }
+  return count;
+}
+
+/* ── BW Toggle ── */
+function toggleBW(){
+  bwMode=!bwMode;
+  document.getElementById('bwToggle').classList.toggle('on',bwMode);
+  document.getElementById('plateCard').classList.toggle('bw-mode',bwMode);
+  renderPlate();
+}
+
+/* ── Paint Mode ── */
+function setPaintMode(mode){
+  paintMode=mode;
+  eraserMode=false;
+  document.getElementById('eraserBtn').classList.remove('active');
+  document.getElementById('tabMRNA').classList.toggle('active',mode==='mrna');
+  document.getElementById('tabCells').classList.toggle('active',mode==='cells');
+  updateToolLabel();
+  renderPlate();
+}
+
+function updateToolLabel(){
+  const lbl=document.getElementById('toolLabel');
+  if(eraserMode){lbl.textContent='Eraser active';return}
+  if(paintMode==='mrna'&&groups[selectedGroup]) lbl.textContent=`Painting: ${groups[selectedGroup].name}`;
+  else if(paintMode==='cells'&&cellTypes[selectedCellType]) lbl.textContent=`Painting: ${cellTypes[selectedCellType].name}`;
+  else lbl.textContent='Selected: —';
+}
+
+/* ── Groups ── */
+function renderGroups(){
+  const list=document.getElementById('groupList');
+  list.innerHTML='';
+  groups.forEach((g,gi)=>{
+    const card=document.createElement('div');
+    card.className='group-card'+(gi===selectedGroup&&paintMode==='mrna'&&!eraserMode?' selected':'');
+    card.style.borderLeft=`3.5px solid ${getColor(gi)}`;
+    card.addEventListener('click',e=>{
+      if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT'||e.target.tagName==='BUTTON')return;
+      selectedGroup=gi;eraserMode=false;paintMode='mrna';
+      document.getElementById('eraserBtn').classList.remove('active');
+      document.getElementById('tabMRNA').classList.add('active');
+      document.getElementById('tabCells').classList.remove('active');
+      updateToolLabel();renderGroups();renderCellTypes();renderPlate();
+    });
+    const isNeg=g.type==='negative';const isCotx=g.mRNAs.length>1;const wc=wellCount(gi);
+    let html=`<span class="sel-badge">Painting</span>
+      <div class="group-card-header">
+        <div class="group-swatch" style="background:${getColor(gi)}"></div>
+        <input class="gc-name" value="${esc(g.name)}" placeholder="Group name" oninput="groups[${gi}].name=this.value;updateToolLabel();calculate()">
+        <select class="gc-type" onchange="groups[${gi}].type=this.value;handleTypeChange(${gi});renderGroups();calculate()">
+          <option value="experimental" ${g.type==='experimental'?'selected':''}>Experimental</option>
+          <option value="positive" ${g.type==='positive'?'selected':''}>Positive Ctrl</option>
+          <option value="negative" ${g.type==='negative'?'selected':''}>Negative Ctrl</option>
+        </select>
+        <span class="gc-wells-display">${wc} well${wc!==1?'s':''}</span>
+        <button class="remove-btn" onclick="event.stopPropagation();removeGroup(${gi})">&times;</button>
+      </div>`;
+    if(!isNeg){
+      html+=`<div class="mrna-section"><div class="mrna-section-label">mRNAs per well${isCotx?'<span class="cotx-badge">Co-transfection</span>':''}</div>
+        <div class="mrna-header"><span class="mh-name">Name</span><span class="mh-conc">Conc (ng/µL)</span><span class="mh-dose">Dose (ng)</span><span class="mh-rm"></span></div>`;
+      g.mRNAs.forEach((rna,ri)=>{
+        html+=`<div class="mrna-row">
+          <input class="mr-name" value="${esc(rna.name)}" placeholder="mRNA" oninput="groups[${gi}].mRNAs[${ri}].name=this.value;calculate()">
+          <input class="mr-conc" type="number" value="${rna.conc}" min="1" step="50" oninput="groups[${gi}].mRNAs[${ri}].conc=parseFloat(this.value)||1;calculate()">
+          <input class="mr-dose" type="number" value="${rna.dose}" min="1" step="10" placeholder="ng" oninput="groups[${gi}].mRNAs[${ri}].dose=parseFloat(this.value)||1;calculate()">
+          <button class="remove-btn" onclick="event.stopPropagation();removeMRNA(${gi},${ri})" ${g.mRNAs.length<=1?'disabled style="opacity:.2;cursor:default"':''}>&times;</button>
+        </div>`;
+      });
+      html+=`<button class="add-mrna-btn" onclick="event.stopPropagation();addMRNA(${gi})">+ Add mRNA (co-transfection)</button></div>`;
+    }
+    card.innerHTML=html;list.appendChild(card);
+  });
+}
+
+function handleTypeChange(i){if(groups[i].type==='negative')groups[i].mRNAs=[];else if(!groups[i].mRNAs.length)groups[i].mRNAs=[{name:'mRNA',conc:500,dose:100}]}
+function addGroup(){groups.push({name:`mRNA Group ${groups.length+1}`,type:'experimental',mRNAs:[{name:'mRNA',conc:500,dose:100}]});selectedGroup=groups.length-1;eraserMode=false;paintMode='mrna';renderGroups();renderCellTypes();renderPlate();updateToolLabel();calculate()}
+function removeGroup(i){if(groups.length<=1)return;plateMRNA=plateMRNA.map(v=>v===i?-1:v>i?v-1:v);groups.splice(i,1);if(selectedGroup>=groups.length)selectedGroup=groups.length-1;renderGroups();renderPlate();updateToolLabel();calculate()}
+function addMRNA(gi){groups[gi].mRNAs.push({name:`mRNA-${String.fromCharCode(65+groups[gi].mRNAs.length)}`,conc:500,dose:50});renderGroups();calculate()}
+function removeMRNA(gi,ri){if(groups[gi].mRNAs.length<=1)return;groups[gi].mRNAs.splice(ri,1);renderGroups();calculate()}
+
+/* ── Cell Types ── */
+function renderCellTypes(){
+  const list=document.getElementById('cellTypeList');
+  list.innerHTML='';
+  cellTypes.forEach((ct,ci)=>{
+    const card=document.createElement('div');
+    card.className='ct-card'+(ci===selectedCellType&&paintMode==='cells'&&!eraserMode?' selected':'');
+    card.addEventListener('click',e=>{
+      if(e.target.tagName==='INPUT'||e.target.tagName==='BUTTON')return;
+      selectedCellType=ci;eraserMode=false;paintMode='cells';
+      document.getElementById('eraserBtn').classList.remove('active');
+      document.getElementById('tabMRNA').classList.remove('active');
+      document.getElementById('tabCells').classList.add('active');
+      updateToolLabel();renderGroups();renderCellTypes();renderPlate();
+    });
+    const wc=ctWellCount(ci);
+    card.innerHTML=`<span class="sel-badge">Painting</span>
+      <div class="ct-swatch" style="border-color:${getCTColor(ci)};background:${getCTColor(ci)}22"></div>
+      <input class="ct-name" value="${esc(ct.name)}" placeholder="Cell type" oninput="cellTypes[${ci}].name=this.value;updateToolLabel();calculate()">
+      <input class="ct-density" type="number" value="${ct.density}" min="100" step="1000" oninput="cellTypes[${ci}].density=parseInt(this.value)||1000;calculate()">
+      <span style="font-size:11px;color:var(--text-muted)">cells/well</span>
+      <span class="ct-wells-display">${wc}w</span>
+      <button class="remove-btn" onclick="event.stopPropagation();removeCellType(${ci})">&times;</button>`;
+    list.appendChild(card);
+  });
+}
+
+function addCellType(){cellTypes.push({name:`Cell Type ${cellTypes.length+1}`,density:10000});selectedCellType=cellTypes.length-1;paintMode='cells';eraserMode=false;renderCellTypes();renderGroups();renderPlate();updateToolLabel();calculate()}
+function removeCellType(i){
+  if(cellTypes.length<=1)return;
+  // Clean plate
+  for(let j=0;j<96;j++){
+    const v=plateCells[j];
+    if(Array.isArray(v)){
+      const f=v.filter(x=>x!==i).map(x=>x>i?x-1:x);
+      plateCells[j]=f.length===0?-1:f.length===1?f[0]:f;
+    } else if(v===i)plateCells[j]=-1;
+    else if(v>i)plateCells[j]=v-1;
+  }
+  cellTypes.splice(i,1);
+  if(selectedCellType>=cellTypes.length)selectedCellType=cellTypes.length-1;
+  renderCellTypes();renderPlate();updateToolLabel();calculate();
+}
+
+/* ── Plate ── */
+function toggleEraser(){eraserMode=!eraserMode;document.getElementById('eraserBtn').classList.toggle('active',eraserMode);updateToolLabel();renderGroups();renderCellTypes();renderPlate()}
+function clearCurrentLayer(){
+  if(paintMode==='mrna')plateMRNA.fill(-1);
+  else for(let i=0;i<96;i++)plateCells[i]=-1;
+  renderGroups();renderCellTypes();renderPlate();calculate();
+}
+
+function paintWell(idx){
+  if(paintMode==='mrna'){
+    plateMRNA[idx]=eraserMode?-1:selectedGroup;
+  } else {
+    if(eraserMode){plateCells[idx]=-1;return}
+    const cur=plateCells[idx];
+    const ci=selectedCellType;
+    if(cur===-1){plateCells[idx]=ci}
+    else if(Array.isArray(cur)){
+      if(!cur.includes(ci))cur.push(ci);
+    } else if(cur!==ci){
+      plateCells[idx]=[cur,ci]; // mixed
+    }
+  }
+}
+
+function fillRow(rowIdx){
+  for(let c=0;c<12;c++)paintWell(rowIdx*12+c);
+  renderGroups();renderCellTypes();renderPlate();calculate();
+}
+
+function renderPlate(){
+  const el=document.getElementById('plateDiagram');
+  const legend=document.getElementById('plateLegend');
+  el.innerHTML='';legend.innerHTML='';
+
+  el.innerHTML+='<div></div>';
+  for(let c=1;c<=12;c++)el.innerHTML+=`<div class="col-label">${c}</div>`;
+
+  for(let r=0;r<8;r++){
+    el.innerHTML+=`<div class="row-label" onclick="fillRow(${r})" title="Fill row ${ROWS[r]}">${ROWS[r]}</div>`;
+    for(let c=0;c<12;c++){
+      const idx=r*12+c;const wid=`${ROWS[r]}${c+1}`;
+      const gi=plateMRNA[idx];
+      const ci=plateCells[idx];
+
+      let bgStyle='';let extraHTML='';let cls='well';let tip=wid;
+
+      // mRNA group fill
+      if(gi>=0&&gi<groups.length){
+        cls+=' assigned';
+        const g=groups[gi];
+        if(bwMode){bgStyle=`background:url(#pat${gi%10});`} // SVG patterns need special handling
+        else{bgStyle=`background:${getColor(gi)};`}
+        const isCotx=g.mRNAs&&g.mRNAs.length>1;
+        if(isCotx)extraHTML+='<span class="cotx-dot"></span>';
+        tip=g.name;
+        if(g.mRNAs.length)tip+=' — '+g.mRNAs.map(r=>`${r.name} ${r.dose}ng`).join(' + ');
+      }
+
+      // Cell type ring
+      if(ci!==-1){
+        const cis=Array.isArray(ci)?ci:[ci];
+        if(cis.length===1&&cis[0]<cellTypes.length){
+          extraHTML+=`<span class="ct-ring" style="border:2.5px solid ${getCTColor(cis[0])};"></span>`;
+          tip+=` | ${cellTypes[cis[0]].name} (${cellTypes[cis[0]].density.toLocaleString()}/well)`;
+        } else if(cis.length>1){
+          // gradient ring for mixed
+          const cols=cis.filter(x=>x<cellTypes.length).map(x=>getCTColor(x));
+          if(cols.length>=2){
+            extraHTML+=`<span class="ct-ring" style="border:2.5px solid transparent;background:conic-gradient(${cols.map((c,i)=>`${c} ${i/cols.length*100}% ${(i+1)/cols.length*100}%`).join(',')});-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));"></span>`;
+          }
+          tip+=` | Mixed: ${cis.filter(x=>x<cellTypes.length).map(x=>cellTypes[x].name).join(' + ')}`;
+        }
+      }
+
+      // BW pattern fill via inline SVG background
+      if(bwMode&&gi>=0&&gi<groups.length){
+        bgStyle=`background:url("data:image/svg+xml,${encodeURIComponent(getBWPatternSVG(gi))}");background-size:6px 6px;`;
+      }
+
+      el.innerHTML+=`<div class="${cls}" data-idx="${idx}" style="${bgStyle}" title="${esc(tip)}">${wid}${extraHTML}</div>`;
+    }
+  }
+
+  // Attach paint events
+  el.querySelectorAll('.well').forEach(w=>{
+    w.addEventListener('mousedown',e=>{e.preventDefault();isPainting=true;paintWell(+w.dataset.idx);renderGroups();renderCellTypes();renderPlate();calculate()});
+    w.addEventListener('mouseenter',()=>{if(!isPainting)return;paintWell(+w.dataset.idx);renderGroups();renderCellTypes();renderPlate();calculate()});
+  });
+
+  // Legend — mRNA groups
+  groups.forEach((g,i)=>{
+    const wc=wellCount(i);if(wc===0)return;
+    const tl=g.type==='positive'?'pos ctrl':g.type==='negative'?'neg ctrl':'exp';
+    let di='';
+    if(g.mRNAs.length===1)di=` · ${g.mRNAs[0].dose}ng`;
+    else if(g.mRNAs.length>1)di=` · co-tx ${g.mRNAs.map(r=>r.dose+'ng').join('+')}`;
+    let swatchStyle=bwMode
+      ?`background:url("data:image/svg+xml,${encodeURIComponent(getBWPatternSVG(i))}");background-size:6px 6px;border:1px solid #666`
+      :`background:${getColor(i)}`;
+    legend.innerHTML+=`<div class="legend-item"><div class="legend-swatch" style="${swatchStyle}"></div><span class="legend-label">${esc(g.name)}</span><span class="legend-detail">(${wc}w · ${tl}${di})</span></div>`;
+  });
+  // Legend — cell types
+  cellTypes.forEach((ct,i)=>{
+    const wc=ctWellCount(i);if(wc===0)return;
+    legend.innerHTML+=`<div class="legend-item"><div class="legend-swatch" style="background:${getCTColor(i)}22;border:2px solid ${getCTColor(i)}"></div><span class="legend-label">${esc(ct.name)}</span><span class="legend-detail">(${wc}w · ${ct.density.toLocaleString()}/well)</span></div>`;
+  });
+}
+
+function getBWPatternSVG(i){
+  const patterns=[
+    `<line x1="0" y1="0" x2="6" y2="6" stroke="%23333" stroke-width="1.2"/>`,
+    `<circle cx="3" cy="3" r="1.5" fill="%23333"/>`,
+    `<line x1="0" y1="3" x2="6" y2="3" stroke="%23333" stroke-width="1.2"/>`,
+    `<line x1="0" y1="6" x2="6" y2="0" stroke="%23333" stroke-width="1.2"/>`,
+    `<rect x="0" y="0" width="3" height="3" fill="%23333"/><rect x="3" y="3" width="3" height="3" fill="%23333"/>`,
+    `<line x1="3" y1="0" x2="3" y2="6" stroke="%23333" stroke-width="1.2"/>`,
+    `<line x1="0" y1="0" x2="6" y2="6" stroke="%23333" stroke-width="1"/><line x1="0" y1="6" x2="6" y2="0" stroke="%23333" stroke-width="1"/>`,
+    `<rect width="6" height="6" fill="%23333"/><circle cx="3" cy="3" r="1.2" fill="%23fff"/>`,
+    `<rect x="1" y="1" width="4" height="4" fill="none" stroke="%23333" stroke-width="1"/>`,
+    `<rect width="6" height="6" fill="%23ccc"/><line x1="0" y1="0" x2="6" y2="6" stroke="%23fff" stroke-width="2"/>`,
+  ];
+  return `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='6' fill='%23fff'/>${patterns[i%patterns.length]}</svg>`;
+}
+
+document.addEventListener('mouseup',()=>{isPainting=false});
+
+/* ── Calculate ── */
+
+function wellPositions(gi){
+  const wells=[];
+  for(let i=0;i<96;i++){
+    if(plateMRNA[i]===gi){
+      const r=Math.floor(i/12);const c=i%12;
+      wells.push(`${ROWS[r]}${c+1}`);
+    }
+  }
+  return wells;
+}
+
+function wellPosStr(gi){
+  const w=wellPositions(gi);
+  if(w.length===0)return '';
+  // Compress consecutive wells in same row: A1,A2,A3 → A1–A3
+  const compressed=[];
+  let i=0;
+  while(i<w.length){
+    const startWell=w[i];
+    const startRow=startWell[0];
+    const startCol=parseInt(startWell.slice(1));
+    let endCol=startCol;
+    while(i+1<w.length && w[i+1][0]===startRow && parseInt(w[i+1].slice(1))===endCol+1){
+      endCol++;i++;
+    }
+    if(endCol===startCol) compressed.push(startWell);
+    else if(endCol===startCol+1) compressed.push(startWell+', '+startRow+endCol);
+    else compressed.push(startWell+'–'+startRow+endCol);
+    i++;
+  }
+  return compressed.join(', ');
+}
+
+function calculate(){
+  const lipoPerWell=parseFloat(document.getElementById('lipoPerWell').value);
+  const extraPct=(parseFloat(document.getElementById('extraPct').value)||0)/100;
+  const totalAssigned=plateMRNA.filter(v=>v>=0).length;
+
+  document.getElementById('noWellsMsg').style.display=totalAssigned===0?'block':'none';
+
+  const mmContent=document.getElementById('masterMixContent');
+  let html='';
+
+  // Build G# index for active groups
+  const activeGroups=[];
+  groups.forEach((g,i)=>{if(wellCount(i)>0)activeGroups.push(i)});
+
+  // Headerless table wrappers — only first block gets the column header
+  const tHeadFull=`<table class="results-table"><thead><tr><th>Component</th><th>Per well</th><th>Master mix</th></tr></thead><tbody>`;
+  const tHeadNone=`<table class="results-table"><tbody>`;
+  const tFoot=`</tbody></table>`;
+
+  // ── Shared Lipo Mix ──
+  const totalN=totalAssigned*(1+extraPct);
+  if(totalAssigned>0){
+    const tubeA=5*totalN;
+    const lipo=lipoPerWell*totalN;
+    const optiA=tubeA-lipo;
+
+    html+=`<div class="mm-block">`;
+    html+=tHeadFull;
+    html+=`<tr class="section-label"><td colspan="3">Lipo Mix — Shared Lipofectamine Dilution<span style="font-weight:400;color:var(--text-muted);"> (${totalAssigned} wells total)</span></td></tr>`;
+    html+=`<tr><td>Opti-MEM</td><td>${fmt(5-lipoPerWell)} µL</td><td>${fmt(optiA)} µL</td></tr>`;
+    html+=`<tr><td>Lipofectamine 2000</td><td>${lipoPerWell} µL</td><td>${fmt(lipo)} µL</td></tr>`;
+    html+=`<tr><td colspan="3" style="font-size:11.5px;color:var(--text-muted);border:none;padding-top:4px;">↳ Aliquot <span class="vol">5 µL</span> per group tube before combining</td></tr>`;
+    html+=tFoot;
+    html+=`</div>`;
+  }
+
+  // ── Per-group tubes: G1, G2, G3... ──
+  activeGroups.forEach((gi,idx)=>{
+    const gLabel = `G${idx+1}`;
+    const g=groups[gi];
+    const w=wellCount(gi);
+    const n=w*(1+extraPct);
+    const color=getColor(gi);const isNeg=g.type==='negative';const isCotx=g.mRNAs.length>1;
+
+    const tubeB=5*n;
+    let totRNAvol=0;let rds=[];
+    if(!isNeg){
+      g.mRNAs.forEach(rna=>{const vpw=rna.dose/rna.conc;const vt=vpw*n;totRNAvol+=vt;rds.push({name:rna.name,conc:rna.conc,dose:rna.dose,vpw,vt})});
+    }
+    const optiB=tubeB-totRNAvol;
+    const totalDose=g.mRNAs.reduce((s,r)=>s+r.dose,0);
+    const doseLabel=isNeg?'':(isCotx?` · co-tx ${g.mRNAs.map(r=>r.dose+'ng').join('+')}`:` · ${totalDose} ng/well`);
+
+    const wpos=wellPosStr(gi);
+    html+=`<div class="mm-block">`;
+    html+=tHeadNone;
+    html+=`<tr class="section-label"><td colspan="3"><span class="group-color-dot" style="background:${color}"></span><strong>${gLabel}</strong>: ${esc(g.name)}<span style="font-weight:400;color:var(--text-muted);"> — ${w} well${w!==1?'s':''}${doseLabel}</span><div class="well-list" style="font-size:11px;font-weight:400;color:var(--text-muted);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;">Wells: ${wpos}</div></td></tr>`;
+
+    if(isNeg){
+      html+=`<tr><td>Opti-MEM only<div class="sub">No mRNA (vehicle control)</div></td><td>5.00 µL</td><td>${fmt(tubeB)} µL</td></tr>`;
+    } else {
+      html+=`<tr><td>Opti-MEM</td><td>${fmt(5-totRNAvol/n)} µL</td><td>${fmt(optiB)} µL</td></tr>`;
+      rds.forEach(rd=>{
+        html+=`<tr><td>${esc(rd.name)}<div class="sub">${rd.conc} ng/µL → ${rd.dose} ng/well</div></td><td>${fmt(rd.vpw)} µL</td><td>${fmt(rd.vt)} µL</td></tr>`;
+      });
+    }
+
+    html+=`<tr><td>+ Lipo Mix aliquot</td><td>5 µL</td><td>${fmt(5*n)} µL</td></tr>`;
+    html+=`<tr><td>Complex to add per well</td><td>10 µL</td><td>${fmt(10*w)} µL total</td></tr>`;
+    html+=tFoot;
+    html+=`</div>`;
+  });
+
+  mmContent.innerHTML=html;
+  renderProtocol(lipoPerWell,extraPct);
+}
+
+/* ── Protocol with Checkboxes ── */
+function chk(el){el.closest('.chk-line').classList.toggle('checked',el.checked)}
+
+function renderProtocol(lipoPerWell,extraPct){
+  const steps=document.getElementById('protocolSteps');
+  const hasWells=plateMRNA.some(v=>v>=0);
+  if(!hasWells){steps.innerHTML='<li><span class="step-num">–</span><div style="color:var(--text-muted);font-style:italic;">Assign wells to generate protocol.</div></li>';return}
+
+  const totalAssigned=plateMRNA.filter(v=>v>=0).length;
+  const totalN=totalAssigned*(1+extraPct);
+
+  // Build G# index
+  const activeGroups=[];
+  groups.forEach((g,i)=>{if(wellCount(i)>0)activeGroups.push(i)});
+  function gLabel(gi){return `G${activeGroups.indexOf(gi)+1}`}
+
+  // Step 1: Seed cells
+  let seedLines='';
+  const ctInfo=[];
+  cellTypes.forEach((ct,ci)=>{const wc=ctWellCount(ci);if(wc>0)ctInfo.push({name:ct.name,density:ct.density,wells:wc})});
+  const unassignedCells=plateMRNA.filter((v,i)=>v>=0&&plateCells[i]===-1).length;
+
+  if(ctInfo.length>0){
+    ctInfo.forEach(ct=>{
+      seedLines+=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Seed <span class="vol">${ct.density.toLocaleString()} cells/well</span> <strong>${esc(ct.name)}</strong> into ${ct.wells} designated wells</span></div>`;
+    });
+    if(unassignedCells>0) seedLines+=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Seed remaining ${unassignedCells} wells (no cell type assigned)</span></div>`;
+  } else {
+    seedLines=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Seed <span class="vol">1–4 × 10⁴ cells/well</span> in complete medium. Target <strong>70–90% confluency</strong>.</span></div>`;
+  }
+
+  // Step 2: Lipo Mix
+  const optiA=fmt(5*totalN-lipoPerWell*totalN);
+  const lipoV=fmt(lipoPerWell*totalN);
+  let lipoMixLines=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${optiA} µL Opti-MEM</span> to a single tube</span></div>
+    <div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${lipoV} µL Lipofectamine 2000</span>. Mix gently.</span></div>`;
+
+  // Build individual group tube steps (each is its own <li> so it can break across pages)
+  let groupTubeSteps='';
+  activeGroups.forEach((gi,idx)=>{
+    const gl=`G${idx+1}`;
+    const g=groups[gi];
+    const w=wellCount(gi);const n=w*(1+extraPct);const isNeg=g.type==='negative';
+    const wpos=wellPosStr(gi);
+
+    let content=`<span style="display:inline-block;width:9px;height:9px;border-radius:3px;vertical-align:middle;margin-right:5px;border:1px solid rgba(0,0,0,.06);background:${getColor(gi)}"></span><strong>${gl}</strong>: ${esc(g.name)} (${w}w) <span style="font-size:10.5px;color:var(--text-muted);">${wpos}</span>`;
+
+    if(isNeg){
+      content+=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${fmt(5*n)} µL Opti-MEM</span> (vehicle control — no mRNA)</span></div>`;
+    } else {
+      let totV=0;
+      g.mRNAs.forEach(rna=>{const v=rna.dose*n/rna.conc;totV+=v;
+        content+=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${fmt(v)} µL ${esc(rna.name)}</span> (${rna.conc} ng/µL → ${rna.dose} ng/well)</span></div>`;
+      });
+      content+=`<div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${fmt(5*n-totV)} µL Opti-MEM</span></span></div>`;
+    }
+
+    groupTubeSteps+=`<li class="sub-step"><span class="step-num" style="visibility:${idx===0?'visible':'hidden'}">3</span><div>${content}</div></li>`;
+  });
+
+  // Step 6: Add to cells — break into sub-steps per group
+  let addToCellsSteps='';
+  activeGroups.forEach((gi,idx)=>{
+    const gl=`G${idx+1}`;const g=groups[gi];const wpos=wellPosStr(gi);
+    addToCellsSteps+=`<li class="sub-step"><span class="step-num" style="visibility:hidden">6</span><div><div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Dispense <span class="vol">10 µL</span> <strong>${gl}</strong> (${esc(g.name)}) → ${wpos}</span></div></div></li>`;
+  });
+
+  // Step 4: Aliquot — also break into sub-steps
+  let aliquotSteps='';
+  activeGroups.forEach((gi,idx)=>{
+    const gl=`G${idx+1}`;const g=groups[gi];const w=wellCount(gi);const n=w*(1+extraPct);
+    aliquotSteps+=`<li class="sub-step"><span class="step-num" style="visibility:hidden">4</span><div><div class="chk-line"><input type="checkbox" onchange="chk(this)"><span>Add <span class="vol">${fmt(5*n)} µL</span> Lipo Mix → <strong>${gl}</strong> (${esc(g.name)}). Mix gently.</span></div></div></li>`;
+  });
+
+  steps.innerHTML=`
+    <li><span class="step-num">1</span><div><strong>Seed cells</strong> the day before transfection in complete medium. Target <strong>70–90% confluency</strong>.${seedLines}</div></li>
+    <li><span class="step-num">2</span><div><strong>Prepare Lipo Mix</strong> (shared Lipofectamine dilution for all ${totalAssigned} wells, ${(extraPct*100).toFixed(0)}% overage):${lipoMixLines}</div></li>
+    <li style="border-bottom:none;padding-bottom:0"><span class="step-num">3</span><div><strong>Prepare group tubes</strong> (mRNA dilution, ${(extraPct*100).toFixed(0)}% overage):</div></li>
+    ${groupTubeSteps}
+    <li style="border-bottom:none;padding-bottom:0"><span class="step-num">4</span><div><strong>Aliquot Lipo Mix → each group tube</strong> (1:1 ratio):</div></li>
+    ${aliquotSteps}
+    <li><span class="step-num">5</span><div><div class="chk-line"><input type="checkbox" onchange="chk(this)"><span><strong>Incubate</strong> at room temperature. <span class="time-badge">⏱ 5 min</span></span></div></div></li>
+    <li style="border-bottom:none;padding-bottom:0"><span class="step-num">6</span><div><strong>Add to cells</strong> — Dispense <span class="vol">10 µL</span> complex per well. Gently rock plate after each group.</div></li>
+    ${addToCellsSteps}
+    <li><span class="step-num">7</span><div><div class="chk-line"><input type="checkbox" onchange="chk(this)"><span><strong>Incubate</strong> at 37 °C, 5% CO₂ for <strong>1–3 days</strong>. No medium change required. <span class="time-badge">⏱ 24–72 h</span></span></div></div></li>
+  `;
+}
+
+// ── Persistent Storage ──
+
+const SAVE_KEY = 'transfection-autoprotocol';
+let saveTimeout = null;
+
+function getState() {
+  return {
+    v: 1,
+    title: document.getElementById('protocolTitle').value,
+    researcher: document.getElementById('researcherName').value,
+    date: document.getElementById('protocolDate').value,
+    lipoPerWell: document.getElementById('lipoPerWell').value,
+    extraPct: document.getElementById('extraPct').value,
+    bwMode,
+    groups: JSON.parse(JSON.stringify(groups)),
+    cellTypes: JSON.parse(JSON.stringify(cellTypes)),
+    plateMRNA: [...plateMRNA],
+    plateCells: plateCells.map(v => Array.isArray(v) ? [...v] : v),
+    selectedGroup,
+    selectedCellType,
+    paintMode,
+  };
+}
+
+function applyState(s) {
+  if (!s || typeof s !== 'object') return false;
+  try {
+    document.getElementById('protocolTitle').value = s.title || 'Transfection AutoProtocol';
+    document.getElementById('researcherName').value = s.researcher || '';
+    if (s.date) document.getElementById('protocolDate').value = s.date;
+    if (s.lipoPerWell) document.getElementById('lipoPerWell').value = s.lipoPerWell;
+    if (s.extraPct !== undefined) document.getElementById('extraPct').value = s.extraPct;
+    if (s.bwMode !== undefined) { bwMode = s.bwMode; document.getElementById('bwToggle').classList.toggle('on', bwMode); document.getElementById('plateCard').classList.toggle('bw-mode', bwMode); }
+    if (Array.isArray(s.groups) && s.groups.length) groups = s.groups;
+    if (Array.isArray(s.cellTypes)) cellTypes = s.cellTypes;
+    if (Array.isArray(s.plateMRNA) && s.plateMRNA.length === 96) plateMRNA = s.plateMRNA;
+    if (Array.isArray(s.plateCells) && s.plateCells.length === 96) plateCells = s.plateCells;
+    if (typeof s.selectedGroup === 'number') selectedGroup = Math.min(s.selectedGroup, groups.length - 1);
+    if (typeof s.selectedCellType === 'number') selectedCellType = Math.min(s.selectedCellType, cellTypes.length - 1);
+    if (s.paintMode) { paintMode = s.paintMode; document.getElementById('tabMRNA').classList.toggle('active', paintMode === 'mrna'); document.getElementById('tabCells').classList.toggle('active', paintMode === 'cells'); }
+    return true;
+  } catch (e) { console.error('applyState error:', e); return false; }
+}
+
+// ── File-based Save/Load (always works) ──
+
+function exportState() {
+  const state = getState();
+  const json = JSON.stringify(state, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const title = (state.title || 'protocol').replace(/[^a-zA-Z0-9_-]/g, '_');
+  const date = state.date || new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `${title}_${date}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  flash('✓ Protocol saved to file');
+}
+
+function importState(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const s = JSON.parse(e.target.result);
+      if (applyState(s)) {
+        fullRender();
+        flash('✓ Protocol loaded');
+        bgSave(); // persist to window.storage too
+      } else {
+        alert('Could not parse this file. Make sure it is a valid protocol JSON.');
+      }
+    } catch (err) {
+      alert('Invalid file format. Please select a protocol JSON file.');
+    }
+  };
+  reader.readAsText(file);
+  input.value = ''; // reset so same file can be re-selected
+}
+
+// ── Background auto-save to window.storage (bonus — works in Claude artifact env) ──
+
+async function bgSave() {
+  try {
+    if (window.storage && typeof window.storage.set === 'function') {
+      await window.storage.set(SAVE_KEY, JSON.stringify(getState()));
+      flash('✓ Auto-saved');
+    }
+  } catch (e) { /* silent */ }
+}
+
+function autoSave() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(bgSave, 800);
+}
+
+async function bgLoad() {
+  try {
+    if (!window.storage || typeof window.storage.get !== 'function') return false;
+    const result = await window.storage.get(SAVE_KEY);
+    if (result && result.value) {
+      const s = JSON.parse(result.value);
+      if (applyState(s)) return true;
+    }
+  } catch (e) { /* key doesn't exist or storage unavailable */ }
+  return false;
+}
+
+function resetState() {
+  if (!confirm('Reset all data? This will clear your groups, plate layout, and all settings.')) return;
+  // Try to clear storage
+  try { if (window.storage) window.storage.delete(SAVE_KEY); } catch(e) {}
+  groups = [
+    {name:'Positive Control',type:'positive',mRNAs:[{name:'Control mRNA',conc:500,dose:100}]},
+    {name:'Negative Control',type:'negative',mRNAs:[]},
+    {name:'mRNA Group 1',type:'experimental',mRNAs:[{name:'mRNA-A',conc:500,dose:100}]},
+  ];
+  cellTypes = [{name:'HuH7',density:4000},{name:'NIH3T3',density:30000}];
+  plateMRNA = new Array(96).fill(-1);
+  plateCells = new Array(96).fill(-1);
+  selectedGroup = 0; selectedCellType = 0; paintMode = 'mrna'; eraserMode = false; bwMode = false;
+  document.getElementById('protocolTitle').value = 'Transfection AutoProtocol';
+  document.getElementById('researcherName').value = '';
+  document.getElementById('protocolDate').valueAsDate = new Date();
+  document.getElementById('lipoPerWell').value = '0.30';
+  document.getElementById('extraPct').value = '10';
+  document.getElementById('bwToggle').classList.remove('on');
+  document.getElementById('plateCard').classList.remove('bw-mode');
+  document.getElementById('tabMRNA').classList.add('active');
+  document.getElementById('tabCells').classList.remove('active');
+  document.getElementById('eraserBtn').classList.remove('active');
+  fullRender();
+  flash('✓ Reset complete');
+}
+
+function flash(msg) {
+  const el = document.getElementById('saveIndicator');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  setTimeout(() => { el.style.opacity = '0'; }, 2000);
+}
+
+function doPrint() {
+  const origTitle = document.title;
+  document.title = ' ';
+  window.print();
+  setTimeout(() => { document.title = origTitle; }, 1000);
+}
+
+function fullRender() {
+  renderGroups(); renderCellTypes(); renderPlate(); updateToolLabel(); calculate();
+}
+
+// Hook auto-save into calculate
+const _baseCalculate = calculate;
+calculate = function() { _baseCalculate(); autoSave(); };
+
+// Save on header field changes
+document.getElementById('protocolTitle').addEventListener('input', autoSave);
+document.getElementById('researcherName').addEventListener('input', autoSave);
+document.getElementById('protocolDate').addEventListener('change', autoSave);
+
+// ── Load Example (ON Switch Experiment from PDF) ──
+function loadExample() {
+  // Groups from the PDF experiment
+  groups = [
+    { name:'Positive Control (100 ng)', type:'positive',
+      mRNAs:[{name:'p005 - Mammalian sfGFP Swappable MRE in 3\'UTR', conc:1471.5, dose:100}] },
+    { name:'Negative Control', type:'negative', mRNAs:[] },
+    { name:'p065 - 2xKt-sfGFP ONLY (100 ng)', type:'experimental',
+      mRNAs:[{name:'p065 - 2xKt-sfGFP', conc:1388.72, dose:100}] },
+    { name:'p069B - miR-122-5p 5\'MRE-L7Ae-2A-Bcl2 ONLY (100 ng)', type:'experimental',
+      mRNAs:[{name:'p069B - miR-122-5p 5\'MRE-L7Ae-2A-Bcl2', conc:387.68, dose:100}] },
+    { name:'p065 + p069B (100:100 ng)', type:'experimental',
+      mRNAs:[
+        {name:'p065 - 2xKt-sfGFP', conc:1388.72, dose:100},
+        {name:'p069B - miR-122-5p 5\'MRE-L7Ae-2A-Bcl2', conc:387.68, dose:100},
+      ] },
+    { name:'p065 - 2xKt-sfGFP ONLY (50 ng)', type:'experimental',
+      mRNAs:[{name:'p065 - 2xKt-sfGFP', conc:1388.72, dose:50}] },
+    { name:'p065 + p069B (50:50 ng)', type:'experimental',
+      mRNAs:[
+        {name:'p065 - 2xKt-sfGFP', conc:1388.72, dose:50},
+        {name:'p069B - miR-122-5p 5\'MRE-L7Ae-2A-Bcl2', conc:387.68, dose:50},
+      ] },
+    { name:'Positive Control (50 ng)', type:'experimental',
+      mRNAs:[{name:'p005 - Mammalian sfGFP Swappable MRE in 3\'UTR', conc:1471.5, dose:50}] },
+  ];
+
+  // Cell types
+  cellTypes = [
+    {name:'HuH7', density:30000},
+    {name:'NIH4T1', density:30000},
+  ];
+
+  // Plate layout: 8 groups × 10 wells each = 80 wells
+  // Each group fills one row, columns 2–11 (col 1 and 12 empty)
+  // Row A=group0, B=group1, C=group2, D=group3, E=group4, F=group5, G=group6, H=group7
+  // Cell types: rows A–D = HuH7, rows E–H = NIH4T1
+  plateMRNA = new Array(96).fill(-1);
+  plateCells = new Array(96).fill(-1);
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 1; col <= 10; col++) { // cols 2-11 (0-indexed: 1-10)
+      const idx = row * 12 + col;
+      plateMRNA[idx] = row; // group index matches row index
+    }
+  }
+
+  // Cell types: rows A-D (0-3) = HuH7, rows E-H (4-7) = NIH4T1
+  for (let i = 0; i < 96; i++) {
+    const row = Math.floor(i / 12);
+    const col = i % 12;
+    // Only assign cell type to wells that have mRNA groups (cols 1-10)
+    if (col >= 1 && col <= 10) {
+      plateCells[i] = row < 4 ? 0 : 1;
+    }
+  }
+
+  // Settings
+  document.getElementById('protocolTitle').value = 'Experiment to Test ON Switch Mechanism';
+  document.getElementById('researcherName').value = '';
+  document.getElementById('protocolDate').valueAsDate = new Date();
+  document.getElementById('lipoPerWell').value = '0.30';
+  document.getElementById('extraPct').value = '10';
+  selectedGroup = 0; selectedCellType = 0; paintMode = 'mrna'; eraserMode = false;
+
+  document.getElementById('eraserBtn').classList.remove('active');
+  document.getElementById('tabMRNA').classList.add('active');
+  document.getElementById('tabCells').classList.remove('active');
+
+  fullRender();
+  flash('✓ Example loaded');
+}
+
+// ── Init ──
+(async function init() {
+  // Try to load from window.storage first
+  let loaded = false;
+  // Give storage API a moment to be injected
+  await new Promise(r => setTimeout(r, 300));
+  loaded = await bgLoad();
+
+  if (!loaded) {
+    document.getElementById('protocolDate').valueAsDate = new Date();
+  } else {
+    flash('✓ Restored previous session');
+  }
+  fullRender();
+})();
+</script>
+</body>
+</html>
