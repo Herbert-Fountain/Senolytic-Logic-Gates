@@ -1,7 +1,7 @@
 # Cross-Study Synthesis: Senescence and Aging miRNA Landscape
 ## Implications for Logic Gate Circuit Design
 
-*Version 2.0 - Complete rewrite with CPM-corrected values*
+*Version 2.0; Complete rewrite with CPM-corrected values*
 *Last updated: 2026-04-07*
 *Datasets analyzed: 11 (see Table 1)*
 
@@ -11,10 +11,10 @@
 
 This document synthesizes findings across eleven analyzed datasets (1,300+ samples across 3 organisms) and the published literature to assess the feasibility of identifying miRNA inputs for senolytic logic gate circuits. We evaluate each candidate miRNA based on four criteria essential for circuit function:
 
-1. **Absolute expression level** - sufficient intracellular copies to engage synthetic mRNA switches
-2. **Differential expression** - higher (ON switch) or lower (OFF switch) in senescent/aged cells compared to healthy/young cells
-3. **Consistency** - reproducible across cell types, tissues, inducers, and organisms
-4. **Conservation** - expressed in both mouse and human for translational path
+1. **Absolute expression level**; sufficient intracellular copies to engage synthetic mRNA switches
+2. **Differential expression**; higher (ON switch) or lower (OFF switch) in senescent/aged cells compared to healthy/young cells
+3. **Consistency**; reproducible across cell types, tissues, inducers, and organisms
+4. **Conservation**; expressed in both mouse and human for translational path
 
 ---
 
@@ -39,9 +39,9 @@ Our analysis follows this pipeline:
 CPM for miRNA X in sample Y = (raw counts of X in Y / total miRNA counts in Y) × 1,000,000
 ```
 
-**Why it matters:** If one sample was sequenced deeper than another, all its miRNAs will have higher raw counts - this creates the false appearance that miRNAs are upregulated. CPM divides by the total library size, putting all samples on an equal footing.
+**Why it matters:** If one sample was sequenced deeper than another, all its miRNAs will have higher raw counts; this creates the false appearance that miRNAs are upregulated. CPM divides by the total library size, putting all samples on an equal footing.
 
-**Example:** In GSE299871, DXR-treated samples had ~1.6x larger libraries than controls (0.45M vs 0.28M reads). Without CPM correction, every miRNA in the DXR group appeared ~1.6x higher than it actually was. After CPM correction, miR-34a-5p dropped from an apparent 2.5x increase to a true 1.5x increase, and miR-29a-3p dropped from an apparent 1.6x increase to **no change** (0.96x) - its entire upregulation signal was a library size artifact.
+**Example:** In GSE299871, DXR-treated samples had ~1.6x larger libraries than controls (0.45M vs 0.28M reads). Without CPM correction, every miRNA in the DXR group appeared ~1.6x higher than it actually was. After CPM correction, miR-34a-5p dropped from an apparent 2.5x increase to a true 1.5x increase, and miR-29a-3p dropped from an apparent 1.6x increase to **no change** (0.96x); its entire upregulation signal was a library size artifact.
 
 CPM is the simplest library-size correction. More sophisticated methods (TMM, DESeq2 median-of-ratios) are recommended for formal differential expression testing (Tam et al., *Brief Bioinform*, 2015, PMID: 25888698) but CPM is adequate for fold change estimation.
 
@@ -66,7 +66,7 @@ CPM is the simplest library-size correction. More sophisticated methods (TMM, DE
 
 - **GSE299871 has n=2 per condition** (below the minimum of 3 recommended by Schurch et al., *RNA*, 2016, PMID: 27022035). Results from this dataset are **hypothesis-generating, not definitive.** No formal p-values can be computed.
 - **Cross-dataset fold change comparison** is directional only. Absolute CPM values are not comparable between datasets due to different library preparation protocols, ligation biases, and organisms (Giraldez et al., *Nat Biotechnol*, 2018, PMID: 30010675).
-- **Bulk tissue datasets** (GSE217458, GSE172269, GSE136926, GSE111281/174) measure a mixture of cell types. Changes may reflect cell composition shifts (e.g., immune cell infiltration) rather than cell-autonomous miRNA regulation. "Non-cell-autonomous" means changes caused by the surrounding tissue environment - such as macrophages migrating into aging tissue - rather than by the internal biology of the cell being measured.
+- **Bulk tissue datasets** (GSE217458, GSE172269, GSE136926, GSE111281/174) measure a mixture of cell types. Changes may reflect cell composition shifts (e.g., immune cell infiltration) rather than cell-autonomous miRNA regulation. "Non-cell-autonomous" means changes caused by the surrounding tissue environment; such as macrophages migrating into aging tissue; rather than by the internal biology of the cell being measured.
 
 ### 2.5 Senescence Inducers Glossary
 
@@ -103,7 +103,7 @@ Note: GSE202120 captures early growth arrest (72h post-irradiation), not establi
 
 ## 4. ON-Switch Candidates (Upregulated in Senescence)
 
-### 4.1 miR-34a-5p - The Only Consistent ON-Switch Candidate
+### 4.1 miR-34a-5p; The Only Consistent ON-Switch Candidate
 
 **Table 2: miR-34a-5p evidence across all datasets**
 
@@ -135,9 +135,9 @@ Note: GSE202120 captures early growth arrest (72h post-irradiation), not establi
 
 **Mechanistic basis:** miR-34a is a direct transcriptional target of p53 (He et al., *Nature*, 2007, PMID: 17554337), which targets SIRT1 (Yamakuchi et al., *PNAS*, 2008, PMID: 18755897). Since p53 activation is the convergent node of all senescence pathways, miR-34a upregulation is mechanistically expected across inducers.
 
-**Circuit viability concern:** After CPM correction, the fold change in WI-38 fibroblasts is only 1.5x, and the estimated intracellular copy number is ~45 per cell (based on calibration against published absolute quantification data; Bissels et al., *RNA*, 2009, PMID: 19850911). Whether this is sufficient for switch activation is unknown - the Saito lab has not published a quantitative transfer function for the L7Ae system, and this remains the single most important empirical question (see Section 6.2).
+**Circuit viability concern:** After CPM correction, the fold change in WI-38 fibroblasts is only 1.5x, and the estimated intracellular copy number is ~45 per cell (based on calibration against published absolute quantification data; Bissels et al., *RNA*, 2009, PMID: 19850911). Whether this is sufficient for switch activation is unknown; the Saito lab has not published a quantitative transfer function for the L7Ae system, and this remains the single most important empirical question (see Section 6.2).
 
-### 4.2 miR-22-3p - Fibroblast-Specific, Not Universal
+### 4.2 miR-22-3p; Fibroblast-Specific, Not Universal
 
 miR-22-3p is UP 1.74x (CPM) in DXR-senescent WI-38 fibroblasts (8,920→15,543 CPM) with high absolute expression. However, it is DOWN 0.65x (CPM) in replicatively senescent HUVECs and stable in aged mouse tissues (0.90-1.55x across 6 tissues). The response is **cell-type-dependent**: UP in fibroblasts regardless of inducer, DOWN or stable elsewhere. Not suitable for a universal circuit.
 
@@ -147,7 +147,7 @@ miR-22-3p is UP 1.74x (CPM) in DXR-senescent WI-38 fibroblasts (8,920→15,543 C
 |-----------|--------|--------|------------------|
 | **miR-29a-3p** | 1.56x UP (DXR) | **0.96x (stable)** | Entire raw signal was library size artifact |
 | **miR-21-5p** | 1.79x UP (DXR) | **1.09x (stable)** | Entire raw signal was library size artifact |
-| miR-29c-3p | 5.0x UP (DXR) | 3.2x UP | Direction holds but only 6→21 CPM - negligible expression |
+| miR-29c-3p | 5.0x UP (DXR) | 3.2x UP | Direction holds but only 6→21 CPM; negligible expression |
 | miR-146a-5p | 1.2x | 1.2x | No change in DXR-senescent fibroblasts |
 | miR-184 | - | - | Not expressed (<10 counts in all human cells) |
 | miR-96-5p | - | - | Not expressed |
@@ -159,7 +159,7 @@ miR-22-3p is UP 1.74x (CPM) in DXR-senescent WI-38 fibroblasts (8,920→15,543 C
 
 For an OFF switch, the miRNA must be HIGH in healthy cells (producing L7Ae to repress the payload) and LOW in senescent cells (no L7Ae, payload expressed).
 
-### 5.1 miR-155-5p - Strongest Fibroblast OFF-Switch
+### 5.1 miR-155-5p; Strongest Fibroblast OFF-Switch
 
 | Dataset | Cell/Tissue | FC | CPM | Data Type |
 |---------|------------|-----|-----|-----------|
@@ -170,13 +170,13 @@ For an OFF switch, the miRNA must be HIGH in healthy cells (producing L7Ae to re
 | GSE202120 | HAEC irr. 72h | 0.92x stable | 14,815→13,597 | Raw |
 | GSE217458 | Mouse tissues (all 6) | UP 1.24-4.20x | 21-1,219 RPMM | Pre-normalized (inflammaging) |
 
-**Verdict:** 9-11x decline in fibroblasts - strongest OFF-switch signal. But **UP in senescent HUVECs** (CPM 1.81x) and **UP in aged tissues** (inflammaging artifact - macrophage infiltration drives bulk signal). Fibroblast-specific only.
+**Verdict:** 9-11x decline in fibroblasts; strongest OFF-switch signal. But **UP in senescent HUVECs** (CPM 1.81x) and **UP in aged tissues** (inflammaging artifact; macrophage infiltration drives bulk signal). Fibroblast-specific only.
 
 **Inflammaging explanation:** miR-155 is >100-fold enriched in activated macrophages (Mann et al., *PLoS One*, 2017, PMID: 27447824). Macrophages accumulate in aged tissues (Tabula Muris Consortium, *Nature*, 2020, PMID: 32669714). When bulk tissue is sequenced, the macrophage-derived miR-155 overwhelms the parenchymal cell signal. In vivo, macrophage-derived exosomes can deliver miR-155 to neighboring cells (Yin et al., *Cell Commun Signal*, 2024, PMID: 38987851; He et al., *Hum Mutat*, 2025, PMID: 40486266), potentially confounding an OFF switch by introducing miR-155 into senescent cells near inflammatory foci.
 
 ---
 
-### 5.2 miR-92a-3p - Most Cross-Tissue OFF-Switch
+### 5.2 miR-92a-3p; Most Cross-Tissue OFF-Switch
 
 | Dataset | Cell/Tissue | FC | Level | Data Type |
 |---------|------------|-----|-------|-----------|
@@ -191,7 +191,7 @@ For an OFF switch, the miRNA must be HIGH in healthy cells (producing L7Ae to re
 
 ---
 
-### 5.3 miR-16-5p - Cross-Cell-Type OFF-Switch (Fibroblasts + Rat Kidney)
+### 5.3 miR-16-5p; Cross-Cell-Type OFF-Switch (Fibroblasts + Rat Kidney)
 
 | Dataset | Cell/Tissue | FC | Level | Data Type |
 |---------|------------|-----|-------|-----------|
@@ -202,11 +202,11 @@ For an OFF switch, the miRNA must be HIGH in healthy cells (producing L7Ae to re
 | GSE172269 | Rat kidney aging | **0.58x** | 38,321→22,357 | Raw (pending CPM) |
 | GSE111174 | Human blood aging | **0.61x** | 68,945→41,870 | Raw (precursor) |
 
-**Verdict:** DOWN in fibroblasts (0.37-0.53x), rat kidney (0.58x), and human blood (0.61x). After CPM correction, the HUVEC decline is **no longer significant** (0.89x, effectively stable). This weakens the "cross-cell-type" claim - miR-16 is primarily a fibroblast + kidney OFF switch, not fibroblast + endothelial. Mechanistically linked to cell cycle arrest (targets cyclins/CDKs; Linsley et al., *RNA*, 2007, PMID: 17210802).
+**Verdict:** DOWN in fibroblasts (0.37-0.53x), rat kidney (0.58x), and human blood (0.61x). After CPM correction, the HUVEC decline is **no longer significant** (0.89x, effectively stable). This weakens the "cross-cell-type" claim; miR-16 is primarily a fibroblast + kidney OFF switch, not fibroblast + endothelial. Mechanistically linked to cell cycle arrest (targets cyclins/CDKs; Linsley et al., *RNA*, 2007, PMID: 17210802).
 
 ---
 
-### 5.4 miR-17-5p - Strong Fibroblast OFF-Switch
+### 5.4 miR-17-5p; Strong Fibroblast OFF-Switch
 
 | Dataset | Cell/Tissue | FC | Level | Data Type |
 |---------|------------|-----|-------|-----------|
@@ -217,7 +217,7 @@ For an OFF switch, the miRNA must be HIGH in healthy cells (producing L7Ae to re
 | GSE111174 | Human blood aging | **0.59x** | 3,017→1,775 | Raw (precursor) |
 | GSE94410 | HUVEC RS | **11.0x UP** | 266→2,924 CPM | CPM-corrected |
 
-**Verdict:** Strong decline in fibroblasts (0.15-0.34x) and HAECs (0.68x). **Dramatically UP in HUVECs** (CPM 11x) - opposite direction. Part of the miR-17~92 cluster (Faraonio et al., *Cell Death Differ*, 2012, PMID: 22052189).
+**Verdict:** Strong decline in fibroblasts (0.15-0.34x) and HAECs (0.68x). **Dramatically UP in HUVECs** (CPM 11x); opposite direction. Part of the miR-17~92 cluster (Faraonio et al., *Cell Death Differ*, 2012, PMID: 22052189).
 
 ---
 
@@ -233,7 +233,7 @@ Validated across both WI-38 (GSE299871) and MRC-5 (GSE117818):
 | miR-92a-3p | **DOWN** | 0.26x | 0.32x |
 | miR-17-5p | **DOWN** | 0.19x | 0.34x |
 
-**Not part of core signature:** miR-21-5p (CPM 1.09x in WI-38 DXR - no change) and miR-22-3p (UP in WI-38 but stable in MRC-5). These were excluded because they do not replicate across independent fibroblast lines.
+**Not part of core signature:** miR-21-5p (CPM 1.09x in WI-38 DXR; no change) and miR-22-3p (UP in WI-38 but stable in MRC-5). These were excluded because they do not replicate across independent fibroblast lines.
 
 ---
 
@@ -241,7 +241,7 @@ Validated across both WI-38 (GSE299871) and MRC-5 (GSE117818):
 
 ### 6.1 Do Different Inducers Produce the Same miRNA Profile?
 
-GSE299871 compares three inducers in the same cell type (WI-38, n=2 per group - hypothesis-generating):
+GSE299871 compares three inducers in the same cell type (WI-38, n=2 per group; hypothesis-generating):
 
 | miRNA | DXR (CPM FC) | SDS (CPM FC) | RS (CPM FC) | Shared? |
 |-------|-------------|-------------|------------|---------|
@@ -253,7 +253,7 @@ GSE299871 compares three inducers in the same cell type (WI-38, n=2 per group - 
 | miR-29a-3p | 0.96x stable | 1.32x UP | 0.81x DOWN | **No** (variable) |
 | miR-21-5p | 1.09x stable | 1.19x stable | 1.09x stable | Stable in all |
 
-After CPM correction, the three inducers converge on a shared program of **two miRNAs UP** (miR-34a, miR-22) and **three DOWN** (miR-155, miR-92a, miR-17). miR-29a and miR-21 are **not part of the shared program** - their apparent upregulation in raw data was a library size artifact.
+After CPM correction, the three inducers converge on a shared program of **two miRNAs UP** (miR-34a, miR-22) and **three DOWN** (miR-155, miR-92a, miR-17). miR-29a and miR-21 are **not part of the shared program**; their apparent upregulation in raw data was a library size artifact.
 
 Note: SDS had 4.3x larger libraries than controls. The raw SDS fold changes reported in earlier analyses (e.g., "miR-34a 7.2x UP") were heavily inflated. CPM-corrected SDS fold changes (1.66x for miR-34a) are comparable to DXR (1.50x), not dramatically higher.
 
@@ -263,16 +263,16 @@ Note: SDS had 4.3x larger libraries than controls. The raw SDS fold changes repo
 |-------|-------------------|----------------------------------|--------|
 | miR-34a-5p | 1.50x UP | UP in 5/6 tissues (1.25-1.68x) | **Yes** |
 | miR-22-3p | 1.74x UP | Stable in 4/6 tissues | **Partial** |
-| miR-155-5p | 0.09x DOWN | UP in all 6 tissues (1.24-4.20x) | **No** - inflammaging |
+| miR-155-5p | 0.09x DOWN | UP in all 6 tissues (1.24-4.20x) | **No**; inflammaging |
 | miR-92a-3p | 0.26x DOWN | Stable in most tissues | **Partial** |
 
 In vivo aging fold changes (1.2-1.7x) are consistently smaller than in vitro senescence fold changes. This is expected: aged tissues are a mixture of senescent and non-senescent cells. If senescent cells comprise ~15% of tissue (Baker et al., *Nature*, 2011, PMID: 22012258), a miRNA 2x higher in senescent cells appears only ~1.15x higher in bulk tissue.
 
-The miR-155-5p discrepancy (DOWN in vitro, UP in vivo) is a clear example of **non-cell-autonomous effects**. This means changes caused by the surrounding tissue environment rather than the internal biology of the measured cell - in this case, macrophage infiltration into aging tissues brings high miR-155 that dominates the bulk tissue signal, masking the cell-autonomous decline in resident fibroblasts and epithelial cells.
+The miR-155-5p discrepancy (DOWN in vitro, UP in vivo) is a clear example of **non-cell-autonomous effects**. This means changes caused by the surrounding tissue environment rather than the internal biology of the measured cell; in this case, macrophage infiltration into aging tissues brings high miR-155 that dominates the bulk tissue signal, masking the cell-autonomous decline in resident fibroblasts and epithelial cells.
 
 ### 6.3 Blood vs. Tissue Divergence
 
-Most miRNAs **decline** in aged human blood (GSE111174) but are **stable or UP** in aged tissues (GSE111281 skin, GSE136926 heart). This reflects immunosenescence - aged blood has fewer proliferative lymphocytes due to thymic involution (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). Blood miRNA aging studies cannot be used to infer tissue-level changes.
+Most miRNAs **decline** in aged human blood (GSE111174) but are **stable or UP** in aged tissues (GSE111281 skin, GSE136926 heart). This reflects immunosenescence; aged blood has fewer proliferative lymphocytes due to thymic involution (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). Blood miRNA aging studies cannot be used to infer tissue-level changes.
 
 ---
 
@@ -285,29 +285,29 @@ Most miRNAs **decline** in aged human blood (GSE111174) but are **stable or UP**
 **Hardware:** L7Ae/K-turn repressor only (no MS2CP). Multiple L7Ae mRNAs with different MREs achieve AND-gate logic:
 
 ```
-L7Ae-mRNA-1: [MREs for miRNA-A] - L7Ae CDS
-L7Ae-mRNA-2: [MREs for miRNA-B] - L7Ae CDS  
-Payload-mRNA: [K-turn in 5'UTR] - Gasdermin or DTA CDS
+L7Ae-mRNA-1: [MREs for miRNA-A]; L7Ae CDS
+L7Ae-mRNA-2: [MREs for miRNA-B]; L7Ae CDS  
+Payload-mRNA: [K-turn in 5'UTR]; Gasdermin or DTA CDS
 ```
 
 Both miRNA-A AND miRNA-B must be active to silence both L7Ae sources and permit payload expression.
 
 ### 7.2 Performance Benchmarks
 
-- **L7Ae K-turn repression: ~10-fold** - payload at 1/10th level when L7Ae present (Saito et al., *Nat Chem Biol*, 2010)
-- **Single miRNA switch: resolves 1.3-1.5x differences** between cell populations (Endo et al., *Sci Rep*, 2016, PMID: 26902536) - but "resolves" means visually separable on FACS, not necessarily binary kill/no-kill. No quantitative transfer function published.
+- **L7Ae K-turn repression: ~10-fold**; payload at 1/10th level when L7Ae present (Saito et al., *Nat Chem Biol*, 2010)
+- **Single miRNA switch: resolves 1.3-1.5x differences** between cell populations (Endo et al., *Sci Rep*, 2016, PMID: 26902536); but "resolves" means visually separable on FACS, not necessarily binary kill/no-kill. No quantitative transfer function published.
 - **Hybrid ON+OFF switch: up to 16-fold** (Saito lab, *Mol Ther Nucleic Acids*, 2025)
 - **miRNA-mediated silencing is sigmoidal**, not linear (Mukherji et al., *Nature*, 2011, PMID: 21753848). Small fold changes could produce either no response or near-binary switching depending on threshold position.
 
 ### 7.3 Selectivity Estimation Method
 
-We estimate selectivity as the product of individual discriminations. This is an **order-of-magnitude approximation** - the actual relationship is nonlinear, and the estimates are useful for ranking architectures relative to each other but not for predicting performance. See [methods_and_statistical_framework.md](methods_and_statistical_framework.md) for detailed assumptions and caveats.
+We estimate selectivity as the product of individual discriminations. This is an **order-of-magnitude approximation**; the actual relationship is nonlinear, and the estimates are useful for ranking architectures relative to each other but not for predicting performance. See [methods_and_statistical_framework.md](methods_and_statistical_framework.md) for detailed assumptions and caveats.
 
-### 7.4 Approach 1 - Universal Senolytic
+### 7.4 Approach 1; Universal Senolytic
 
 **Design U3: miR-34a + miR-16 + miR-92a (Dual OFF coverage)**
 
-Using both miR-16 and miR-92a simultaneously as OFF switches provides complementary coverage - each compensates for the other's cell-type gaps.
+Using both miR-16 and miR-92a simultaneously as OFF switches provides complementary coverage; each compensates for the other's cell-type gaps.
 
 | Cell type | miR-16 declines? | miR-92a declines? | Coverage |
 |-----------|-----------------|------------------|----------|
@@ -317,11 +317,11 @@ Using both miR-16 and miR-92a simultaneously as OFF switches provides complement
 | Aged human blood | YES (0.61x) | YES (0.71x) | Both |
 | HUVECs (senescent) | Stable (0.89x CPM) | UP (5.14x CPM) | **Neither** |
 
-**Estimated selectivity:** ~15x in fibroblasts (both OFF switches active), ~4-6x in heart/skin (one OFF active), **~1.5x in endothelial** (neither OFF active - fails for senescent endothelial cells).
+**Estimated selectivity:** ~15x in fibroblasts (both OFF switches active), ~4-6x in heart/skin (one OFF active), **~1.5x in endothelial** (neither OFF active; fails for senescent endothelial cells).
 
 **Verdict:** Best available universal design but cannot target senescent endothelial cells. Cost: 4 mRNAs.
 
-### 7.5 Approach 2 - Fibroblast-Specific
+### 7.5 Approach 2; Fibroblast-Specific
 
 **Design F1: miR-34a ON + miR-155 OFF (~16x selectivity)**
 
@@ -356,7 +356,7 @@ Three-input AND gate for maximum safety. Cost: 4 mRNAs.
 
 ## 8. The Human In Vivo Gap
 
-No publicly deposited small RNA-seq dataset exists with paired pre/post-chemotherapy blood samples from patients. The closest study (Mikulski/Fendler 2024, PMID: 38650024 - serum miRNA-seq at 4 timepoints during myeloablative ASCT, 10 patients) did not deposit data publicly. The planned experiments fill a field-wide gap.
+No publicly deposited small RNA-seq dataset exists with paired pre/post-chemotherapy blood samples from patients. The closest study (Mikulski/Fendler 2024, PMID: 38650024; serum miRNA-seq at 4 timepoints during myeloablative ASCT, 10 patients) did not deposit data publicly. The planned experiments fill a field-wide gap.
 
 ---
 
@@ -372,9 +372,9 @@ No publicly deposited small RNA-seq dataset exists with paired pre/post-chemothe
 
 5. **The core fibroblast senescence signature** (miR-34a UP; miR-155, miR-16, miR-92a, miR-17 DOWN) replicates across WI-38 and MRC-5 fibroblast lines.
 
-6. **A truly universal circuit is not achievable** - no OFF-switch declines in senescent endothelial cells after CPM correction. Tissue-specific panels may be more realistic.
+6. **A truly universal circuit is not achievable**; no OFF-switch declines in senescent endothelial cells after CPM correction. Tissue-specific panels may be more realistic.
 
-7. **Blood and tissue miRNA aging patterns diverge.** In our analysis, most miRNAs decline in aged human blood (GSE111174) but are stable or increase in aged solid tissues (GSE111281 skin, GSE136926 heart). This divergence is driven by immunosenescence: aged blood contains fewer proliferative lymphocytes due to thymic involution, and since lymphocytes are the dominant miRNA-producing cells in blood, the global miRNA pool contracts with age (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). This matters for circuit design because (a) blood-based miRNA biomarker studies cannot be used to predict what the circuit will encounter inside solid tissue cells, and (b) miR-34a-5p, our top ON-switch candidate, is essentially absent from blood (<2 counts) despite being consistently upregulated in solid tissues - meaning it would never have been discovered by circulating miRNA studies alone.
+7. **Blood and tissue miRNA aging patterns diverge.** In our analysis, most miRNAs decline in aged human blood (GSE111174) but are stable or increase in aged solid tissues (GSE111281 skin, GSE136926 heart). This divergence is driven by immunosenescence: aged blood contains fewer proliferative lymphocytes due to thymic involution, and since lymphocytes are the dominant miRNA-producing cells in blood, the global miRNA pool contracts with age (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). This matters for circuit design because (a) blood-based miRNA biomarker studies cannot be used to predict what the circuit will encounter inside solid tissue cells, and (b) miR-34a-5p, our top ON-switch candidate, is essentially absent from blood (<2 counts) despite being consistently upregulated in solid tissues; meaning it would never have been discovered by circulating miRNA studies alone.
 
 8. **The recommended first experiment** is testing miR-34a-5p switch activation at endogenous senescent cell levels. All circuit architectures depend on this.
 
