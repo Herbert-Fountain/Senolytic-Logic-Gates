@@ -344,7 +344,21 @@ Logic: Payload requires miR-34a HIGH + miR-22/29a HIGH + miR-155 LOW
 
 ---
 
-## 8. Practical Viability Assessment: Can We Build a Universal Senolytic Circuit?
+## 8. The Human In Vivo Gap
+
+A systematic search for small RNA-seq data from chemotherapy patients — the closest human equivalent to our in vitro doxorubicin senescence models — revealed that **no publicly deposited small RNA-seq dataset exists with paired pre/post-chemotherapy blood or tissue samples** (see [literature/chemotherapy_patient_mirna_datasets.md](../literature/chemotherapy_patient_mirna_datasets.md) for full search results). The single most relevant study (Mikulski/Fendler 2024, PMID: [38650024](https://pubmed.ncbi.nlm.nih.gov/38650024/) — serum miRNA-seq at 4 timepoints during myeloablative ASCT conditioning, 10 patients) did not deposit data in a public repository.
+
+This gap has three implications:
+
+1. **Our candidate miRNAs cannot be validated in human in vivo chemotherapy-induced senescence using existing public data.** All of our evidence comes from in vitro cell culture (human) and in vivo natural aging (mouse/rat). The translational bridge — whether miR-34a goes up and miR-16 goes down in the tissues of chemotherapy-treated patients — remains untested.
+
+2. **Circulating miRNA ≠ intracellular miRNA.** Even if patient serum data existed, it would reflect the secreted/EV-associated pool, not the intracellular pool that the circuit senses. The same inflammaging/cell-composition confounds we identified for miR-155-5p in bulk tissue would apply to serum — changes could reflect immune activation, tissue damage, or tumor response rather than senescence in specific cell types.
+
+3. **Herbert's planned experiments are even more important.** His doxorubicin small RNA-seq in mice (in vivo) and human primary dermal fibroblasts (in vitro) would contribute to a space where almost no quantitative data exists. A future clinical collaboration profiling patient blood miRNAs before and after chemotherapy with modern small RNA-seq would be highly impactful for the field.
+
+---
+
+## 9. Practical Viability Assessment: Can We Build a Universal Senolytic Circuit?
 
 ### 8.1 The Honest Answer
 
@@ -408,7 +422,7 @@ Herbert's planned doxorubicin small RNA-seq experiment in mouse tissues (in vivo
 
 ---
 
-## 9. Conclusions
+## 10. Conclusions
 
 1. **miR-34a-5p is the single most validated ON-switch candidate**, now confirmed across **8 datasets (12 independent analyses)**, 4 senescence inducers (doxorubicin, SDS/PMD, replicative, irradiation), 4 human cell types (WI-38, MRC-5, HUVEC, HAEC), 3 organisms (human, mouse, rat), and both in vitro and in vivo contexts. Its mechanistic basis as a direct p53 transcriptional target (He et al., *Nature*, 2007, PMID: 17554337) explains this universality. The strongest fold change (4.1x) is in aged rat liver — the LNP target organ.
 
