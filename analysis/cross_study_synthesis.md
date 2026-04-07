@@ -102,7 +102,7 @@ This document synthesizes findings across five analyzed datasets and the publish
 | GSE299871 | SDS senescence (WI-38) | **UP** | 6.1x | 2,484→15,044 |
 | GSE299871 | Replicative senescence (WI-38) | **UP** | 2.7x | 2,484→6,719 |
 | GSE94410 | Replicative senescence (HUVEC) | **DOWN** | 0.3x | 58,962→18,652 |
-| GSE217458 | Mouse aging (16 tissues) | ~1x | Stable | 1,500-11,000 RPMM |
+| GSE217458 | Mouse aging (16 tissues) | 0.9-1.5x per tissue | Stable | 1,500-11,000 RPMM (tissue-dependent baseline; no significant aging change within any tissue) |
 
 **The inducer-specific paradox:** miR-22-3p is consistently UP across all three senescence inducers in WI-38 fibroblasts, but DOWN in replicatively senescent HUVECs. This means the response is cell-type-dependent, not inducer-dependent. In WI-38 cells, it goes UP regardless of how senescence is triggered. In HUVECs, it goes DOWN during replicative senescence.
 
