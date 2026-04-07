@@ -50,6 +50,7 @@ page = st.sidebar.radio('Navigate', [
     'Simulate',
     'Optimize Ratio',
     'Design Experiment',
+    'Protocol Designer',
     'Enter Results',
     'Calibrate Model',
     'Sensitivity Analysis',
@@ -504,6 +505,15 @@ elif page == 'Design Experiment':
                 help='Open the Transfection AutoProtocol HTML tool, click '
                      '"Load Protocol", and select this file. Plate layout, '
                      'mRNA groups, and volumes will be pre-filled.')
+
+
+# ================================================================
+# PAGE: Protocol Designer
+# ================================================================
+elif page == 'Protocol Designer':
+    from modeling.core.parameters import get_params as get_params_fn
+    from modeling.protocol_page import render_protocol_page
+    render_protocol_page(history, get_cell_profiles)
 
 
 # ================================================================
