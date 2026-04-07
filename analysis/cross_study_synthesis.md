@@ -229,16 +229,16 @@ The strongest fold change (4.1x) is in **aged rat liver** — the primary target
 
 A systematic search for miRNAs downregulated during senescence across all 6 datasets identified several candidates with potential as OFF-switch/de-targeting elements. For an effective OFF-switch, a miRNA must be (1) highly expressed in healthy/young cells to actively suppress payload translation, and (2) strongly reduced in senescent cells to permit payload expression.
 
-**Table 5: Downregulated miRNA candidates across datasets**
+**Table 5: Downregulated miRNA candidates — summary across datasets**
 
-| miRNA | WI-38 DXR (GSE299871) | WI-38 RS | HUVEC Rep. (GSE94410) | HAEC Irr. (GSE202120) | Mouse Aging (GSE217458) | Cross-Cell-Type? |
-|-------|----------------------|---------|----------------------|----------------------|------------------------|-----------------|
-| **miR-155-5p** | **0.14x** (2760→396) | **0.19x** | 0.90x stable | 0.92x stable | 2.0x UP | Fibroblasts only |
-| **miR-7-5p** | **0.34x** (452→152) | **0.46x** | 5.8x UP | **0.34x DOWN** | 1.2x stable | Fibro + HAEC, not HUVEC |
-| **miR-17-5p** | **0.30x** (134→40) | **0.26x** | 5.9x UP | **0.68x DOWN** | 1.2x stable | Fibro + HAEC, not HUVEC |
-| **miR-92a-3p** | **0.42x** (6428→2676) | **0.47x** | 2.6x UP | 1.0x stable | 1.2x stable | Fibroblasts only |
-| **miR-16-5p** | **0.61x** (882→535) | 0.70x | **0.43x DOWN** | 0.87x slight | 1.2x stable | **Fibro + HUVEC** |
-| miR-93-5p | 0.63x (1234→784) | **0.46x** | 1.8x UP | 1.1x stable | 1.2x stable | Fibroblasts only |
+| Candidate | Fibroblasts | Endothelial | In Vivo Aging | Cross-Type? |
+|-----------|------------|-------------|--------------|-------------|
+| miR-155-5p | **0.10-0.19x** (WI-38, MRC-5) | Stable (HUVEC, HAEC) | UP (inflammaging) | Fibro only |
+| miR-92a-3p | **0.32-0.47x** (WI-38, MRC-5) | UP (HUVEC) | Stable (mouse) | Fibro only |
+| miR-16-5p | **0.53-0.70x** (WI-38, MRC-5) | **0.43x** (HUVEC) | Stable (mouse) | **Fibro + HUVEC** |
+| miR-17-5p | **0.26-0.34x** (WI-38, MRC-5) | **0.68x** HAEC; UP HUVEC | Stable (mouse) | Fibro + HAEC |
+| miR-7-5p | **0.34-0.46x** (WI-38) | **0.34x** HAEC; UP HUVEC | Stable (mouse) | Fibro + HAEC |
+| miR-93-5p | **0.46-0.63x** (WI-38) | UP (HUVEC) | Stable (mouse) | Fibro only |
 
 ---
 
