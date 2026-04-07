@@ -391,10 +391,13 @@ mRNA-3: [K-turn in 5'UTR] — Payload CDS (Gasdermin or DTA)
 
 ### 6.2 Performance Framework
 
-From the Saito lab:
-- L7Ae K-turn repression: ~10-fold (Saito et al., *Nat Chem Biol*, 2010)
-- Single miRNA OFF switch: resolves <2-fold differences (Endo et al., *Sci Rep*, 2016, PMID: 26902536)
-- Hybrid ON+OFF switch: up to 16-fold (Saito lab, *Mol Ther Nucleic Acids*, 2025)
+Published benchmarks from the Saito lab establish the dynamic range achievable with each switch component:
+
+- **L7Ae K-turn repression: ~10-fold** (Saito et al., *Nat Chem Biol*, 2010). This means that when L7Ae protein is present, it reduces payload translation to ~1/10th of the unrepressed level. In a healthy cell where L7Ae is actively produced, the payload is 10x lower than in a senescent cell where L7Ae is absent. This sets the maximum ON/OFF ratio achievable from the repressor alone.
+
+- **Single miRNA OFF switch: resolves <2-fold differences** (Endo et al., *Sci Rep*, 2016, PMID: 26902536). This means the switch can distinguish cell populations that differ by less than 2-fold in a given miRNA's expression — encouraging for our candidates where some fold changes are modest (e.g., miR-34a at 1.5x). However, "resolves" in this context means detectable by flow cytometry of a fluorescent reporter, not necessarily sufficient for a binary kill/no-kill decision with a cytotoxic payload.
+
+- **Hybrid ON+OFF switch: up to 16-fold** (Saito lab, *Mol Ther Nucleic Acids*, 2025). This is the best published dynamic range for a single-construct switch combining an ON element (activated by a target-cell miRNA) and an OFF element (repressed by a non-target-cell miRNA). The 16-fold ratio means the payload is 16x higher in target cells than non-target cells. For a potent cytotoxic payload like Gasdermin or DTA, even 1/16th expression may still cause some cell death in non-target cells, depending on the dose-response relationship of the payload.
 
 ### 6.2.1 How We Estimate Selectivity (and Why It's Approximate)
 
