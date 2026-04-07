@@ -136,6 +136,22 @@ This dataset provides the first look at baseline miRNA abundance in aortic endot
 
 **Caveat on comparing raw counts:** These two datasets used different library preparation methods and sequencing depths, so the absolute count differences may partly reflect technical factors. However, the consistent >10x differences across most miRNAs suggest genuine biological differences in miRNA abundance between cell types.
 
+### 3.4 Downregulated miRNAs — OFF-Switch Candidates in Irradiated HAECs
+
+At 72h post-irradiation (10 Gy), the following miRNAs show dose-dependent decline:
+
+| miRNA | 0 Gy | 10 Gy (72h) | FC | Also DOWN in fibroblasts? |
+|-------|------|------------|-----|--------------------------|
+| **miR-17-5p** | 5,156 | 3,481 | **0.68x** | YES — 0.30x in WI-38 DXR (GSE299871) |
+| **miR-7-5p** | 33,299 | 11,222 | **0.34x** | YES — 0.34x in WI-38 DXR (GSE299871) |
+| **miR-16-5p** | 1,542 | 1,347 | 0.87x | YES — 0.61x WI-38, **0.43x HUVEC** (GSE94410) |
+| miR-155-5p | 14,815 | 13,597 | 0.92x | YES in fibroblasts (0.14x), but stable here |
+| miR-15b-5p | 335 | 271 | 0.81x | Modest decline |
+
+miR-7-5p shows the strongest radiation-induced decline in HAECs (3-fold), and this is concordant with its decline in DXR-senescent fibroblasts. However, miR-7-5p is paradoxically UP 5.8x in replicatively senescent HUVECs (GSE94410), preventing its use as a universal OFF-switch.
+
+miR-16-5p shows only a slight decline in irradiated HAECs (0.87x at 72h), but given that the 72h timepoint may be too early for full senescence-associated miRNA changes to manifest (full senescence typically requires 7-14 days post-irradiation), the decline may deepen at later timepoints.
+
 ## 4. Limitations
 
 1. **Not a senescence study per se.** Senescence markers were not measured. We infer senescence induction at 8-10 Gy based on established radiobiology literature.

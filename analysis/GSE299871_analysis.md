@@ -137,8 +137,11 @@ Based on this dataset, our candidate ranking for ON-switch inputs is:
 
 | Rank | miRNA | DXR FC | Absolute Level | Notes |
 |------|-------|--------|---------------|-------|
-| **1** | **miR-155-5p** | 0.1x DOWN | 396 (→ from 2,760) | Strong decline in DXR/RS; HIGH in healthy cells |
-| **2** | **miR-17-5p** | 0.3x DOWN | 40 (→ from 134) | Consistent DOWN in DXR/RS |
+| **1** | **miR-155-5p** | 0.14x DOWN | 396 (← from 2,760) | Strongest decline; HIGH in healthy cells. Fibroblast-specific — does not decline in endothelial senescence (GSE94410, GSE202120). In vivo, miR-155 increases in aged tissues due to immune cell (macrophage) infiltration, not cell-autonomous upregulation. |
+| **2** | **miR-92a-3p** | 0.42x DOWN | 2,676 (← from 6,428) | Highest absolute counts among downregulated candidates. Fibroblast-specific (UP in HUVECs). |
+| **3** | **miR-16-5p** | 0.61x DOWN | 535 (← from 882) | Modest decline but the ONLY miRNA also DOWN in HUVECs (0.43x, GSE94410) — potential cross-cell-type OFF-switch. Mechanistically linked to cell cycle arrest via cyclin/CDK targeting (Linsley et al., *RNA*, 2007, PMID: 17210802). |
+| **4** | **miR-17-5p** | 0.30x DOWN | 40 (← from 134) | Strong decline but LOW absolute counts. Also DOWN in irradiated HAECs (0.68x, GSE202120), but UP in HUVECs. |
+| **5** | **miR-7-5p** | 0.34x DOWN | 152 (← from 452) | DOWN in DXR/RS fibroblasts and irradiated HAECs. UP in HUVECs. |
 
 ## 5. Limitations
 

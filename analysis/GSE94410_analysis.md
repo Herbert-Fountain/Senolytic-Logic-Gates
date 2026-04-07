@@ -88,7 +88,22 @@ Notable discordances:
 
 Four candidate miRNAs (miR-184, miR-96-5p, miR-375, miR-17-3p) have fewer than 10 raw counts in HUVECs. At these levels, the number of miRNA molecules per cell is likely insufficient to engage a synthetic mRNA switch. The Saito lab has noted that switch performance depends on the stoichiometric ratio of endogenous miRNA to delivered mRNA (Fujita et al., *Sci Adv*, 2022, DOI: 10.1126/sciadv.abj1793). With LNP delivery introducing thousands of mRNA copies per cell, miRNAs at single-digit copy numbers would be overwhelmed.
 
-### 5.3 Limitations
+### 5.3 Downregulated miRNAs for OFF-Switch Design
+
+This dataset also reveals miRNAs that decline during HUVEC replicative senescence, which are candidates for OFF-switch/de-targeting elements:
+
+| miRNA | Young (S0) | Senescent (S3) | FC | Notes |
+|-------|-----------|---------------|-----|-------|
+| **hsa-miR-16-5p** | 3,325 | 1,420 | **0.43x** | Strongest decline with adequate expression. Also DOWN in WI-38 fibroblasts (0.61x, GSE299871). The only miRNA we identified that declines in both fibroblasts AND endothelial cells. |
+| hsa-miR-22-3p | 58,962 | 18,652 | 0.32x | Large decline, but this miRNA is UP in fibroblast senescence — the opposite direction. Cell-type-specific, not a universal OFF-switch. |
+| hsa-miR-181a-5p | 29,629 | 5,391 | 0.18x | Very large decline. Not tested in other datasets for OFF-switch potential — warrants further investigation. |
+| hsa-miR-25-3p | 4,585 | 2,954 | 0.64x | Modest decline. |
+
+**miR-16-5p stands out** because it declines in HUVECs (0.43x) AND in WI-38 fibroblasts (0.61x in DXR senescence, 0.70x in replicative senescence). This cross-cell-type consistency makes it the strongest candidate for a universal OFF-switch element. miR-16-5p is a known cell cycle regulator targeting cyclins and CDKs (Linsley et al., *RNA*, 2007, PMID: 17210802), providing a mechanistic rationale for its decline during the permanent cell cycle arrest of senescence.
+
+**miR-181a-5p** shows a dramatic decline (5.5-fold) in senescent HUVECs — one of the largest changes in this dataset. While we have not systematically evaluated it across all other datasets, its high baseline expression (29,629) and large fold change make it worth flagging for future investigation.
+
+### 5.4 Limitations
 
 1. **Replicative senescence ≠ doxorubicin-induced senescence.** Different inducers activate different molecular pathways, which may produce different miRNA profiles.
 2. **Single cell type (HUVECs).** Endothelial cells have distinct biology from fibroblasts, which are the primary model in most senescence studies.

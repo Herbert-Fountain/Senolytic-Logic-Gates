@@ -162,9 +162,23 @@ However, we cannot confirm from this data alone that miR-29 upregulation is driv
 
 Wagner et al. (2024) identified miR-184-3p as one of 8 broadly deregulated aging miRNAs. Our analysis confirms it increases with age in most tissues (1.1-2.7x). However, the absolute expression is **1-6 RPMM** — far too low for circuit applications. This illustrates a fundamental disconnect between biomarker discovery (where any detectable change is informative) and circuit engineering (where absolute molecule count determines function).
 
-### 5.4 miR-155-5p: Tissue-Specific Aging Signal
+### 5.4 miR-155-5p: The Inflammaging Paradox
 
-miR-155-5p shows the largest fold changes in liver (4.2x, 21→89 RPMM) and lung (3.8x, 122→457 RPMM). This miRNA is known to be involved in inflammatory signaling (O'Connell et al., *PNAS*, 2007, PMID: 17460050). The tissue-specific increase in liver and lung may reflect age-related inflammation (inflammaging) in these organs. However, the absolute levels remain relatively low compared to miR-29 family members, which may limit circuit utility.
+miR-155-5p shows the largest fold changes in aged liver (4.2x, 21→89 RPMM) and lung (3.8x, 122→457 RPMM). This is **paradoxical** because in pure senescent cell populations in vitro, miR-155-5p is strongly DOWN (0.14x in DXR-senescent WI-38 fibroblasts, GSE299871).
+
+The most likely explanation is **immune cell infiltration into aged tissues** (inflammaging). miR-155 is one of the most highly expressed miRNAs in activated macrophages, dendritic cells, and T cells (O'Connell et al., *PNAS*, 2007, PMID: 17460050; Rodriguez et al., *Science*, 2007, PMID: 17463290). Aged tissues are known to accumulate inflammatory immune infiltrates as part of the chronic low-grade inflammation termed "inflammaging" (Franceschi et al., *Ann N Y Acad Sci*, 2000, PMID: 10911963). When bulk tissue is sequenced, the macrophage-derived miR-155 overwhelms the cell-autonomous decline occurring within senescent fibroblasts and other parenchymal cells.
+
+**This has important implications for circuit design:** in vitro, miR-155-5p's 7-fold decline makes it an excellent OFF-switch for protecting non-senescent fibroblasts. But in vivo, the tissue-level miR-155 increase from immune cells could confound this signal. A miR-155-5p OFF switch might inadvertently suppress the cytotoxic payload in senescent cells that happen to be near macrophage-rich zones, where paracrine miR-155 (potentially delivered via macrophage-derived extracellular vesicles) could engage the OFF switch in neighboring senescent cells.
+
+This paradox illustrates a broader challenge: **miRNA profiles measured in isolated cell cultures may not reflect the intracellular miRNA landscape within intact tissues**, where intercellular communication via EVs, direct cell contact, and local immune microenvironments contribute additional complexity.
+
+### 5.5 Downregulated miRNAs in Natural Aging
+
+Most candidate miRNAs that decline in in vitro senescence (miR-155-5p, miR-17-5p, miR-92a-3p, miR-16-5p) show **no decline** or **slight increases** in aged mouse tissues. This is consistent with two non-exclusive explanations:
+1. The cell-autonomous decline is diluted by non-senescent cells in bulk tissue
+2. Age-related changes in cell composition (immune infiltration, fibrosis) produce miRNAs that mask the senescent-cell signal
+
+The exception is that no miRNA in this dataset shows a clear pan-tissue decline with aging, reinforcing the finding from Wagner et al. (2024) that aging trajectories are largely tissue-specific.
 
 ## 6. Limitations
 
