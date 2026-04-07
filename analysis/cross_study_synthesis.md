@@ -26,7 +26,7 @@ This document synthesizes findings across five analyzed datasets and the publish
 | 3 | GSE217458 | In vivo natural aging | 16 tissues | Natural aging | Mouse | RPMM | 771 |
 | 4 | GSE55164 | In vivo natural aging | Skeletal muscle | Natural aging | Mouse | Log2 normalized | 12 |
 | 5 | GSE200330 | In vitro senescence | Synovial fibroblast **EVs** | Irradiation (10 Gy) | Human | Raw reads | 6 |
-| 6 | GSE202120 | In vitro irradiation dose-response | HAECs (aortic endothelial) | X-ray (0-10 Gy) | Human | Raw counts | 35 |
+| 6 | GSE202120 | In vitro irradiation dose-response (**early growth arrest, not established senescence**) | HAECs (aortic endothelial) | X-ray (0-10 Gy), 24h + 72h | Human | Raw counts | 35 |
 | 7 | GSE117818 | In vitro senescence | MRC-5 fibroblasts | Replicative (5 PD stages) | Human | Raw counts (precursor) | 15 |
 | 8 | GSE172269 | In vivo natural aging | 11 organs (incl. **liver**, **kidney**) | Natural aging (4 ages) | Rat | Raw counts | 320 |
 | 9 | GSE136926 | In vivo natural aging | **Human right atrial tissue** | Natural aging (38-72yr) | **Human** | Normalized | 12 |
@@ -172,7 +172,7 @@ A systematic search for miRNAs downregulated during senescence across all 6 data
 
 miR-155-5p has the largest fold decline in senescent fibroblasts (7-fold) and high healthy-cell expression (2,760 counts), making it the best OFF-switch candidate for fibroblast circuits. However, it does **not** decline in senescent endothelial cells (stable in both HUVECs and HAECs), and it **increases** in aged tissues in vivo.
 
-**The in vivo increase is a cell-composition artifact, not a cell-autonomous response.** We propose this represents the first explicit identification of this paradox: miR-155 is >100-fold enriched in activated macrophages (Mann et al., *PLoS One*, 2017, PMID: 27447824; O'Connell et al., *PNAS*, 2007, PMID: 17242365). Macrophages accumulate in aged tissues (Tabula Muris Consortium, *Nature*, 2020, PMID: 32669714; inflammaging: Franceschi et al., 2000, PMID: 10911963). When bulk tissue is sequenced, the macrophage-derived miR-155 overwhelms the parenchymal cell signal, creating the false appearance of miR-155 upregulation. Furthermore, macrophage-derived exosomes can deliver miR-155 to neighboring parenchymal cells, inducing senescence in kidney epithelium (Yin et al., *Cell Commun Signal*, 2024, PMID: 38987851) and endothelium (He et al., *Hum Mutat*, 2025, PMID: 40486266). This exosomal transfer could confound in vivo OFF-switch performance by introducing macrophage-derived miR-155 into senescent cells that should have low endogenous miR-155. No prior publication has connected these observations into a unified explanation for the miR-155 in vitro/in vivo paradox. See GSE217458 analysis report for detailed discussion.
+**The in vivo increase is likely a cell-composition artifact driven by immune cell infiltration.** miR-155 is >100-fold enriched in activated macrophages (Mann et al., *PLoS One*, 2017, PMID: 27447824; O'Connell et al., *PNAS*, 2007, PMID: 17242365). Macrophages accumulate in aged tissues as part of inflammaging (Tabula Muris Consortium, *Nature*, 2020, PMID: 32669714; Franceschi et al., 2000, PMID: 10911963). When bulk tissue is sequenced, the macrophage-derived miR-155 likely overwhelms the parenchymal cell signal. While this connection between miR-155 biology and bulk tissue measurement is implicit in the literature, the individual observations are well-established: Olivieri et al. (*Front Genet*, 2013, PMID: 23805154) termed miR-155 an "inflamma-miR" and raised the question of cellular source for circulating miRNAs, and deconvolution tools for bulk miRNA data are now available (Roest et al., *Nat Commun*, 2025). The specific practical implication for circuit design — that macrophage-derived exosomal miR-155 could engage an OFF switch in senescent target cells, creating a "therapeutic dead zone" — is, to our knowledge, a novel concern. Recent studies show macrophage exosomes deliver miR-155 to kidney epithelium (Yin et al., *Cell Commun Signal*, 2024, PMID: 38987851) and endothelium (He et al., *Hum Mutat*, 2025, PMID: 40486266), inducing senescence in recipient cells. This paracrine transfer mechanism could confound in vivo OFF-switch performance. See GSE217458 analysis report for detailed discussion.
 
 **Verdict:** Excellent OFF-switch for fibroblast-specific in vitro circuits. In vivo performance uncertain due to macrophage-derived miR-155 and inflammaging. Requires single-cell or deconvolution validation before in vivo use.
 
@@ -442,15 +442,15 @@ Herbert's planned doxorubicin small RNA-seq experiment in mouse tissues (in vivo
 
 6. **miR-155-5p is the strongest OFF-switch candidate for fibroblast circuits**, with 7-10x decline validated in both WI-38 (GSE299871) and MRC-5 (GSE117818). However, its in vivo behavior is complicated by immune cell infiltration, which drives miR-155 UP in aged tissues. This paradox (cell-autonomous DOWN, tissue-level UP) must be resolved empirically before using it for in vivo de-targeting.
 
-6. **Several highly-cited senescence miRNAs (miR-184, miR-96, miR-215, miR-375) are not expressed at detectable levels** in any human cell type we analyzed. Their identification as "senescence markers" in the literature reflects fold-change-based analysis of negligible absolute expression — a systemic methodological problem in the field that has implications beyond circuit design.
+7. **Several highly-cited senescence miRNAs (miR-184, miR-96, miR-215, miR-375) are not expressed at detectable levels** in any human cell type we analyzed. Their identification as "senescence markers" in the literature reflects fold-change-based analysis of negligible absolute expression — a systemic methodological problem in the field that has implications beyond circuit design.
 
-7. **The recommended immediate next step is empirical:** build a miR-34a-5p ON-switch prototype and test whether endogenous miR-34a levels in senescent cells (~250 copies in fibroblasts) can activate the switch. This experiment will establish the practical threshold that no amount of computational analysis can determine. Simultaneously, Herbert's planned doxorubicin small RNA-seq experiment in primary human dermal fibroblasts and mouse tissues should proceed to identify potentially better candidates in his target systems.
+8. **The recommended immediate next step is empirical:** build a miR-34a-5p ON-switch prototype and test whether endogenous miR-34a levels in senescent cells (~250 copies in fibroblasts) can activate the switch. This experiment will establish the practical threshold that no amount of computational analysis can determine. Simultaneously, Herbert's planned doxorubicin small RNA-seq experiment in primary human dermal fibroblasts and mouse tissues should proceed to identify potentially better candidates in his target systems.
 
-8. **miR-92a-3p emerges as the most consistent cross-tissue OFF-switch in human aging data**, declining in all three human tissues analyzed: blood (0.71x), skin (0.75x), and heart (0.76x). Combined with its decline in senescent fibroblasts (0.32-0.47x), it is the only OFF-switch candidate validated across both in vitro senescence and human in vivo aging in multiple tissues.
+9. **miR-92a-3p emerges as the most consistent cross-tissue OFF-switch in human aging data**, declining in all three human tissues analyzed: blood (0.71x), skin (0.75x), and heart (0.76x). Combined with its decline in senescent fibroblasts (0.32-0.47x), it is the only OFF-switch candidate validated across both in vitro senescence and human in vivo aging in multiple tissues.
 
-9. **Blood and tissue miRNA aging patterns diverge dramatically.** Most miRNAs decline in aged blood (due to immunosenescence/lymphocyte contraction; Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120) but are stable or UP in aged tissues. This means blood/serum/plasma miRNA studies cannot be used to infer tissue-level changes relevant to circuit design.
+10. **Blood and tissue miRNA aging patterns diverge dramatically.** Most miRNAs decline in aged blood (due to immunosenescence/lymphocyte contraction; Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120) but are stable or UP in aged tissues. This means blood/serum/plasma miRNA studies cannot be used to infer tissue-level changes relevant to circuit design.
 
-10. **A universal senolytic circuit may not be achievable.** Tissue-specific circuit panels — each tuned to the miRNA landscape of its target tissue — may be more realistic than a single design that works everywhere. The liver-accumulation property of LNPs makes liver-specific de-targeting (via miR-122-5p OFF switch) a practical first target regardless of which ON-switch inputs are used.
+11. **A universal senolytic circuit may not be achievable.** Tissue-specific circuit panels — each tuned to the miRNA landscape of its target tissue — may be more realistic than a single design that works everywhere. The liver-accumulation property of LNPs makes liver-specific de-targeting (via miR-122-5p OFF switch) a practical first target regardless of which ON-switch inputs are used.
 
 ---
 
@@ -488,11 +488,14 @@ Herbert's planned doxorubicin small RNA-seq experiment in mouse tissues (in vivo
 30. Hulsmans M et al. *J Exp Med*. 2018;215(2):423-440. PMID: 29339450 (cardiac macrophages aging)
 31. Goronzy JJ, Weyand CM. *Nat Immunol*. 2013;14(5):428-436. PMID: 24048120 (immunosenescence)
 32. van Rooij E et al. *PNAS*. 2008;105(35):13027-13032. PMID: 18723672 (miR-29/cardiac fibrosis)
-24. Mann M et al. *PLoS One*. 2017;12(7):e0159724. PMID: 27447824 (miR-155 >100x in M1 macrophages)
-25. The Tabula Muris Consortium. *Nature*. 2020;583:590-595. PMID: 32669714 (immune cell composition changes in aging)
-26. Yin Q et al. *Cell Commun Signal*. 2024;22:386. PMID: 38987851 (macrophage exosomal miR-155 → epithelial senescence)
-27. He J et al. *Hum Mutat*. 2025;2025:6771390. PMID: 40486266 (M1 macrophage exosomal miR-155 → endothelial senescence)
-28. Roest et al. *Nat Commun*. 2025. DOI: 10.1038/s41467-025-60521-x (miRNA cell-type deconvolution)
-29. Hernandez de Sande A et al. *Genome Med*. 2025;17:112. PMID: 41053866 (single-cell miRNA in immune aging)
-30. Franceschi C et al. *Ann N Y Acad Sci*. 2000;908:244-254. PMID: 10911963 (inflammaging)
-31. Prata LGPL et al. *Semin Immunol*. 2018;40:101275 (senescent cell immune clearance)
+33. Mann M et al. *PLoS One*. 2017;12(7):e0159724. PMID: 27447824 (miR-155 >100x in M1 macrophages)
+34. The Tabula Muris Consortium. *Nature*. 2020;583:590-595. PMID: 32669714 (immune cell composition changes in aging)
+35. Yin Q et al. *Cell Commun Signal*. 2024;22:386. PMID: 38987851 (macrophage exosomal miR-155 → epithelial senescence)
+36. He J et al. *Hum Mutat*. 2025;2025:6771390. PMID: 40486266 (M1 macrophage exosomal miR-155 → endothelial senescence)
+37. Roest et al. *Nat Commun*. 2025. DOI: 10.1038/s41467-025-60521-x (miRNA cell-type deconvolution)
+38. Hernandez de Sande A et al. *Genome Med*. 2025;17:112. PMID: 41053866 (single-cell miRNA in immune aging)
+39. Franceschi C et al. *Ann N Y Acad Sci*. 2000;908:244-254. PMID: 10911963 (inflammaging)
+40. Prata LGPL et al. *Semin Immunol*. 2018;40:101275 (senescent cell immune clearance)
+41. Mikulski M, Fendler W et al. 2024. PMID: 38650024 (ASCT serum miRNA-seq)
+42. Tam S et al. *Brief Bioinform*. 2015;16(6):950-963. PMID: 25888698 (miRNA-seq normalization)
+43. Schurch NJ et al. *RNA*. 2016;22(6):839-851. PMID: 27022035 (replicate requirements)

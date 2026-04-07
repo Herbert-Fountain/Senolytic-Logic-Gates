@@ -22,22 +22,43 @@ This project develops tools to support the design of synthetic mRNA-based Boolea
 
 ```
 Senolytic-Logic-Gates/
-├── README.md                          # This file
+├── README.md
 ├── literature/
-│   ├── saito_logic_gates_review.md    # Review of Saito lab's mRNA circuit papers
-│   └── senescence_mirna_review.md     # Review of senescence miRNA profiling studies
+│   ├── saito_logic_gates_review.md          # Saito lab mRNA circuit papers (7 papers)
+│   ├── senescence_mirna_review.md           # Senescence miRNA profiling studies (12 studies)
+│   ├── aging_mirna_datasets.md              # Natural aging miRNA-seq datasets (14 datasets)
+│   ├── human_senescence_datasets.md         # Human senescence miRNA-seq catalog
+│   ├── human_aging_tissue_mirna_datasets.md # Human aging tissue datasets (incl. GTEx)
+│   └── chemotherapy_patient_mirna_datasets.md # Chemo patient miRNA-seq gap analysis
 ├── data/
-│   ├── README.md                      # Data sources, provenance, and access details
-│   ├── GSE94410/                      # HUVEC replicative senescence (Terlecki-Zaniewicz 2018)
-│   │   ├── GSE94410_CountTable.txt    # Raw miRNA counts (2,578 miRNAs × 15 samples)
-│   │   └── analysis_notes.md          # Analysis of candidate miRNAs in this dataset
-│   └── GSE27404/                      # IMR90 replicative senescence (Dhahbi 2011)
-│       └── (to be downloaded)
+│   ├── README.md                            # Data provenance documentation
+│   ├── GSE94410/                            # HUVEC replicative senescence (human)
+│   ├── GSE299871/                           # WI-38 DXR/SDS/RS senescence (human)
+│   ├── GSE202120/                           # HAEC irradiation dose-response (human)
+│   ├── GSE117818/                           # MRC-5 replicative senescence (human)
+│   ├── GSE200330/                           # Synovial fibroblast EV irradiation (human)
+│   ├── GSE217458/                           # Mouse 16-tissue aging (771 samples)
+│   ├── GSE55164/                            # Mouse muscle aging
+│   ├── GSE172269/                           # Rat 11-organ aging BodyMap (320 samples)
+│   ├── GSE136926/                           # Human cardiac aging (ages 38-72)
+│   ├── GSE111281/                           # Human skin aging (ages 24-80)
+│   ├── GSE111174/                           # Human blood aging (ages 24-80)
+│   ├── GSE182598/                           # Human plasma aging (n=103)
+│   └── GSE27404/                            # IMR90 replicative senescence (BedGraph)
 ├── analysis/
-│   ├── GSE94410_candidate_analysis.md # Detailed writeup of GSE94410 findings
-│   └── (future analyses)
-├── docs/
-│   └── (project documentation)
+│   ├── cross_study_synthesis.md             # Master synthesis (11 datasets, 43 refs)
+│   ├── methods_and_statistical_framework.md # Best practices and guidelines
+│   ├── normalization_corrections.md         # CPM corrections to raw FC estimates
+│   ├── GSE299871_analysis.md                # WI-38 DXR/SDS/RS analysis
+│   ├── GSE94410_analysis.md                 # HUVEC analysis
+│   ├── GSE202120_analysis.md                # HAEC irradiation analysis
+│   ├── GSE117818_analysis.md                # MRC-5 time course analysis
+│   ├── GSE217458_analysis.md                # Mouse 16-tissue aging analysis
+│   ├── GSE55164_analysis.md                 # Mouse muscle aging analysis
+│   ├── GSE200330_analysis.md                # EV miRNA analysis
+│   ├── GSE172269_analysis.md                # Rat BodyMap analysis
+│   ├── GSE136926_analysis.md                # Human cardiac aging analysis
+│   └── GSE111281_GSE111174_analysis.md      # Human skin + blood aging analysis
 └── tools/
     └── (circuit design tools — in development)
 ```
@@ -56,14 +77,21 @@ Senescent cells secrete 4x more extracellular vesicles than healthy cells, and >
 ### 4. No hard miRNA expression threshold exists for switch activation
 The Saito lab explicitly states that the system depends on the ratio of endogenous miRNA to delivered switch mRNA, and no quantitative copies-per-cell threshold has been defined. This means empirical optimization is required for each miRNA input.
 
-## Data Sources
+## Data Sources (11 Datasets Analyzed)
 
-| Dataset | GEO Accession | Cell Type | Senescence Inducer | Method | Status |
-|---------|--------------|-----------|-------------------|--------|--------|
-| Terlecki-Zaniewicz 2018 | [GSE94410](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE94410) | HUVEC | Replicative | small RNA-seq | Downloaded, analyzed |
-| Dhahbi 2011 | [GSE27404](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE27404) | IMR90 | Replicative | small RNA-seq | To download |
-| Weigl/Grillari 2024 | TBD | 5 human primary types | Doxorubicin | small RNA-seq | Preprint, data TBD |
-| Casella 2019 | [GSE130727](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130727) | WI-38, IMR-90, HUVEC | Multiple (incl. dox) | mRNA-seq | Reference |
+| # | Dataset | GEO | Cell/Tissue | Context | Organism | Samples |
+|---|---------|-----|------------|---------|----------|---------|
+| 1 | RNA Biology 2025 | GSE299871 | WI-38 fibroblasts | DXR, SDS, RS senescence | Human | 36 |
+| 2 | Terlecki-Zaniewicz 2018 | GSE94410 | HUVECs | Replicative senescence | Human | 15 |
+| 3 | Engel 2022 | GSE202120 | HAECs | Irradiation (0-10 Gy) | Human | 35 |
+| 4 | JenAge | GSE117818 | MRC-5 fibroblasts | Replicative senescence | Human | 15 |
+| 5 | Peiris 2022 | GSE200330 | Synovial fibroblast EVs | Irradiation | Human | 6 |
+| 6 | Wagner 2024 | GSE217458 | 16 mouse tissues | Natural aging | Mouse | 771 |
+| 7 | Kim 2014 | GSE55164 | Mouse muscle | Natural aging | Mouse | 12 |
+| 8 | Bushel 2022 | GSE172269 | 11 rat organs (incl. liver, kidney) | Natural aging | Rat | 320 |
+| 9 | Ma 2019 | GSE136926 | Human right atrium | Natural aging (38-72yr) | Human | 12 |
+| 10 | JenAge | GSE111281 | Human skin | Natural aging (24-80yr) | Human | 30 |
+| 11 | JenAge | GSE111174 | Human blood | Natural aging (24-80yr) | Human | 30 |
 
 ## References
 
