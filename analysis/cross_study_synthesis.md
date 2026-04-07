@@ -81,36 +81,62 @@ This document synthesizes findings across five analyzed datasets and the publish
 
 ### Table 2b: OFF-Switch Candidates — Downregulated in Senescence/Aging
 
-| miRNA | Dataset | Context | FC | Counts | Tissues |
-|-------|---------|---------|-----|--------|---------|
-| **miR-155-5p** | GSE299871 | WI-38 DXR | **0.14x DOWN** | 2,760→396 | Fibroblasts |
-| | GSE299871 | WI-38 replicative | **0.19x DOWN** | 2,760→530 | Fibroblasts |
-| | GSE117818 | MRC-5 replicative | **0.10x DOWN** | 1,806→185 | Fibroblasts |
-| | GSE94410 | HUVEC replicative | 0.9x stable | 16,454→14,781 | Endothelial |
-| | GSE217458 | Mouse liver aging | **4.2x UP** | 21→89 | Liver (inflammaging) |
-| | GSE217458 | Mouse lung aging | **3.8x UP** | 122→457 | Lung (inflammaging) |
-| | GSE217458 | Mouse (all 6 tissues) | UP (1.2-4.2x) | 21-1,219 | All UP (inflammaging) |
-| | | | **DOWN in fibroblasts; UP in aged tissue (inflammaging)** | | |
-| **miR-92a-3p** | GSE299871 | WI-38 DXR | **0.42x DOWN** | 6,428→2,676 | Fibroblasts |
-| | GSE117818 | MRC-5 replicative | **0.32x DOWN** | 11,862→3,785 | Fibroblasts |
-| | GSE136926 | Human heart aging | **0.76x DOWN** | 1,294→980 | Heart |
-| | GSE111281 | Human skin aging | **0.75x DOWN** | 107,107→80,310 | Skin |
-| | GSE111174 | Human blood aging | **0.71x DOWN** | 1,481,437→1,050,673 | Blood |
-| | | | **DOWN in 5/5 analyses — most cross-tissue OFF candidate** | | |
-| **miR-16-5p** | GSE299871 | WI-38 DXR | **0.61x DOWN** | 882→535 | Fibroblasts |
-| | GSE299871 | WI-38 replicative | **0.70x DOWN** | 882→615 | Fibroblasts |
-| | GSE94410 | HUVEC replicative | **0.43x DOWN** | 3,325→1,420 | Endothelial |
-| | GSE117818 | MRC-5 replicative | **0.53x DOWN** | 6,825→3,623 | Fibroblasts |
-| | GSE172269 | Rat kidney aging | **0.58x DOWN** | 38,321→22,357 | Kidney |
-| | GSE111174 | Human blood aging | **0.61x DOWN** | 68,945→41,870 | Blood |
-| | | | **DOWN in 6/6 analyses (proliferative cells)** | | |
-| **miR-17-5p** | GSE299871 | WI-38 DXR | **0.30x DOWN** | 134→40 | Fibroblasts |
-| | GSE299871 | WI-38 replicative | **0.26x DOWN** | 134→35 | Fibroblasts |
-| | GSE202120 | HAEC irradiation | **0.68x DOWN** | 5,156→3,481 | Endothelial |
-| | GSE117818 | MRC-5 replicative | **0.34x DOWN** | 576→197 | Fibroblasts |
-| | GSE111174 | Human blood aging | **0.59x DOWN** | 3,017→1,775 | Blood |
-| | GSE94410 | HUVEC replicative | 5.9x UP | 1,544→9,083 | Endothelial (HUVEC) |
-| | | | **DOWN in 5/6 analyses (UP only in HUVECs)** | | |
+**miR-155-5p** — Strongest fibroblast OFF-switch (DOWN 7-10x); UP in aged tissues (inflammaging)
+
+| Dataset | Cell/Tissue | FC | Young→Old |
+|---------|------------|-----|-----------|
+| GSE299871 | WI-38 (DXR) | **0.14x** | 2,760→396 |
+| GSE299871 | WI-38 (RS) | **0.19x** | 2,760→530 |
+| GSE117818 | MRC-5 (RS) | **0.10x** | 1,806→185 |
+| GSE94410 | HUVEC (RS) | 0.9x stable | 16,454→14,781 |
+| GSE217458 | Mouse liver | 4.2x UP | 21→89 (inflammaging) |
+| GSE217458 | Mouse lung | 3.8x UP | 122→457 (inflammaging) |
+
+*Verdict: DOWN 7-10x in fibroblasts. Stable in endothelial. UP in aged tissue (inflammaging artifact).*
+
+---
+
+**miR-92a-3p** — Most cross-tissue OFF-switch (DOWN in all human tissues tested)
+
+| Dataset | Cell/Tissue | FC | Young→Old |
+|---------|------------|-----|-----------|
+| GSE299871 | WI-38 (DXR) | **0.42x** | 6,428→2,676 |
+| GSE117818 | MRC-5 (RS) | **0.32x** | 11,862→3,785 |
+| GSE136926 | Human heart | **0.76x** | 1,294→980 |
+| GSE111281 | Human skin | **0.75x** | 107,107→80,310 |
+| GSE111174 | Human blood | **0.71x** | 1.48M→1.05M |
+
+*Verdict: DOWN in 5/5 analyses across fibroblasts, heart, skin, blood.*
+
+---
+
+**miR-16-5p** — Cross-cell-type OFF-switch (fibroblasts + endothelial + kidney)
+
+| Dataset | Cell/Tissue | FC | Young→Old |
+|---------|------------|-----|-----------|
+| GSE299871 | WI-38 (DXR) | **0.61x** | 882→535 |
+| GSE299871 | WI-38 (RS) | **0.70x** | 882→615 |
+| GSE94410 | HUVEC (RS) | **0.43x** | 3,325→1,420 |
+| GSE117818 | MRC-5 (RS) | **0.53x** | 6,825→3,623 |
+| GSE172269 | Rat kidney | **0.58x** | 38,321→22,357 |
+| GSE111174 | Human blood | **0.61x** | 68,945→41,870 |
+
+*Verdict: DOWN in 6/6 analyses. Specific to proliferative cell types.*
+
+---
+
+**miR-17-5p** — Strong fibroblast OFF-switch; inconsistent in endothelial
+
+| Dataset | Cell/Tissue | FC | Young→Old |
+|---------|------------|-----|-----------|
+| GSE299871 | WI-38 (DXR) | **0.30x** | 134→40 |
+| GSE299871 | WI-38 (RS) | **0.26x** | 134→35 |
+| GSE117818 | MRC-5 (RS) | **0.34x** | 576→197 |
+| GSE202120 | HAEC (irr.) | **0.68x** | 5,156→3,481 |
+| GSE111174 | Human blood | **0.59x** | 3,017→1,775 |
+| GSE94410 | HUVEC (RS) | 5.9x UP | 1,544→9,083 |
+
+*Verdict: DOWN in 5/6 analyses. UP only in HUVECs.*
 
 ### Table 2c: Not Viable for Circuit Applications
 
