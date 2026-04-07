@@ -131,7 +131,7 @@ Note: GSE202120 captures early growth arrest (72h post-irradiation), not establi
 | GSE111281 | **Human skin aging** | 1.25x UP | 828→1,035 | Raw (precursor, pending CPM) |
 | GSE111174 | Human blood aging | Not expressed | 2 counts | Raw |
 
-**Summary: UP in 18/21 analyses.** Exceptions: mouse skin (1.17x, borderline), rat heart (0.84x, borderline decline), human blood (not expressed). miR-34a-5p is the most consistently upregulated miRNA across 4 senescence inducers, 4 human cell types (WI-38, MRC-5, HUVEC, HAEC), 2 human tissues in vivo (heart, skin), 3 organisms (human, mouse, rat), and both in vitro and in vivo contexts. It is notably absent from blood (<2 counts).
+**Summary: UP in 18 of 21 individual analyses (11 datasets; multi-tissue datasets analyzed per tissue).** Exceptions: mouse skin (1.17x, borderline), rat heart (0.84x, borderline decline), human blood (not expressed). miR-34a-5p is the most consistently upregulated miRNA across 4 senescence inducers, 4 human cell types (WI-38, MRC-5, HUVEC, HAEC), 2 human tissues in vivo (heart, skin), 3 organisms (human, mouse, rat), and both in vitro and in vivo contexts. It is notably absent from blood (<2 counts).
 
 **Mechanistic basis:** miR-34a is a direct transcriptional target of p53 (He et al., *Nature*, 2007, PMID: 17554337), which targets SIRT1 (Yamakuchi et al., *PNAS*, 2008, PMID: 18755897). Since p53 activation is the convergent node of all senescence pathways, miR-34a upregulation is mechanistically expected across inducers.
 
@@ -362,7 +362,7 @@ No publicly deposited small RNA-seq dataset exists with paired pre/post-chemothe
 
 ## 9. Conclusions
 
-1. **miR-34a-5p is the only consistent ON-switch candidate**, UP in 18/21 analyses across 4 inducers, 4 human cell types, 3 organisms. After CPM correction, the DXR fold change is 1.5x (~45 estimated copies/cell). Whether this is sufficient for switch activation is the critical empirical question.
+1. **miR-34a-5p is the only consistent ON-switch candidate**, UP in 18 of 21 individual analyses (11 datasets; multi-tissue datasets analyzed per tissue) across 4 inducers, 4 human cell types, 3 organisms. After CPM correction, the DXR fold change is 1.5x (~45 estimated copies/cell). Whether this is sufficient for switch activation is the critical empirical question.
 
 2. **miR-155-5p is the strongest OFF-switch** (11x decline, CPM-corrected) but fibroblast-specific. UP in senescent HUVECs (CPM 1.81x) and aged tissues (inflammaging).
 
@@ -374,7 +374,7 @@ No publicly deposited small RNA-seq dataset exists with paired pre/post-chemothe
 
 6. **A truly universal circuit is not achievable** - no OFF-switch declines in senescent endothelial cells after CPM correction. Tissue-specific panels may be more realistic.
 
-7. **Blood and tissue miRNA aging patterns diverge** due to immunosenescence. Blood studies cannot inform tissue-level circuit design.
+7. **Blood and tissue miRNA aging patterns diverge.** In our analysis, most miRNAs decline in aged human blood (GSE111174) but are stable or increase in aged solid tissues (GSE111281 skin, GSE136926 heart). This divergence is driven by immunosenescence: aged blood contains fewer proliferative lymphocytes due to thymic involution, and since lymphocytes are the dominant miRNA-producing cells in blood, the global miRNA pool contracts with age (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). This matters for circuit design because (a) blood-based miRNA biomarker studies cannot be used to predict what the circuit will encounter inside solid tissue cells, and (b) miR-34a-5p, our top ON-switch candidate, is essentially absent from blood (<2 counts) despite being consistently upregulated in solid tissues - meaning it would never have been discovered by circulating miRNA studies alone.
 
 8. **The recommended first experiment** is testing miR-34a-5p switch activation at endogenous senescent cell levels. All circuit architectures depend on this.
 
