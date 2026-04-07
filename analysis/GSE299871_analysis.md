@@ -29,8 +29,14 @@
 |-----------|-------------|------------|---------|
 | **Ctrl** | Untreated controls | Single | 2 |
 | **DXR** | Doxorubicin-induced DDR senescence | D0, D1, D2, D3, D4, D6, D8, D16 | 16 (2 × 8) |
-| **SDS** | SDS-induced plasma membrane damage senescence | D0, D1, D2, D3, D4, D6, D8, D16 | 16 (2 × 8) |
-| **RS** | Replicative senescence | Single (endpoint) | 2 |
+| **SDS (PMD-Sen)** | SDS-induced plasma membrane damage senescence (see below) | D0, D1, D2, D3, D4, D6, D8, D16 | 16 (2 × 8) |
+| **RS** | Replicative senescence (serial passaging to exhaustion) | Single (endpoint) | 2 |
+
+### What is SDS/PMD-Senescence?
+
+Plasma membrane damage-induced senescence (PMD-Sen) is a recently characterized senescence pathway triggered by sub-lethal damage to the cell's plasma membrane using sodium dodecyl sulfate (SDS), a detergent. Unlike the more familiar DNA damage response (DDR)-induced senescence caused by doxorubicin or irradiation, PMD-Sen is initiated by **membrane stress** rather than nuclear DNA damage. The treated cells develop canonical senescence markers (SA-β-gal, p21, growth arrest) but through a mechanistically distinct upstream pathway. This model was first characterized in the GSE299871 study itself (RNA Biology, 2025, DOI: 10.1080/15476286.2025.2551299).
+
+The inclusion of PMD-Sen alongside DXR and replicative senescence in the same cell type makes this dataset uniquely valuable: it allows us to ask whether miRNA changes are specific to the DNA damage response or are shared across fundamentally different senescence-triggering mechanisms. miRNAs that change in both DXR (DNA damage) AND SDS (membrane damage) are more likely to be downstream of the senescence program itself rather than upstream damage-sensing pathways.
 
 **Why this matters:** This is the ONLY publicly available small RNA-seq dataset with doxorubicin-induced senescence in human cells. The time course design allows us to see how miRNA profiles evolve as senescence develops, and the inclusion of three different senescence inducers in the same cell type enables direct comparison of inducer-specific vs. shared miRNA changes.
 
