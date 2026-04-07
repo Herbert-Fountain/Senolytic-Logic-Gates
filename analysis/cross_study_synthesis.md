@@ -8,7 +8,7 @@
 
 ## 1. Overview
 
-This document synthesizes findings across five analyzed datasets and the published literature to assess the feasibility of identifying miRNA inputs for senolytic logic gate circuits. We evaluate each candidate miRNA based on four criteria essential for circuit function:
+This document synthesizes findings across eleven analyzed datasets (1,300+ samples across 3 organisms) and the published literature to assess the feasibility of identifying miRNA inputs for senolytic logic gate circuits. We evaluate each candidate miRNA based on four criteria essential for circuit function:
 
 1. **Absolute expression level** — sufficient intracellular copies to engage synthetic mRNA switches
 2. **Differential expression** — higher in senescent/aged cells than in healthy/young cells
@@ -375,17 +375,17 @@ The miR-155-5p discrepancy (DOWN in vitro, UP in vivo) is the clearest example o
 
 ### 6.1 Design Goal and Constraints
 
-**Goal:** Express a cytotoxic payload (Gasdermin or DTA) **only in senescent cells** while sparing healthy cells, regardless of tissue type. The circuit must discriminate senescent vs. healthy cell states, not tissue types.
+**Goal:** Express a cytotoxic payload (Gasdermin or DTA) **only in senescent cells** while sparing healthy cells. The circuit must discriminate senescent vs. healthy cell states.
 
-**Hardware constraint:** Only L7Ae/K-turn repressor system is currently available. No orthogonal repressor (MS2CP) for now. However, multiple mRNA copies encoding L7Ae with **different MREs** can achieve AND-gate logic with a single repressor:
+**Hardware constraint:** Only the L7Ae/K-turn repressor system is currently available. No orthogonal repressor (MS2CP) for now. However, multiple mRNA copies encoding L7Ae with **different MREs** can achieve AND-gate logic with a single repressor:
 
 ```
 mRNA-1: [MREs for miRNA-A] — L7Ae CDS
 mRNA-2: [MREs for miRNA-B] — L7Ae CDS  
-mRNA-3: [K-turn] — Payload CDS (Gasdermin or DTA)
+mRNA-3: [K-turn in 5'UTR] — Payload CDS (Gasdermin or DTA)
 ```
 
-**Logic:** L7Ae represses the payload. Both miRNA-A AND miRNA-B must be present to knock down BOTH L7Ae mRNAs. If either miRNA is absent, that L7Ae mRNA is translated, L7Ae accumulates, and the payload stays OFF. Only when both miRNAs are present (indicating a senescent cell) is all L7Ae eliminated and the payload expressed.
+**Logic:** L7Ae protein represses the payload mRNA. Both miRNA-A AND miRNA-B must be present to silence BOTH L7Ae mRNAs. If either miRNA is absent, that L7Ae mRNA is translated, L7Ae protein accumulates, and the payload stays OFF. Only when both miRNAs are simultaneously present (indicating a senescent cell) is all L7Ae production eliminated and the payload expressed.
 
 **Selectivity requirement:** For a cytotoxic payload, even low-level leaky expression is lethal. We estimate a **minimum 5-fold ON/OFF ratio** is needed, though this requires empirical validation.
 
@@ -396,86 +396,138 @@ From the Saito lab:
 - Single miRNA OFF switch: resolves <2-fold differences (Endo et al., *Sci Rep*, 2016, PMID: 26902536)
 - Hybrid ON+OFF switch: up to 16-fold (Saito lab, *Mol Ther Nucleic Acids*, 2025)
 
-For an AND gate using two L7Ae mRNAs with different MREs, the expected selectivity depends on how much each miRNA reduces its corresponding L7Ae mRNA. If miRNA-A reduces L7Ae-mRNA-1 by X-fold and miRNA-B reduces L7Ae-mRNA-2 by Y-fold, both must be knocked down for payload expression. The selectivity should be **multiplicative**: X × Y.
+For an AND gate using two L7Ae mRNAs with different MREs, the expected selectivity is **multiplicative**: if miRNA-A provides X-fold discrimination and miRNA-B provides Y-fold, the combined selectivity is ~X × Y.
 
-### 6.3 Candidate Architectures
+### 6.3 Approach 1 — Universal Senolytic Circuit (All Cell Types)
 
-All architectures use the L7Ae-only AND gate design described above. The key question is which two senescence-associated miRNAs to use as inputs.
+The ideal circuit would kill senescent cells regardless of tissue origin. Based on our analysis, this requires miRNA inputs that change consistently across **both fibroblasts and endothelial cells** (at minimum).
 
-#### Architecture A: miR-34a-5p + miR-155-5p (ON + OFF, Fibroblast-Optimized)
+**Available ON-switch inputs:** Only miR-34a-5p is universal (UP in all cell types and tissues). CPM-corrected FC = 1.5x in WI-38 fibroblasts.
 
-```
-L7Ae-mRNA-1: MREs for miR-34a-5p → L7Ae silenced when miR-34a HIGH (senescent)
-L7Ae-mRNA-2: Constitutive L7Ae + miR-155-5p MREs in ON-switch configuration
-             → L7Ae translated when miR-155 HIGH (healthy); silenced when miR-155 LOW (senescent)
-```
+**Available OFF-switch inputs for universal use:**
 
-| miRNA | Healthy cell | Senescent cell | Discrimination |
-|-------|-------------|---------------|---------------|
+| Candidate | Fibroblasts | Endothelial | Selectivity |
+|-----------|------------|-------------|-------------|
+| miR-92a-3p | 0.26-0.42x | UP in HUVEC | **Not universal** |
+| miR-16-5p | 0.53-0.70x | 0.43x HUVEC | **Best cross-type** |
+
+#### Design U1: miR-34a + miR-16 (Universal attempt)
+
+| miRNA | Healthy | Senescent | Discrimination |
+|-------|---------|-----------|---------------|
+| miR-34a-5p | LOW → L7Ae-1 ON | HIGH → L7Ae-1 OFF | 1.5x |
+| miR-16-5p | HIGH → L7Ae-2 ON | LOW → L7Ae-2 OFF | 2.7x |
+| **Combined** | **Payload OFF** | **Payload ON** | **~4x** |
+
+**Assessment:** The only circuit with cross-cell-type support, but **~4x selectivity is likely insufficient** for a cytotoxic payload. miR-16 declines in fibroblasts (0.53-0.70x), HUVECs (0.43x), and aged rat kidney (0.58x), but is stable in aged skin and heart. The circuit may not discriminate well in all tissues.
+
+#### Design U2: miR-34a + miR-92a (Broad tissue, fibroblast-optimized)
+
+| miRNA | Healthy | Senescent | Discrimination |
+|-------|---------|-----------|---------------|
+| miR-34a-5p | LOW → L7Ae-1 ON | HIGH → L7Ae-1 OFF | 1.5x |
+| miR-92a-3p | HIGH (23K CPM) → L7Ae-2 ON | LOW (6K CPM) → L7Ae-2 OFF | 3.8x |
+| **Combined** | **Payload OFF** | **Payload ON** | **~5.7x** |
+
+**Assessment:** miR-92a declines in senescent fibroblasts (0.26-0.42x) and in aged human heart (0.76x), skin (0.75x), and blood (0.71x). No inflammaging confound. However, miR-92a is UP in senescent HUVECs — so this circuit would fail to activate in senescent endothelial cells. Better described as "broad tissue" rather than truly universal.
+
+#### Verdict on Universal Approach
+
+**A truly universal senolytic circuit is not achievable with current data.** No OFF-switch miRNA declines consistently across all cell types during senescence. miR-16-5p comes closest but provides only ~2.7x discrimination. The fundamental problem is that senescence miRNA programs are cell-type-specific, as documented throughout this analysis.
+
+---
+
+### 6.4 Approach 2 — Senescent Fibroblast-Specific Circuit
+
+Fibroblasts are the most common cell type studied in senescence and accumulate in aging tissues (contributing to fibrosis). A fibroblast-specific senolytic would have broad therapeutic relevance even without targeting other cell types.
+
+**Available ON-switch inputs in fibroblasts:**
+
+| Candidate | FC (CPM) | Counts (senescent) | Validated in |
+|-----------|---------|-------------------|-------------|
+| miR-34a-5p | 1.5x UP | 558 CPM | WI-38 + MRC-5 |
+| miR-22-3p | 1.7x UP | 15,543 CPM | WI-38 only (not MRC-5) |
+
+**Available OFF-switch inputs in fibroblasts:**
+
+| Candidate | FC (CPM) | Counts (healthy) | Validated in |
+|-----------|---------|------------------|-------------|
+| miR-155-5p | **0.09x (11x DOWN)** | 9,887 CPM | WI-38 + MRC-5 |
+| miR-92a-3p | 0.26x (3.8x DOWN) | 23,101 CPM | WI-38 + MRC-5 |
+| miR-17-5p | 0.19x (5.3x DOWN) | 472 CPM | WI-38 + MRC-5 |
+| miR-16-5p | 0.37x (2.7x DOWN) | 3,172 CPM | WI-38 + MRC-5 |
+
+#### Design F1: miR-34a ON + miR-155 OFF (Best selectivity)
+
+| miRNA | Healthy | Senescent | Discrimination |
+|-------|---------|-----------|---------------|
 | miR-34a-5p | LOW (371 CPM) → L7Ae-1 ON | HIGH (558 CPM) → L7Ae-1 OFF | 1.5x |
 | miR-155-5p | HIGH (9,887 CPM) → L7Ae-2 ON | LOW (889 CPM) → L7Ae-2 OFF | **11x** |
-| **Combined** | **Both L7Ae ON → payload OFF** | **Both L7Ae OFF → payload ON** | **~16x** |
+| **Combined** | **Payload OFF** | **Payload ON** | **~16x** |
 
-**Strengths:** Strongest estimated selectivity (~16x). miR-155's 11x decline does the heavy lifting. Dual-layer protection.
+**Assessment:** Strongest selectivity. miR-155's dramatic decline does the heavy lifting. Both inputs validated across WI-38 and MRC-5 fibroblast lines.
 
-**Limitations:** Fibroblast-specific (miR-155 does not decline in senescent endothelial cells). In vivo, macrophage-derived exosomal miR-155 could confound the OFF switch by delivering miR-155 to senescent cells near inflammatory foci.
+**Risks:** (1) In vivo inflammaging — macrophage-derived exosomal miR-155 could engage the OFF switch in senescent cells near inflammatory foci. (2) Does not target senescent endothelial cells.
 
----
+#### Design F2: miR-34a ON + miR-92a OFF (High-expression OFF switch)
 
-#### Architecture B: miR-34a-5p + miR-92a-3p (ON + OFF, Broadest Applicability)
-
-```
-L7Ae-mRNA-1: MREs for miR-34a-5p → L7Ae silenced when miR-34a HIGH (senescent)
-L7Ae-mRNA-2: Constitutive L7Ae + miR-92a-3p MREs in ON-switch configuration
-             → L7Ae translated when miR-92a HIGH (healthy); silenced when miR-92a LOW (senescent)
-```
-
-| miRNA | Healthy cell | Senescent cell | Discrimination |
-|-------|-------------|---------------|---------------|
+| miRNA | Healthy | Senescent | Discrimination |
+|-------|---------|-----------|---------------|
 | miR-34a-5p | LOW → L7Ae-1 ON | HIGH → L7Ae-1 OFF | 1.5x |
 | miR-92a-3p | HIGH (23,101 CPM) → L7Ae-2 ON | LOW (6,053 CPM) → L7Ae-2 OFF | **3.8x** |
-| **Combined** | **Both L7Ae ON → payload OFF** | **Both L7Ae OFF → payload ON** | **~5.7x** |
+| **Combined** | **Payload OFF** | **Payload ON** | **~5.7x** |
 
-**Strengths:** miR-92a declines in fibroblasts (0.26-0.42x), human heart (0.76x), skin (0.75x), and blood (0.71x) — the broadest cross-tissue OFF candidate. No inflammaging confound (miR-92a is not immune-cell-enriched).
+**Assessment:** miR-92a has the highest absolute expression among OFF candidates, providing the best stoichiometric margin for L7Ae production. No inflammaging confound. Moderate selectivity.
 
-**Limitations:** Lower selectivity (~5.7x) than Architecture A. At the margin of what may be safe for a cytotoxic payload.
+#### Design F3: miR-34a ON + miR-17 OFF (Strongest OFF decline)
 
----
-
-#### Architecture C: miR-34a-5p + miR-16-5p (ON + OFF, Cross-Cell-Type)
-
-```
-L7Ae-mRNA-1: MREs for miR-34a-5p → silenced when miR-34a HIGH
-L7Ae-mRNA-2: miR-16-5p ON-switch → L7Ae ON when miR-16 HIGH; OFF when miR-16 LOW
-```
-
-| miRNA | Healthy cell | Senescent cell | Discrimination |
-|-------|-------------|---------------|---------------|
+| miRNA | Healthy | Senescent | Discrimination |
+|-------|---------|-----------|---------------|
 | miR-34a-5p | LOW → L7Ae-1 ON | HIGH → L7Ae-1 OFF | 1.5x |
-| miR-16-5p | HIGH (3,172 CPM) → L7Ae-2 ON | LOW (1,183 CPM) → L7Ae-2 OFF | **2.7x** |
-| **Combined** | **Both L7Ae ON → payload OFF** | **Both L7Ae OFF → payload ON** | **~4x** |
+| miR-17-5p | HIGH (472 CPM) → L7Ae-2 ON | LOW (88 CPM) → L7Ae-2 OFF | **5.4x** |
+| **Combined** | **Payload OFF** | **Payload ON** | **~8x** |
 
-**Strengths:** miR-16 is validated across fibroblasts AND endothelial cells AND rat kidney — the only OFF candidate with cross-cell-type validation. Mechanistically clean (cell cycle regulator declining during permanent arrest).
+**Assessment:** miR-17 shows 5.4x discrimination, second only to miR-155. Validated in WI-38, MRC-5, HAECs. However, healthy-cell expression is relatively low (472 CPM), which may limit the amount of L7Ae produced for payload repression.
 
-**Limitations:** Lowest selectivity (~4x). Likely insufficient for a cytotoxic payload without additional optimization.
+#### Design F4: Triple input — miR-34a ON + miR-155 OFF + miR-92a OFF
+
+```
+L7Ae-mRNA-1: MREs for miR-34a-5p → silenced in senescent
+L7Ae-mRNA-2: miR-155-5p ON-switch → L7Ae ON in healthy
+L7Ae-mRNA-3: miR-92a-3p ON-switch → L7Ae ON in healthy
+mRNA-4: [K-turn] — Payload
+```
+
+**Logic:** ALL THREE L7Ae sources must be eliminated for payload expression. Three-input AND gate.
+
+**Estimated selectivity:** 1.5 × 11 × 3.8 = **~63x**
+
+**Assessment:** Maximum selectivity using three orthogonal inputs. Adds a third layer of protection. The cost is circuit complexity (4 mRNAs to deliver) and increased LNP cargo. Feasible if each mRNA is co-encapsulated or if the total payload fits within LNP capacity.
 
 ---
 
-### 6.4 Architecture Comparison
+### 6.5 Comparison Summary
 
-| Architecture | Inputs | Selectivity | Applicability | Risk |
-|-------------|--------|------------|---------------|------|
-| **A** | miR-34a + miR-155 | **~16x** | Fibroblasts only | Inflammaging confound in vivo |
-| **B** | miR-34a + miR-92a | ~5.7x | Broad (fibro, heart, skin, blood) | Marginal selectivity |
-| **C** | miR-34a + miR-16 | ~4x | Cross-cell-type (fibro + endothelial) | Insufficient selectivity |
+| Design | Approach | Inputs | Selectivity | Best Use |
+|--------|----------|--------|-------------|----------|
+| U1 | Universal | miR-34a + miR-16 | ~4x | Cross-cell-type (insufficient selectivity) |
+| U2 | Universal | miR-34a + miR-92a | ~5.7x | Broad tissue (not endothelial) |
+| **F1** | **Fibroblast** | **miR-34a + miR-155** | **~16x** | **In vitro proof-of-concept** |
+| F2 | Fibroblast | miR-34a + miR-92a | ~5.7x | High-expression backup |
+| F3 | Fibroblast | miR-34a + miR-17 | ~8x | Intermediate option |
+| **F4** | **Fibroblast** | **miR-34a + miR-155 + miR-92a** | **~63x** | **Maximum safety (3-input)** |
 
-### 6.5 Recommendation
+### 6.6 Recommendations
 
-**For in vitro proof-of-concept: Architecture A (miR-34a + miR-155).** The ~16x estimated selectivity is the strongest achievable with current candidates. Test in doxorubicin-senescent vs. healthy WI-38 fibroblasts using Herbert's existing switch validation workflow.
+**First experiment:** Test whether miR-34a-5p alone, at ~45 estimated copies per cell in senescent WI-38 fibroblasts, can activate an ON switch. This determines whether any architecture is feasible.
 
-**For broadest applicability: Architecture B (miR-34a + miR-92a).** The ~5.7x selectivity is marginal but miR-92a has no inflammaging confound and declines across multiple human tissues. If empirical testing shows that L7Ae amplification provides additional selectivity beyond the multiplicative estimate, this architecture may be sufficient.
+**In vitro proof-of-concept:** Design F1 (miR-34a + miR-155, ~16x selectivity). Test in doxorubicin-senescent vs. healthy WI-38 fibroblasts.
 
-**Critical experiment needed first:** Test whether miR-34a-5p alone, at ~45 estimated copies per cell in senescent WI-38 fibroblasts, can activate an ON switch. If it cannot, all architectures fail and alternative miRNA discovery (Herbert's planned small RNA-seq) becomes urgent.
+**If F1 works:** Progress to Design F4 (triple input, ~63x) for maximum safety margin before in vivo testing.
+
+**If miR-34a threshold is too low:** Herbert's planned doxorubicin small RNA-seq becomes urgent — we need to find higher-abundance ON-switch candidates in the target cell types.
+
+**Long-term:** A universal circuit requires discovering miRNAs that change consistently across cell types. This may emerge from Herbert's multi-tissue in vivo experiment, or may require single-cell miRNA-seq of senescent cells across tissues to identify currently unknown universal markers.
 
 ---
 
