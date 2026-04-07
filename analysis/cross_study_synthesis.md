@@ -130,30 +130,74 @@ This document synthesizes findings across five analyzed datasets and the publish
 
 ### Tier 2: OFF-Switch / De-Targeting Candidates
 
-#### miR-155-5p — Potential De-Targeting Element
+A systematic search for miRNAs downregulated during senescence across all 6 datasets identified several candidates with potential as OFF-switch/de-targeting elements. For an effective OFF-switch, a miRNA must be (1) highly expressed in healthy/young cells to actively suppress payload translation, and (2) strongly reduced in senescent cells to permit payload expression.
+
+**Table 5: Downregulated miRNA candidates across datasets**
+
+| miRNA | WI-38 DXR (GSE299871) | WI-38 RS | HUVEC Rep. (GSE94410) | HAEC Irr. (GSE202120) | Mouse Aging (GSE217458) | Cross-Cell-Type? |
+|-------|----------------------|---------|----------------------|----------------------|------------------------|-----------------|
+| **miR-155-5p** | **0.14x** (2760→396) | **0.19x** | 0.90x stable | 0.92x stable | 2.0x UP | Fibroblasts only |
+| **miR-7-5p** | **0.34x** (452→152) | **0.46x** | 5.8x UP | **0.34x DOWN** | 1.2x stable | Fibro + HAEC, not HUVEC |
+| **miR-17-5p** | **0.30x** (134→40) | **0.26x** | 5.9x UP | **0.68x DOWN** | 1.2x stable | Fibro + HAEC, not HUVEC |
+| **miR-92a-3p** | **0.42x** (6428→2676) | **0.47x** | 2.6x UP | 1.0x stable | 1.2x stable | Fibroblasts only |
+| **miR-16-5p** | **0.61x** (882→535) | 0.70x | **0.43x DOWN** | 0.87x slight | 1.2x stable | **Fibro + HUVEC** |
+| miR-93-5p | 0.63x (1234→784) | **0.46x** | 1.8x UP | 1.1x stable | 1.2x stable | Fibroblasts only |
+
+---
+
+#### miR-155-5p — Strongest Decline, Fibroblast-Specific
 
 | Source | Context | Direction | FC | Absolute Level |
 |--------|---------|-----------|-----|---------------|
 | GSE299871 | DXR senescence (WI-38) | **DOWN** | **0.14x** | 2,760→396 |
 | GSE299871 | Replicative (WI-38) | **DOWN** | 0.19x | 2,760→530 |
+| GSE94410 | Replicative (HUVEC) | Stable | 0.90x | 16,454→14,781 |
+| GSE202120 | Irradiation (HAEC) | Stable | 0.92x | 14,815→13,597 |
 | GSE200330 | Irradiation EVs | **DOWN** | 0.25x | 28→7 |
 | GSE217458 | Mouse aging (in vivo) | **UP** | 1.2-4.2x | 21-1,200 RPMM |
 
-miR-155-5p presents a paradox: it is strongly DOWN in senescent cells in vitro but UP in aged tissues in vivo. The in vivo increase is likely driven by **immune cell infiltration** in aging tissues — miR-155 is a well-characterized immune regulator (O'Connell et al., *PNAS*, 2007, PMID: 17460050; Rodriguez et al., *Science*, 2007, PMID: 17463290). In isolated senescent fibroblasts, the cell-autonomous response is downregulation.
+miR-155-5p has the largest fold decline in senescent fibroblasts (7-fold) and high healthy-cell expression (2,760 counts), making it the best OFF-switch candidate for fibroblast circuits. However, it does **not** decline in senescent endothelial cells (stable in both HUVECs and HAECs), and it **increases** in aged tissues in vivo — likely driven by immune cell infiltration (O'Connell et al., *PNAS*, 2007, PMID: 17460050; Rodriguez et al., *Science*, 2007, PMID: 17463290).
 
-**For circuit design:** miR-155-5p could serve as a de-targeting/OFF-switch element — if present at high levels (indicating a healthy, non-senescent cell), it suppresses payload expression. The 7-fold decline in senescent cells provides good ON/OFF separation. However, its behavior in vivo (where immune cells contribute miR-155) needs careful consideration.
+**Verdict:** Excellent OFF-switch for fibroblast-specific circuits. Not suitable for universal or endothelial circuits.
 
 ---
 
-#### miR-17-5p — Declining in Senescent Fibroblasts
+#### miR-16-5p — The Only Cross-Cell-Type Downregulated Candidate
 
-| Source | Context | Direction | FC |
-|--------|---------|-----------|-----|
-| GSE299871 | DXR senescence (WI-38) | **DOWN** | 0.30x |
-| GSE299871 | Replicative (WI-38) | **DOWN** | 0.26x |
-| GSE94410 | Replicative (HUVEC) | UP (5.9x) | Opposite in HUVECs |
+| Source | Context | Direction | FC | Absolute Level |
+|--------|---------|-----------|-----|---------------|
+| GSE299871 | DXR senescence (WI-38) | **DOWN** | 0.61x | 882→535 |
+| GSE299871 | Replicative (WI-38) | **DOWN** | 0.70x | 882→615 |
+| GSE94410 | Replicative (HUVEC) | **DOWN** | **0.43x** | 3,325→1,420 |
+| GSE202120 | Irradiation (HAEC) | Slight DOWN | 0.87x | 1,542→1,347 |
+| GSE217458 | Mouse aging (in vivo) | Stable | 1.21x | ~3,500-4,200 RPMM |
 
-The miR-17 family decline in senescent fibroblasts is consistent with published reports (Faraonio et al., 2012, PMID: 22052189). However, HUVECs show the opposite pattern. This limits miR-17 to fibroblast-specific de-targeting.
+**miR-16-5p is the ONLY miRNA in our analysis that is downregulated in BOTH fibroblasts AND endothelial cells during senescence.** The decline is modest in fibroblasts (0.61x in DXR, 0.70x in RS) but more substantial in HUVECs (0.43x). Expression in healthy cells is moderate-to-high (882-3,325 counts), sufficient for OFF-switch engagement.
+
+miR-16-5p is a known regulator of cell cycle progression, targeting multiple cyclins and CDKs (Linsley et al., *RNA*, 2007, PMID: 17210802). Its downregulation during senescence may reflect the global cell cycle arrest that characterizes the senescent state — a mechanistically satisfying connection.
+
+**Circuit viability:**
+- **Strengths:** Downregulated across both fibroblasts and endothelial cells — the closest thing to a universal OFF-switch candidate in our data. Moderate-to-high expression in healthy cells. 100% conserved between mouse and human.
+- **Weaknesses:** The fold change is modest (0.43-0.70x), providing only 1.4-2.3x ON/OFF separation when used as an OFF switch. Less dramatic than miR-155-5p's 7-fold decline.
+- **Best use case:** As an OFF-switch/de-targeting element in circuits intended to work across cell types. Could be combined with miR-155-5p for dual-layered de-targeting in fibroblast circuits.
+
+---
+
+#### miR-17-5p and miR-7-5p — Down in Fibroblasts + HAECs, Up in HUVECs
+
+Both miR-17-5p and miR-7-5p are DOWN in DXR/RS-senescent WI-38 fibroblasts (0.30-0.46x) AND DOWN in irradiated HAECs (0.34-0.68x), but paradoxically UP 5.8-5.9x in replicatively senescent HUVECs. This HUVEC/HAEC discrepancy may reflect differences between venous (HUVEC) and arterial (HAEC) endothelial biology, or between replicative (chronic) and irradiation (acute) senescence in endothelial cells.
+
+The miR-17 family decline in senescent fibroblasts is consistent with published reports (Faraonio et al., 2012, PMID: 22052189).
+
+**Verdict:** Potential OFF-switch for fibroblast + arterial endothelial circuits. The HUVEC discrepancy prevents universal application.
+
+---
+
+#### miR-92a-3p — Highest Expression Among Downregulated Candidates
+
+miR-92a-3p has the highest absolute expression among downregulated candidates (6,428 counts in healthy WI-38 fibroblasts), providing excellent stoichiometric margin for OFF-switch engagement. It declines 2.4-fold in DXR-senescent fibroblasts (6,428→2,676). However, it is UP 2.6x in senescent HUVECs, limiting it to fibroblast-specific applications.
+
+**Verdict:** Strong OFF-switch candidate for fibroblast-specific circuits due to high baseline expression. Not universal.
 
 ---
 
@@ -389,3 +433,4 @@ Herbert's planned doxorubicin small RNA-seq experiment in mouse tissues (in vivo
 20. Taganov KD et al. *PNAS*. 2006;103(33):12481-12486. PMID: 16885212 (miR-146a/NF-κB)
 21. Serrano M et al. *Cell*. 1997;88(5):593-602. PMID: 9054499 (senescence)
 22. Di Leonardo A et al. *Genes Dev*. 1994;8(21):2540-2551. PMID: 7798313 (radiation senescence)
+23. Linsley PS et al. *RNA*. 2007;13(7):1012-1020. PMID: 17210802 (miR-16/cell cycle)
