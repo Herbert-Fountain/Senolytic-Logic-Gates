@@ -82,10 +82,23 @@ DEFAULT_PARAMS = {
     # L7Ae binding reaches equilibrium rapidly relative to other timescales
     'koff_L7Ae': 3240.0,
 
-    # Functional repression fold when L7Ae is bound
-    # Source: Saito et al., Nat Chem Biol, 2010
-    # ~10-fold reduction in translation when L7Ae is present
-    'L7Ae_repression_fold': 10.0,
+    # Functional repression fold when L7Ae is bound to 5'UTR K-turn
+    # L7Ae binding blocks 40S ribosome scanning; near-complete translational block
+    # Source: Saito et al., Nat Chem Biol, 2010 (measured ~10x for 1xKt reporter)
+    # Calibrated from ON switch flow data (3/31/2026): near-complete block needed
+    # to match 95.6% suppression in 4T1 and bimodal flow histograms
+    'L7Ae_repression_fold': 1000.0,
+
+    # Expression efficiency ratio between cell types
+    # HuH7 produces ~5.5x more sfGFP per mRNA copy than 4T1
+    # Source: flow cytometry MFI (HuH7 sfGFP+ median ~55M vs 4T1 ~10M FITC-A)
+    'expression_ratio_HuH7': 5.5,
+
+    # Circuit failure rate (fraction of cells where repression fails)
+    # Accounts for stochastic effects: translational bursting, endosomal
+    # escape variability, L7Ae misfolding. Calibrated from 4T1 AND gate
+    # (1.32% positive = irreducible circuit leakage)
+    'circuit_failure_rate': 0.044,
 
     # ================================================================
     # Protein Degradation
@@ -109,18 +122,41 @@ DEFAULT_PARAMS = {
     # Transfection Parameters
     # ================================================================
     # mRNA copies delivered per transfected cell
-    # No direct measurement published for Lipofectamine mRNA delivery
-    # Estimated range: 100-10,000 based on DNA delivery data
-    # Source: Cohen et al., 2009, PMC: 2765102
-    'mRNA_delivered_per_cell': 1000,
+    # Estimated from 100ng/well, 30,000 cells/well, MW ~10^6
+    # ~2000 copies per transfected cell at 100ng dose
+    # Source: Cohen et al., 2009, PMC: 2765102; experimental calibration
+    'mRNA_delivered_per_cell': 2000,
 
     # Transfection efficiency (fraction of cells receiving any mRNA)
-    # Source: Multiple; Thermo Fisher protocols
-    'transfection_efficiency': 0.85,
+    # Calibrated from flow cytometry: 2xKt-sfGFP alone data (3/31/2026)
+    # 4T1: ~31% sfGFP+ -> TE ~0.31; HuH7: ~91.5% sfGFP+ -> TE ~0.94
+    'transfection_efficiency': 0.85,  # Default; use cell-specific values
+    'transfection_efficiency_4T1': 0.31,
+    'transfection_efficiency_HuH7': 0.94,
 
     # Coefficient of variation for mRNA delivery per cell
     # Accounts for cell-to-cell variability in uptake
     'delivery_cv': 0.5,
+
+    # Sensor:payload delivery correlation
+    # Two mRNAs co-delivered in same lipoplexes; partially correlated
+    'delivery_correlation': 0.7,
+
+    # ================================================================
+    # miRNA Levels (copies per cell)
+    # ================================================================
+    # miR-122-5p in HuH7: one of the most abundant miRNAs in hepatocytes
+    # Source: Lagos-Quintana et al., 2002; Jopling et al., 2005
+    # Literature range: 50,000-120,000 copies/cell (bulk measurement)
+    # Calibrated from ON switch flow data (3/31/2026): mean=8,000, CV=0.5
+    # Lower than bulk estimates; reflects functional RISC-loaded miR-122
+    # and HuH7 passage-dependent expression heterogeneity
+    'miR122_HuH7': 8000,
+    'miR122_4T1': 0,
+
+    # miR-122 cell-to-cell variability (CV within HuH7 population)
+    # Calibrated from AND gate flow data: CV=0.5 gives 26.7% sfGFP+
+    'miR122_cv': 0.5,
 
     # ================================================================
     # Cell Death
