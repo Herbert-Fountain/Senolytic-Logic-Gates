@@ -48,23 +48,80 @@ This document synthesizes findings across five analyzed datasets and the publish
 
 ## 3. Master Concordance Table
 
-**Table 2: Candidate miRNA expression across all analyzed datasets**
+### Table 2a: ON-Switch Candidates — Upregulated in Senescence/Aging
 
-| miRNA | GSE299871 DXR (WI-38) | GSE299871 SDS | GSE299871 RS | GSE94410 (HUVEC rep.) | GSE202120 (HAEC irr. 72h) | GSE217458 (mouse aging) | GSE55164 (mouse muscle) | GSE200330 (irr. EVs) | Overall |
-|-------|----------------------|--------------|-------------|----------------------|--------------------------|------------------------|------------------------|---------------------|---------|
-| **miR-34a-5p** | **2.5x UP** (102→253) | **7.2x UP** | **3.0x UP** | **5.2x UP** (46→239) | **1.6x UP** (1599→2629) | **1.2-1.7x UP** (500-3800) | **2.5x UP** | 1.1x (EVs) | **CONSISTENT UP** |
-| **miR-22-3p** | **2.8x UP** (2.5K→7K) | **6.1x UP** | **2.7x UP** | **0.3x DOWN** (59K→19K) | 1.2x (40K→48K) | ~1x stable | ~1x stable | 0.6x (EVs) | **CELL-TYPE-DEPENDENT** |
-| **miR-29a-3p** | **1.6x UP** (3.7K→5.9K) | **6.2x UP** | 1.6x UP | Not tested | 1.3x (13K→17K) | **1.2-2.3x UP** (3K-16K) | 1.2x UP | 1.0x (EVs) | Consistent UP, modest |
-| **miR-21-5p** | **1.8x UP** (18K→33K) | **5.8x UP** | 2.2x UP | **2.6x UP** (408K→1.1M) | **1.6x UP** (1.65M→2.6M) | 1.0-1.8x UP (1.5K-16K) | ~1x | 1.0x (EVs) | UP but high baseline |
-| **miR-29c-3p** | 5.0x UP (**2→9 counts**) | 15x (2→30) | 6x (2→12) | Not tested | 1.3x (54→69, low) | **1.5-3.1x UP** (700-4500) | 1.2x UP | 1.5x (EVs, low) | UP but **negligible in human cells** |
-| **miR-146a-5p** | 1.2x (12→14) | 1.7x | 0.7x | 1.0x (401→410) | **2.2x UP** (1966→4275) | 1.0-2.3x variable | **2.5x UP** (muscle) | 1.0x (EVs) | **Radiation/inflammation-specific** |
-| miR-21-3p | 1.2x (55→65) | 7.1x | 2.1x | 1.2x (387→462) | 1.1x (892→949) | 0.9-2.0x | ~1x | 1.4x (EVs, low) | Weak/inconsistent |
-| **miR-155-5p** | **0.1x DOWN** (2.8K→396) | 1.0x | **0.2x DOWN** | Not tested | 0.9x (14.8K→13.6K) | 1.2-4.2x UP (in vivo) | 1.7x UP | **0.2x DOWN** (EVs) | **DOWN in senescent cells, UP in aged tissue** |
-| **miR-17-5p** | **0.3x DOWN** (134→40) | 1.4x UP | **0.3x DOWN** | 5.9x UP (HUVEC only) | **0.7x DOWN** (5156→3481) | 0.9-1.2x stable | 0.8x | 0x (EVs) | **DOWN in DXR/RS/irradiation** |
-| miR-184 | 0→8 (from zero) | 0→4 | 0→8 | 1→2 | Not detected | 1-6 RPMM | Near-zero | 0-1 (EVs) | **NOT EXPRESSED** |
-| miR-96-5p | 0→0 | 0→2 | 0→1 | 8→2 | Not detected | 1-65 RPMM | Near-zero | 0 (EVs) | **NOT EXPRESSED** |
-| miR-215-5p | 0→1 | 0→0 | 0→0 | 40→7 | Not tested | Very low | N/A | 0 (EVs) | **NOT EXPRESSED** |
-| miR-122-5p | 14→18 | 14→16 | 14→38 | 108→21 | 34→36 | 100K liver only | Not expressed | 34→36 (EVs) | **LIVER-SPECIFIC** |
+| miRNA | Dataset | Context | FC | Counts | Tissues |
+|-------|---------|---------|-----|--------|---------|
+| **miR-34a-5p** | GSE299871 | WI-38 DXR senescence | **2.5x UP** | 102→253 | Fibroblasts |
+| | GSE299871 | WI-38 SDS senescence | **7.2x UP** | 102→732 | Fibroblasts |
+| | GSE299871 | WI-38 replicative | **3.0x UP** | 102→310 | Fibroblasts |
+| | GSE94410 | HUVEC replicative | **5.2x UP** | 46→239 | Endothelial |
+| | GSE202120 | HAEC irradiation 72h | **1.6x UP** | 1,599→2,629 | Endothelial |
+| | GSE117818 | MRC-5 replicative | **2.8x UP** | 1,086→3,048 | Fibroblasts |
+| | GSE217458 | Mouse heart aging | 1.36x UP | 1,167→1,587 | Heart |
+| | GSE217458 | Mouse kidney aging | 1.51x UP | 2,535→3,829 | Kidney |
+| | GSE217458 | Mouse liver aging | 1.25x UP | 843→1,056 | Liver |
+| | GSE217458 | Mouse lung aging | **1.68x UP** | 1,548→2,597 | Lung |
+| | GSE217458 | Mouse spleen aging | 1.55x UP | 488→756 | Spleen |
+| | GSE217458 | Mouse skin aging | 1.17x stable | 1,112→1,305 | Skin |
+| | GSE55164 | Mouse muscle aging | **2.5x UP** | ~1,500 est. | Muscle |
+| | GSE172269 | Rat liver aging | **4.1x UP** | 30→120 | Liver |
+| | GSE172269 | Rat kidney aging | 1.5x UP | 219→319 | Kidney |
+| | GSE172269 | Rat spleen aging | **2.1x UP** | 294→602 | Spleen |
+| | GSE172269 | Rat lung aging | 1.5x UP | 1,732→2,546 | Lung |
+| | GSE136926 | **Human heart aging** | **2.54x UP** | 771→1,959 | Heart |
+| | GSE111281 | **Human skin aging** | 1.25x UP | 828→1,035 | Skin |
+| | | | **Overall: UP in 18/19 analyses** | | |
+| **miR-22-3p** | GSE299871 | WI-38 DXR | **2.8x UP** | 2,484→7,025 | Fibroblasts |
+| | GSE299871 | WI-38 SDS | **6.1x UP** | 2,484→15,044 | Fibroblasts |
+| | GSE299871 | WI-38 replicative | **2.7x UP** | 2,484→6,719 | Fibroblasts |
+| | GSE94410 | HUVEC replicative | **0.3x DOWN** | 58,962→18,652 | Endothelial |
+| | GSE217458 | Mouse (6 tissues) | Stable (0.9-1.55x) | 1,695-9,572 | All stable |
+| | | | **Cell-type-dependent** | | |
+
+### Table 2b: OFF-Switch Candidates — Downregulated in Senescence/Aging
+
+| miRNA | Dataset | Context | FC | Counts | Tissues |
+|-------|---------|---------|-----|--------|---------|
+| **miR-155-5p** | GSE299871 | WI-38 DXR | **0.14x DOWN** | 2,760→396 | Fibroblasts |
+| | GSE299871 | WI-38 replicative | **0.19x DOWN** | 2,760→530 | Fibroblasts |
+| | GSE117818 | MRC-5 replicative | **0.10x DOWN** | 1,806→185 | Fibroblasts |
+| | GSE94410 | HUVEC replicative | 0.9x stable | 16,454→14,781 | Endothelial |
+| | GSE217458 | Mouse liver aging | **4.2x UP** | 21→89 | Liver (inflammaging) |
+| | GSE217458 | Mouse lung aging | **3.8x UP** | 122→457 | Lung (inflammaging) |
+| | GSE217458 | Mouse (all 6 tissues) | UP (1.2-4.2x) | 21-1,219 | All UP (inflammaging) |
+| | | | **DOWN in fibroblasts; UP in aged tissue (inflammaging)** | | |
+| **miR-92a-3p** | GSE299871 | WI-38 DXR | **0.42x DOWN** | 6,428→2,676 | Fibroblasts |
+| | GSE117818 | MRC-5 replicative | **0.32x DOWN** | 11,862→3,785 | Fibroblasts |
+| | GSE136926 | Human heart aging | **0.76x DOWN** | 1,294→980 | Heart |
+| | GSE111281 | Human skin aging | **0.75x DOWN** | 107,107→80,310 | Skin |
+| | GSE111174 | Human blood aging | **0.71x DOWN** | 1,481,437→1,050,673 | Blood |
+| | | | **DOWN in 5/5 analyses — most cross-tissue OFF candidate** | | |
+| **miR-16-5p** | GSE299871 | WI-38 DXR | **0.61x DOWN** | 882→535 | Fibroblasts |
+| | GSE299871 | WI-38 replicative | **0.70x DOWN** | 882→615 | Fibroblasts |
+| | GSE94410 | HUVEC replicative | **0.43x DOWN** | 3,325→1,420 | Endothelial |
+| | GSE117818 | MRC-5 replicative | **0.53x DOWN** | 6,825→3,623 | Fibroblasts |
+| | GSE172269 | Rat kidney aging | **0.58x DOWN** | 38,321→22,357 | Kidney |
+| | GSE111174 | Human blood aging | **0.61x DOWN** | 68,945→41,870 | Blood |
+| | | | **DOWN in 6/6 analyses (proliferative cells)** | | |
+| **miR-17-5p** | GSE299871 | WI-38 DXR | **0.30x DOWN** | 134→40 | Fibroblasts |
+| | GSE299871 | WI-38 replicative | **0.26x DOWN** | 134→35 | Fibroblasts |
+| | GSE202120 | HAEC irradiation | **0.68x DOWN** | 5,156→3,481 | Endothelial |
+| | GSE117818 | MRC-5 replicative | **0.34x DOWN** | 576→197 | Fibroblasts |
+| | GSE111174 | Human blood aging | **0.59x DOWN** | 3,017→1,775 | Blood |
+| | GSE94410 | HUVEC replicative | 5.9x UP | 1,544→9,083 | Endothelial (HUVEC) |
+| | | | **DOWN in 5/6 analyses (UP only in HUVECs)** | | |
+
+### Table 2c: Not Viable for Circuit Applications
+
+| miRNA | Issue | Evidence |
+|-------|-------|---------|
+| miR-184 | Not expressed (<10 counts in all human cells) | GSE299871: 0→8; GSE94410: 1→2; GSE217458: 1-6 RPMM |
+| miR-96-5p | Not expressed | GSE299871: 0→0; GSE94410: 8→2 |
+| miR-215-5p | Not expressed | GSE299871: 0→1; GSE94410: 40→7 |
+| miR-29a-3p | **Eliminated after CPM normalization** | Raw 1.6x → CPM 0.96x (library size artifact) |
+| miR-21-5p | No change after CPM normalization | Raw 1.8x → CPM 1.09x; also high baseline |
+| miR-122-5p | Liver-specific (100K+ in liver only) | Useful as liver OFF-switch, not as senescence marker |
 
 ---
 
@@ -83,7 +140,7 @@ This document synthesizes findings across five analyzed datasets and the publish
 | 3 | GSE299871 | Replicative senescence (WI-38 fibroblasts) | UP | 3.0x | 102→310 |
 | 4 | GSE94410 | Replicative senescence (HUVECs) | UP | 5.2x | 46→239 |
 | 5 | GSE202120 | X-ray irradiation 10 Gy, 72h (HAECs) | UP | 1.6x | 1,599→2,629 |
-| 6 | GSE217458 | Mouse natural aging (16 tissues) | UP | 1.2-1.7x | 500-3,800 RPMM |
+| 6 | GSE217458 | Mouse natural aging — UP in 5/6 tissues: heart (1.36x), kidney (1.51x), liver (1.25x), lung (1.68x), spleen (1.55x); skin stable (1.17x) | UP | 1.25-1.68x | 488-2,535 RPMM young; 756-3,829 RPMM aged |
 | 7 | GSE55164 | Mouse skeletal muscle aging | UP | 2.5x | ~1,500 (est.) |
 | 8 | GSE117818 | Replicative senescence (MRC-5 fibroblasts) | UP | 2.8x | 1,086→3,048 |
 | 9 | GSE172269 | Rat liver natural aging (6wk→104wk) | UP | **4.1x** | 30→120 |
@@ -116,7 +173,7 @@ The strongest fold change (4.1x) is in **aged rat liver** — the primary target
 | GSE299871 | SDS senescence (WI-38) | **UP** | 6.1x | 2,484→15,044 |
 | GSE299871 | Replicative senescence (WI-38) | **UP** | 2.7x | 2,484→6,719 |
 | GSE94410 | Replicative senescence (HUVEC) | **DOWN** | 0.3x | 58,962→18,652 |
-| GSE217458 | Mouse aging (16 tissues) | 0.9-1.5x per tissue | Stable | 1,500-11,000 RPMM (tissue-dependent baseline; no significant aging change within any tissue) |
+| GSE217458 | Mouse aging — stable in all 6 tissues (0.90-1.55x; spleen 0.90x, heart 1.14x, kidney 1.06x, liver 1.18x, lung 1.24x, skin 1.55x) | Stable | — | Tissue baselines vary: 1,695 (spleen) to 9,572 (liver) RPMM |
 
 **The inducer-specific paradox:** miR-22-3p is consistently UP across all three senescence inducers in WI-38 fibroblasts, but DOWN in replicatively senescent HUVECs. This means the response is cell-type-dependent, not inducer-dependent. In WI-38 cells, it goes UP regardless of how senescence is triggered. In HUVECs, it goes DOWN during replicative senescence.
 
@@ -265,22 +322,22 @@ The SDS (plasma membrane damage) condition consistently produces larger fold cha
 
 | miRNA | WI-38 fibroblasts (DXR) | HUVECs (replicative) | Mouse tissues (aging) | Concordance |
 |-------|------------------------|---------------------|----------------------|-------------|
-| miR-34a-5p | 2.5x UP | 5.2x UP | 1.2-1.7x UP | **All agree** |
-| miR-22-3p | 2.8x UP | **0.3x DOWN** | ~1x | **Disagree** |
-| miR-29a-3p | 1.6x UP | Not tested | 1.2-2.3x UP | Agree (limited) |
-| miR-21-5p | 1.8x UP | 2.6x UP | 1.0-1.8x UP | **All agree** |
+| miR-34a-5p | 2.5x UP | 5.2x UP | UP in 5/6 tissues (1.25-1.68x) | **All agree** |
+| miR-22-3p | 2.8x UP | **0.3x DOWN** | Stable in 4/6 tissues | **Disagree** |
+| miR-29a-3p | 0.96x (CPM) | Not tested | UP in all 6 tissues (1.21-2.27x) | **Disagree** (eliminated in vitro) |
+| miR-21-5p | 1.09x (CPM) | 2.6x UP | UP in 5/6 tissues (1.02-1.82x) | **Partial** (weak in DXR after CPM) |
 
 Only **miR-34a-5p and miR-21-5p** maintain consistent upregulation across both cell types tested. miR-22-3p, despite being shared across inducers within WI-38 cells, fails to generalize to HUVECs. This distinction between "inducer-universal, cell-type-specific" and "truly universal" is critical for circuit design.
 
 ### 5.3 In Vitro Senescence vs. In Vivo Aging
 
-| miRNA | In vitro senescence (DXR) | In vivo aging (mouse) | Direction match? | Interpretation |
-|-------|--------------------------|----------------------|-----------------|---------------|
-| miR-34a-5p | 2.5x UP | 1.2-1.7x UP | **YES** | True senescence marker, diluted in bulk tissue |
-| miR-21-5p | 1.8x UP | 1.0-1.8x UP | **YES** | Modest in both contexts |
-| miR-29a-3p | 1.6x UP | 1.2-2.3x UP | **YES** | Consistent |
-| miR-155-5p | 0.14x DOWN | 1.2-4.2x UP | **NO** | Cell-autonomous DOWN vs. immune infiltration UP |
-| miR-22-3p | 2.8x UP | ~1x stable | **PARTIAL** | Changed in vitro but not detectable in bulk tissue |
+| miRNA | In vitro (DXR, CPM) | In vivo aging (mouse, per tissue) | Match? | Interpretation |
+|-------|---------------------|----------------------------------|--------|---------------|
+| miR-34a-5p | 1.5x UP | UP in 5/6 tissues (1.25-1.68x) | **YES** | Consistent; diluted in bulk tissue |
+| miR-21-5p | 1.09x (stable) | UP in 5/6 tissues (1.33-1.82x; liver stable) | **PARTIAL** | In vitro signal lost after CPM correction |
+| miR-29a-3p | 0.96x (stable) | UP in all 6 tissues (1.21-2.27x) | **NO** | In vitro signal was library size artifact |
+| miR-155-5p | 0.09x DOWN | UP in all 6 tissues (1.24-4.20x; liver/lung strongest) | **NO** | Cell-autonomous DOWN vs. inflammaging UP |
+| miR-22-3p | 1.74x UP | Stable in 4/6 tissues | **PARTIAL** | In vitro UP not reflected in vivo |
 
 The in vivo aging fold changes (1.2-1.8x) are consistently smaller than in vitro senescence fold changes (2-7x). This is expected because aged tissues contain a **mixture of senescent and non-senescent cells**. If senescent cells comprise ~15% of an aged tissue (a commonly cited estimate; Baker et al., *Nature*, 2011, PMID: 22012258), a miRNA that is 2.5x higher in senescent cells would appear only ~1.2x higher in bulk tissue: (0.85 × 1.0 + 0.15 × 2.5) / 1.0 = 1.23x. This is consistent with what we observe.
 
@@ -410,10 +467,12 @@ The fundamental tension for miR-34a-5p as a circuit input:
 
 | Context | Fold Change | Absolute Counts | Problem |
 |---------|------------|----------------|---------|
-| WI-38 fibroblasts (DXR) | 2.5x (good) | 253 (low) | May not have enough molecules for reliable switch activation |
-| HUVECs (replicative) | 5.2x (excellent) | 239 (low) | Same stoichiometric concern |
-| HAECs (irradiation) | 1.6x (modest) | 2,629 (adequate) | Fold change may be too small for clean ON/OFF separation |
-| Mouse tissues (aging) | 1.2-1.7x (modest) | 500-3,800 RPMM | In vivo signal diluted by non-senescent cells |
+| WI-38 fibroblasts (DXR, CPM) | 1.5x | 558 CPM (~45 copies/cell est.) | Modest FC; low absolute copies |
+| HUVECs (replicative, CPM) | 11.5x | 90 CPM | Strong FC but very low counts |
+| HAECs (irradiation) | 1.6x | 2,629 | Modest FC; better absolute counts |
+| Mouse tissues (aging, 5/6 UP) | 1.25-1.68x per tissue | 488-2,535 RPMM (young) | Diluted by non-senescent cells |
+| Rat liver (aging) | 4.1x | 30→120 | Strongest FC but very low counts |
+| **Human heart** (aging) | **2.54x** | **771→1,959** | Best combination of FC + counts |
 
 In cell types where miR-34a has a good fold change (fibroblasts, HUVECs: 2.5-5.2x), the absolute counts are low (~250 copies). In the cell type where absolute counts are adequate (HAECs: ~2,600), the fold change is modest (1.6x). **Neither combination is unambiguously sufficient for a clean ON/OFF switch**, and the Saito lab has explicitly stated that no quantitative threshold for switch activation has been defined (Fujita et al., *Sci Adv*, 2022, DOI: 10.1126/sciadv.abj1793).
 
