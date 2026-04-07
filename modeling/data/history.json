@@ -1,0 +1,123 @@
+{
+  "version": "1.0",
+  "created": "2026-04-07T03:13:20.411812",
+  "experiments": [
+    {
+      "name": "ON Switch Experiment 3/31/2026 (100ng)",
+      "timestamp": "2026-04-07T03:13:20.412449",
+      "conditions": [
+        {
+          "cell_type": "4T1",
+          "sensor_ng": 100,
+          "payload_ng": 100,
+          "observed_pct": 1.32,
+          "condition_label": "4T1 AND gate 100:100ng"
+        },
+        {
+          "cell_type": "HuH7",
+          "sensor_ng": 100,
+          "payload_ng": 100,
+          "observed_pct": 26.67,
+          "condition_label": "HuH7 AND gate 100:100ng"
+        },
+        {
+          "cell_type": "4T1",
+          "sensor_ng": 0,
+          "payload_ng": 100,
+          "observed_pct": 29.87,
+          "condition_label": "4T1 2xKt-sfGFP 100ng"
+        },
+        {
+          "cell_type": "HuH7",
+          "sensor_ng": 0,
+          "payload_ng": 100,
+          "observed_pct": 91.49,
+          "condition_label": "HuH7 2xKt-sfGFP 100ng"
+        },
+        {
+          "cell_type": "4T1",
+          "sensor_ng": 100,
+          "payload_ng": 0,
+          "observed_pct": 0.01,
+          "condition_label": "4T1 sensor only 100ng"
+        },
+        {
+          "cell_type": "HuH7",
+          "sensor_ng": 100,
+          "payload_ng": 0,
+          "observed_pct": 0.28,
+          "condition_label": "HuH7 sensor only 100ng"
+        }
+      ],
+      "metadata": {
+        "date": "2026-03-31",
+        "constructs": "p065 (2xKt-sfGFP) + p069B (5-MRE-L7Ae)",
+        "cytometer": "NovoCyte Quanteon 621190610657",
+        "cells_per_well": 30000,
+        "transfection_reagent": "Lipofectamine MessengerMAX"
+      },
+      "n_conditions": 6
+    },
+    {
+      "name": "ON Switch Experiment 3/31/2026 (50ng)",
+      "timestamp": "2026-04-07T03:13:20.412758",
+      "conditions": [
+        {
+          "cell_type": "4T1",
+          "sensor_ng": 50,
+          "payload_ng": 50,
+          "observed_pct": 1.56,
+          "condition_label": "4T1 AND gate 50:50ng"
+        },
+        {
+          "cell_type": "HuH7",
+          "sensor_ng": 50,
+          "payload_ng": 50,
+          "observed_pct": 27.05,
+          "condition_label": "HuH7 AND gate 50:50ng"
+        }
+      ],
+      "metadata": {
+        "date": "2026-03-31",
+        "constructs": "p065 (2xKt-sfGFP) + p069B (5-MRE-L7Ae)",
+        "cytometer": "NovoCyte Quanteon 621190610657",
+        "cells_per_well": 30000,
+        "transfection_reagent": "Lipofectamine MessengerMAX"
+      },
+      "n_conditions": 2
+    }
+  ],
+  "calibrations": [],
+  "parameters": {
+    "universal": {
+      "mRNA_halflife_hr": 12.0,
+      "k_translate": 100.0,
+      "kon_RISC": 0.003,
+      "k_slice": 18.0,
+      "Kd_L7Ae_nM": 0.9,
+      "L7Ae_repression_fold": 1000.0,
+      "GFP_halflife_hr": 26.0,
+      "L7Ae_halflife_hr": 20.0,
+      "delivery_cv": 0.5,
+      "delivery_correlation": 0.7
+    },
+    "cell_lines": {
+      "4T1": {
+        "mirna_mean": 0,
+        "mirna_cv": 0.5,
+        "transfection_efficiency": 0.31,
+        "expression_factor": 1.0,
+        "notes": "NIH 4T1 mouse mammary carcinoma. miR-122 absent."
+      },
+      "HuH7": {
+        "mirna_mean": 8000,
+        "mirna_cv": 0.5,
+        "transfection_efficiency": 0.94,
+        "expression_factor": 5.5,
+        "notes": "HuH7 human hepatocellular carcinoma. miR-122 high."
+      }
+    },
+    "constructs": {}
+  },
+  "last_modified": "2026-04-07T03:13:20.412813"
+}

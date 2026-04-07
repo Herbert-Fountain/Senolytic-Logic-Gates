@@ -15,3 +15,4 @@ from .and_gate import ANDGateModel
 from .population import PopulationModel
 from .optimizer import CircuitOptimizer
 from .experiment import ExperimentDesigner, ModelCalibrator
+from .history import ExperimentHistory
