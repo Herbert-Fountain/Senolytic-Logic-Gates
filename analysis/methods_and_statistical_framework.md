@@ -28,7 +28,20 @@ Our analysis has two goals:
 
 These limitations are inherent to secondary analysis of published data and are standard in the field (Rossi et al., *PLoS Comput Biol*, 2021, DOI: 10.1371/journal.pcbi.1008608).
 
-### 2.3 Ligation Bias Caveat
+### 2.3 Sequencing Counts vs. Intracellular Copy Number
+
+A critical assumption throughout this analysis is that sequencing counts correlate with intracellular miRNA copy number, which determines circuit activation potential. This relationship is complex and depends on RNA extraction efficiency, library prep biases, cell number input, and sequencing depth.
+
+Published absolute quantification studies provide calibration points:
+- miR-21 has been estimated at **2,000-10,000 copies per cell** in various cell lines (Bissels et al., *RNA*, 2009, PMID: 19850911; Leshkowitz et al., *RNA*, 2013, PMID: 23697550)
+- miR-16 has been estimated at **~10,000-50,000 copies per cell** in lymphocytes (Lim et al., *Nucleic Acids Res*, 2011)
+- Total miRNA content is estimated at **~100,000-200,000 copies per cell** in most cell types
+
+In GSE299871 (WI-38 fibroblasts), miR-21-5p has ~66,000 CPM in controls. If this represents ~5,000 copies per cell (midpoint of published estimates), then 1 CPM ≈ 0.08 copies per cell. Under this rough calibration, miR-34a-5p at 558 CPM in DXR-senescent WI-38 cells would correspond to **~45 copies per cell** — substantially lower than the ~250 raw counts originally reported and potentially too few for reliable switch activation.
+
+**This calibration is approximate** and varies by cell type, RNA extraction method, and library prep. It should not be treated as precise. However, it underscores that the absolute copy number question is even more challenging than raw count analysis suggests.
+
+### 2.4 Ligation Bias Caveat
 
 Small RNA-seq suffers from **ligation bias**: T4 RNA ligases ligate adapters with sequence-dependent efficiency, causing orders-of-magnitude variation in absolute quantification of individual miRNAs (Fuchs et al., *PLoS One*, 2015, PMID: 25942504; Jayaprakash et al., *Nucleic Acids Res*, 2011, PMC: PMC3241666; Giraldez et al., *Nat Biotechnol*, 2018, PMID: 30010675). This bias is **largely consistent within the same library preparation protocol**, so within-experiment fold changes remain valid. However, it means that:
 

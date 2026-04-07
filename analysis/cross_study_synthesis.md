@@ -290,49 +290,85 @@ The miR-155-5p discrepancy (DOWN in vitro, UP in vivo) is the clearest example o
 
 ## 6. Recommended Circuit Architectures
 
-Based on all evidence, we propose three candidate circuit configurations:
+Based on all evidence (CPM-corrected values), we propose four candidate circuit configurations with quantitative performance estimates.
 
-### Architecture A: Dual ON-Switch AND Gate (Fibroblast-Targeted)
+### Estimated Performance Framework
+
+The Saito lab reports the following dynamic ranges for individual switch components:
+- L7Ae K-turn repression: ~10-fold (Saito et al., *Nat Chem Biol*, 2010)
+- Single miRNA OFF switch: variable, resolves <2-fold differences (Endo et al., *Sci Rep*, 2016, PMID: 26902536)
+- Hybrid ON+OFF switch: up to 16-fold (Saito lab, *Mol Ther Nucleic Acids*, 2025)
+
+For a cytotoxic payload (Gasdermin or DTA), even low-level leaky expression is lethal. We estimate a **minimum 5-fold ON/OFF ratio** is needed for acceptable safety, though this requires empirical validation.
+
+### Architecture A: Fibroblast-Targeted Dual ON-Switch
 
 ```
-Input 1: miR-34a-5p (ON switch) — universal senescence marker
-Input 2: miR-22-3p (ON switch) — high-abundance fibroblast senescence marker
+Input 1: miR-34a-5p (ON switch) — CPM FC: 1.5x in DXR senescence
+Input 2: miR-22-3p (ON switch) — CPM FC: 1.7x in DXR senescence
 
 Logic: Payload expressed ONLY when both miR-34a AND miR-22 are high
 ```
 
-**Rationale:** miR-34a provides universality (UP in all contexts). miR-22 provides the high absolute abundance (7,025 counts) needed for reliable switch engagement. Together they create a 2-input AND gate requiring both p53-pathway activation (miR-34a) and fibroblast-specific senescence (miR-22).
+**Expected selectivity:** If each input provides ~1.5-1.7x selectivity and the AND gate multiplies them: **~2.6x** overall. This is likely **insufficient** for a cytotoxic payload. Even with L7Ae amplification (~10-fold repression), leakage may be unacceptable.
 
-**Limitation:** Cell-type restricted. miR-22 is DOWN in senescent endothelial cells, so this circuit would NOT target senescent endothelial cells.
+**Limitation:** miR-22 is DOWN in senescent endothelial cells (CPM-corrected). Fibroblast-specific only.
 
-### Architecture B: ON + OFF Hybrid (Broader Target)
+### Architecture B: Fibroblast-Targeted ON + OFF Hybrid
 
 ```
-Input 1: miR-34a-5p (ON switch) — activates payload when present
-Input 2: miR-155-5p (OFF switch / de-targeting) — suppresses payload when present
+Input 1: miR-34a-5p (ON switch) — CPM FC: 1.5x UP in senescent fibroblasts
+Input 2: miR-155-5p (OFF switch) — CPM FC: 0.09x (11x DOWN) in senescent fibroblasts
 
 Logic: Payload expressed when miR-34a is HIGH and miR-155 is LOW
 ```
 
-**Rationale:** miR-34a is UP in senescent cells; miR-155 is DOWN in senescent cells. A healthy cell has low miR-34a (payload OFF via ON-switch) AND high miR-155 (payload OFF via OFF-switch). A senescent cell has high miR-34a (payload ON) AND low miR-155 (no suppression). Double protection.
+**Expected selectivity:** miR-34a ON provides ~1.5x discrimination. miR-155 OFF provides ~11x discrimination (from 9,887 → 889 CPM). Combined: **~16.5x** overall. This approaches the Saito 2025 hybrid switch performance and may be sufficient for a cytotoxic payload.
 
-**Based on Saito 2025 hybrid switch design** (achieving 16-fold dynamic range with single-construct ON+OFF), this may be the most practical architecture.
+**Why this works:** The OFF-switch does the heavy lifting. miR-155's 11-fold decline in senescent fibroblasts provides much more selectivity than miR-34a's modest 1.5x increase. The ON switch adds a second layer ensuring both conditions must be met.
 
-**Limitation:** miR-155 behavior in vivo is complicated by immune cells. In tissues with significant immune infiltration, non-senescent cells may have low miR-155, creating false positives.
+**Limitation:** miR-155 does not decline in senescent endothelial cells (CPM 1.81x UP in HUVECs). Fibroblast-specific only. In vivo, macrophage-derived exosomal miR-155 could confound the OFF switch.
 
-### Architecture C: Triple-Input AND Gate (Maximum Selectivity)
+### Architecture C: Liver-Specific ON + OFF (LNP-Optimized)
 
 ```
-Input 1: miR-34a-5p (ON switch) — universal
-Input 2: miR-22-3p or miR-29a-3p (ON switch) — abundance
-Input 3: miR-155-5p (OFF switch) — de-targeting
+Input 1: miR-34a-5p (ON switch) — 4.1x UP in aged rat liver
+Input 2: miR-122-5p (OFF switch) — 100,000+ counts in healthy hepatocytes
 
-Logic: Payload requires miR-34a HIGH + miR-22/29a HIGH + miR-155 LOW
+Logic: Payload expressed when miR-34a is HIGH and miR-122 is LOW
 ```
 
-**Rationale:** Maximum selectivity through three orthogonal signals. Requires adding a second repressor protein (e.g., MS2CP) beyond L7Ae.
+**Expected selectivity:** miR-122 is extremely abundant in healthy hepatocytes (~100,000 CPM) and declines in damaged/senescent hepatocytes. If miR-122 provides even 3-5x discrimination, combined with miR-34a's 4.1x (in rat liver): **~12-20x** overall.
 
-**Limitation:** Circuit complexity. More components = more potential failure points. Would require Herbert to implement MS2CP alongside L7Ae.
+**Why this is practical:** Herbert has already validated miR-122 as an ON switch in HuH7 cells. LNPs naturally accumulate in liver. miR-34a shows its strongest aging fold change in liver. This leverages existing validated components.
+
+**Limitation:** Liver-specific. Would need separate circuits for other tissues.
+
+### Architecture D: Cross-Tissue ON + OFF
+
+```
+Input 1: miR-34a-5p (ON switch) — UP 1.25-2.54x across human tissues
+Input 2: miR-92a-3p (OFF switch) — DOWN 0.26-0.75x across fibroblasts, blood, skin, heart
+
+Logic: Payload expressed when miR-34a is HIGH and miR-92a is LOW
+```
+
+**Expected selectivity:** miR-34a provides ~1.5x. miR-92a provides ~3-4x (from CPM 23,101 → 6,053 in fibroblasts). Combined: **~4.5-6x** overall.
+
+**Why this is interesting:** miR-92a is the ONLY OFF-switch candidate that declines across both fibroblasts and multiple human tissues in vivo (blood, skin, heart). This architecture has the broadest potential applicability.
+
+**Limitation:** The overall selectivity (~5x) is at the margin of what might be acceptable for a cytotoxic payload. May require empirical optimization of mRNA delivery dose to balance stoichiometry.
+
+### Architecture Comparison
+
+| Architecture | ON input | OFF input | Estimated Selectivity | Cell Types | Validated? |
+|-------------|---------|----------|----------------------|-----------|-----------|
+| A (Dual ON) | miR-34a + miR-22 | None | ~2.6x | Fibroblasts only | No |
+| **B (Hybrid)** | miR-34a | miR-155 | **~16.5x** | Fibroblasts only | No |
+| **C (Liver)** | miR-34a | miR-122 | **~12-20x** | Liver only | **miR-122 switch validated** |
+| D (Cross-tissue) | miR-34a | miR-92a | ~5x | Broad | No |
+
+**Recommendation:** Architecture C (liver-specific) is the most practical first prototype because (a) miR-122 is already validated as a switch, (b) LNPs go to liver, (c) miR-34a shows its strongest FC in liver, and (d) estimated selectivity is adequate. Architecture B (fibroblast hybrid) is the best for in vitro proof-of-concept due to the strong miR-155 OFF-switch signal.
 
 ---
 

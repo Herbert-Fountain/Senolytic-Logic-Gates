@@ -51,8 +51,10 @@
 ### 4.1 Most Candidate miRNAs Show No Change in EV Cargo
 
 Of 13 candidates tested, only 2 showed meaningful changes in senescent cell EVs:
-- **miR-22-3p**: 40% reduction in senescent EVs. In our GSE94410 analysis, miR-22-3p was also DOWN intracellularly in senescent HUVECs (3-fold). If it's both reduced intracellularly and exported less via EVs, the total cellular pool may be genuinely declining in senescence, contradicting some literature reports of upregulation.
-- **miR-155-5p**: 80% reduction in senescent EVs. This is striking — if less is being exported, more may be retained intracellularly, which would be consistent with the in vivo aging increase we observed in GSE217458 (4.2x UP in aged liver).
+- **miR-22-3p**: 40% reduction in senescent EVs. In our GSE94410 analysis, miR-22-3p was also DOWN intracellularly in senescent HUVECs (CPM-corrected 0.65x). Both EV and intracellular pools decline, suggesting a genuine reduction in total miR-22-3p in senescent endothelial cells.
+- **miR-155-5p**: 80% reduction in senescent EVs.
+
+**Important caveat on intracellular inference:** A reduction in EV miRNA content does NOT necessarily imply intracellular retention. A miRNA could be downregulated in both compartments, or the total cellular pool could decrease while EV export stays proportional. Without paired intracellular measurements from the same experiment, we cannot infer intracellular levels from EV depletion. The Terlecki-Zaniewicz 2019 study (PMID: 29779019) did perform paired intracellular and EV measurements and found miR-21-3p selectively retained intracellularly, but that finding applies specifically to their SIPS model and fibroblast cell type.
 
 ### 4.2 Cross-Reference with Intracellular Retention Data
 
