@@ -239,11 +239,96 @@ modeling/
     test_benchmark.py
 ```
 
+## Web Interface
+
+Launch the interactive GUI:
+```bash
+streamlit run modeling/app.py
+```
+
+Six pages: Simulate, Optimize Ratio, Design Experiment, Enter Results, Calibrate Model, Experiment History.
+
+## AI / Programmatic API
+
+The tool provides a JSON-in, JSON-out API that other programs or AI agents can call:
+
+```python
+from modeling.api import call, get_schema
+
+# Get available functions
+schema = call('list_functions', {})
+
+# Simulate a circuit
+result = call('simulate', {
+    'mirna_copies': 50000,
+    'sensor_copies': 2000,
+    'payload_copies': 2000,
+})
+
+# Evaluate a miRNA candidate from CPM data
+result = call('evaluate_mirna', {
+    'mirna_name': 'miR-34a-5p',
+    'target_cpm': 558,
+    'control_cpm': 45,
+    'switch_type': 'ON',
+})
+
+# Optimize dosing
+result = call('optimize', {
+    'total_mRNA_ng': 200,
+    'objective': 'balanced',
+    'on_cell': {'mirna_mean': 8000, 'transfection_efficiency': 0.94},
+    'off_cell': {'mirna_mean': 0, 'transfection_efficiency': 0.31},
+})
+```
+
+Also works from command line:
+```bash
+python modeling/api.py simulate '{"mirna_copies": 50000}'
+python modeling/api.py evaluate_mirna '{"mirna_name": "miR-34a-5p", "target_cpm": 558, "control_cpm": 45}'
+```
+
+Available API functions: `simulate`, `optimize`, `evaluate_mirna`, `sweep_mirna`, `get_parameters`, `get_experiment_history`, `list_functions`.
+
+## Data Persistence
+
+All experimental data, calibrations, and cell line parameters are stored in `modeling/data/history.json`. This database accumulates across experiments:
+
+- **Universal parameters** (mRNA half-life, binding kinetics) improve with every experiment
+- **Cell-line-specific parameters** (miRNA levels, TE, expression factor) are fitted per cell type
+- Each calibration round records before/after comparisons
+- Parameter evolution can be tracked over time
+
+## Circuit Designer Integration
+
+The bridge module (`core/bridge.py`) connects the circuit designer (`tools/circuit_designer.py`) to the modeling tool:
+
+```python
+from modeling.core.bridge import CircuitBridge
+
+bridge = CircuitBridge()
+
+# Evaluate a circuit design from the circuit designer
+result = bridge.evaluate_circuit_design(
+    circuit_from_designer,
+    target_profile={'transfection_efficiency': 0.5},
+    control_profile={'transfection_efficiency': 0.5},
+)
+
+# Or evaluate miRNA candidates directly
+results = bridge.evaluate_mirna_candidates(
+    {'miR-34a-5p': {'fc': 3.5, 'target_cpm': 558, 'control_cpm': 45, 'type': 'ON'}},
+    target_cell='senescent', control_cell='quiescent',
+)
+```
+
 ## Requirements
 
 - Python 3.10+
 - NumPy
 - SciPy
+- Streamlit (for web interface)
+- Pandas (for web interface)
 
 ## Development Status
 
@@ -257,7 +342,10 @@ modeling/
 | 6 | Stochastic (Gillespie) mode | Planned |
 | 7 | Small RNA-seq data integration | Planned |
 | 8 | Sensitivity analysis and export | Planned |
-| 9 | Full interactive interface (web/GUI) | Planned |
+| 9 | Interactive web interface | Complete |
+| -- | AI/programmatic API | Complete |
+| -- | Circuit designer integration | Complete |
+| -- | Experiment history database | Complete |
 
 ## Integration with Circuit Designer
 
