@@ -1,5 +1,5 @@
 # GSE172269 Analysis Report
-## Rat miRNA-seq BodyMap — Multi-Organ Aging Including Liver and Kidney
+## Rat miRNA-seq BodyMap - Multi-Organ Aging Including Liver and Kidney
 
 *Analysis date: 2026-04-07*
 
@@ -26,7 +26,7 @@ This dataset is critical for two reasons:
 
 1. **Liver data.** LNPs delivered intravenously accumulate primarily in the liver (Akinc et al., *Mol Ther*, 2010, PMID: 20068556). Any senolytic circuit delivered via LNP will be active predominantly in hepatocytes. Understanding the baseline miRNA landscape and age-related changes in liver is essential for designing circuits that (a) activate correctly in senescent hepatocytes and (b) do not misfire in healthy hepatocytes.
 
-2. **Multi-organ comparison in a single cohort.** Because all organs were harvested from the same animals at the same ages, cross-tissue comparisons are internally controlled — unlike our previous cross-dataset comparisons where different organisms, lab conditions, and normalization methods confounded direct comparison.
+2. **Multi-organ comparison in a single cohort.** Because all organs were harvested from the same animals at the same ages, cross-tissue comparisons are internally controlled - unlike our previous cross-dataset comparisons where different organisms, lab conditions, and normalization methods confounded direct comparison.
 
 **Species caveat:** This is rat data, not mouse or human. Most miRNAs are conserved across rodents and humans, but expression levels and aging trajectories may differ. We use this data to test whether our candidate miRNAs show consistent patterns in a third mammalian species.
 
@@ -60,7 +60,7 @@ Expression data was downloaded from the GEO supplementary file `GSE172269_exprma
 |-------|------------|-------------|-----|-------|-------------------|
 | rno-miR-34a-5p | 219 | 319 | 1.5x UP | MED | Consistent UP direction |
 | rno-miR-21-5p | 32,533 | 42,215 | 1.3x UP | HIGH | Modest UP |
-| **rno-miR-22-3p** | 288,914 | 167,670 | **0.58x DOWN** | HIGH | **DOWN in kidney** — opposite of liver. Tissue-specific. |
+| **rno-miR-22-3p** | 288,914 | 167,670 | **0.58x DOWN** | HIGH | **DOWN in kidney** - opposite of liver. Tissue-specific. |
 | rno-miR-29c-3p | 1,699 | 1,721 | 1.0x | HIGH | Stable (contrast: 3.2x UP in liver) |
 | rno-miR-29a-3p | 7,499 | 12,953 | **1.7x UP** | HIGH | Consistent UP |
 | rno-miR-146a-5p | 7,816 | 9,932 | 1.3x | HIGH | Modest UP |
@@ -89,7 +89,7 @@ Expression data was downloaded from the GEO supplementary file `GSE172269_exprma
 
 The 4.1-fold increase of miR-34a-5p in aged rat liver (30→120 counts) is the largest aging-associated fold change we have observed for this miRNA across all 8 datasets analyzed. This is mechanistically consistent with the known role of p53 in hepatic aging: aged livers accumulate DNA damage, activate p53 signaling, and express senescence markers (Wang et al., *Aging Cell*, 2009, PMID: 19302372). miR-34a is a direct p53 transcriptional target (He et al., *Nature*, 2007, PMID: 17554337).
 
-However, the absolute count (120 in aged liver) remains in the uncertain range for circuit activation. In contrast, miR-29a-3p reaches 5,491 counts in aged liver (3.6x UP) — a much more comfortable level for switch engagement but with less specificity to senescence.
+However, the absolute count (120 in aged liver) remains in the uncertain range for circuit activation. In contrast, miR-29a-3p reaches 5,491 counts in aged liver (3.6x UP) - a much more comfortable level for switch engagement but with less specificity to senescence.
 
 **For LNP-delivered circuits targeting liver senescent cells:** miR-34a-5p provides the best selectivity (4.1x change) but low absolute expression. miR-29a-3p provides abundant expression but modest selectivity (3.6x, but from a high baseline of 1,527). An AND gate combining both could leverage the strengths of each.
 
@@ -110,11 +110,11 @@ miR-16-5p is now validated as declining in 2 fibroblast lines, 1 endothelial lin
 
 miR-155-5p increases 2.7x in aged rat liver (19→51 counts), despite declining 7-10x in senescent fibroblasts in vitro. This is consistent with our inflammaging hypothesis: aged liver tissue accumulates Kupffer cells (resident macrophages) and recruited monocyte-derived macrophages as part of hepatic inflammaging (Stahl et al., *Hepatology*, 2013, PMID: 23813480). These macrophages are rich in miR-155 (O'Connell et al., *PNAS*, 2007, PMID: 17242365; Mann et al., *PLoS One*, 2017, PMID: 27447824), driving the bulk tissue signal upward.
 
-This has direct implications for LNP-delivered circuits: since LNPs are taken up primarily by hepatocytes (not Kupffer cells), a miR-155 OFF switch in the mRNA construct would sense the hepatocyte-specific miR-155 level (which is low, 19 counts in young liver), not the Kupffer cell level. The inflammaging artifact would NOT confound the circuit in this specific case because the circuit is intracellular — it senses miRNA only within the cell that takes up the LNP. However, if macrophage-derived exosomal miR-155 transfers to hepatocytes (as demonstrated for kidney epithelium by Yin et al., *Cell Commun Signal*, 2024, PMID: 38987851), this could still be a concern.
+This has direct implications for LNP-delivered circuits: since LNPs are taken up primarily by hepatocytes (not Kupffer cells), a miR-155 OFF switch in the mRNA construct would sense the hepatocyte-specific miR-155 level (which is low, 19 counts in young liver), not the Kupffer cell level. The inflammaging artifact would NOT confound the circuit in this specific case because the circuit is intracellular - it senses miRNA only within the cell that takes up the LNP. However, if macrophage-derived exosomal miR-155 transfers to hepatocytes (as demonstrated for kidney epithelium by Yin et al., *Cell Commun Signal*, 2024, PMID: 38987851), this could still be a concern.
 
 ### 5.4 miR-22-3p: Opposite Directions in Different Organs
 
-miR-22-3p increases 1.4x in aged liver but decreases 0.58x in aged kidney — within the same animals. Combined with its 2.8x increase in DXR-senescent fibroblasts (GSE299871) and 0.3x decrease in senescent HUVECs (GSE94410), miR-22-3p is now confirmed as both cell-type and tissue-dependent. It cannot serve as a universal circuit input.
+miR-22-3p increases 1.4x in aged liver but decreases 0.58x in aged kidney - within the same animals. Combined with its 2.8x increase in DXR-senescent fibroblasts (GSE299871) and 0.3x decrease in senescent HUVECs (GSE94410), miR-22-3p is now confirmed as both cell-type and tissue-dependent. It cannot serve as a universal circuit input.
 
 ### 5.5 miR-29 Family: Consistent Across a Third Species
 
@@ -129,10 +129,10 @@ The miR-29 family (miR-29a-3p, miR-29c-3p) shows robust upregulation across 4-5 
 
 ## 7. Conclusions
 
-1. **miR-34a-5p UP 4.1x in aged rat liver** — the strongest fold change observed across all datasets. Validates miR-34a as a universal senescence/aging marker in a third species and specifically in the LNP-target organ.
-2. **miR-16-5p DOWN 0.58x in aged rat kidney** — fourth independent validation as an OFF-switch candidate (after WI-38, HUVECs, MRC-5).
-3. **miR-155-5p UP 2.7x in aged liver** despite being DOWN in vitro — inflammaging artifact confirmed in the LNP-target organ, driven by Kupffer cell/macrophage accumulation.
-4. **miR-29 family consistently UP across 5 rat organs** (3-4x) — cross-species validation (mouse, rat) of the aging signal.
+1. **miR-34a-5p UP 4.1x in aged rat liver** - the strongest fold change observed across all datasets. Validates miR-34a as a universal senescence/aging marker in a third species and specifically in the LNP-target organ.
+2. **miR-16-5p DOWN 0.58x in aged rat kidney** - fourth independent validation as an OFF-switch candidate (after WI-38, HUVECs, MRC-5).
+3. **miR-155-5p UP 2.7x in aged liver** despite being DOWN in vitro - inflammaging artifact confirmed in the LNP-target organ, driven by Kupffer cell/macrophage accumulation.
+4. **miR-29 family consistently UP across 5 rat organs** (3-4x) - cross-species validation (mouse, rat) of the aging signal.
 
 ---
 

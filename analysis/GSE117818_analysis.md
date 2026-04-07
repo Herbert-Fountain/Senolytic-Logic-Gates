@@ -1,5 +1,5 @@
 # GSE117818 Analysis Report
-## MRC-5 Fibroblast Replicative Senescence — 5-Timepoint miRNA Time Course
+## MRC-5 Fibroblast Replicative Senescence - 5-Timepoint miRNA Time Course
 
 *Analysis date: 2026-04-07*
 
@@ -10,7 +10,7 @@
 | Parameter | Details |
 |-----------|---------|
 | **GEO Accession** | [GSE117818](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE117818) |
-| **Source** | JenAge Ageing Factor Database, Leibniz Institute on Aging — Fritz Lipmann Institute (FLI), Jena, Germany |
+| **Source** | JenAge Ageing Factor Database, Leibniz Institute on Aging - Fritz Lipmann Institute (FLI), Jena, Germany |
 | **Organism** | *Homo sapiens* |
 | **Cell type** | MRC-5 human fetal lung fibroblasts |
 | **Senescence inducer** | Replicative senescence (serial passaging) |
@@ -51,7 +51,7 @@ This dataset is valuable for three reasons:
 | **hsa-mir-92a-1** | 11,862 | 10,416 | 10,066 | 7,515 | **3,785** | **0.32x DOWN** | **Progressive DOWN** |
 | hsa-mir-122 | 1 | 0 | 0 | 0 | 0 | 0.25x | Not expressed |
 
-### 3.2 Temporal Kinetics — When Do Changes Occur?
+### 3.2 Temporal Kinetics - When Do Changes Occur?
 
 A striking pattern emerges: **most miRNA changes accelerate in late senescence (PD62→PD72)**. Many miRNAs are relatively stable from PD32 through PD52 or PD62, then change sharply at PD72 when cells are fully growth-arrested.
 
@@ -86,7 +86,7 @@ This temporal pattern has implications for circuit design: the miRNA profile of 
 | mir-146a | 1.24x (12 counts) | 0.7x (8 counts) | 1.2x (14 counts) | Both negligible |
 
 **Key concordances:**
-- **miR-34a UP, miR-155 DOWN, miR-16 DOWN, miR-92a DOWN, miR-17 DOWN** — all validated across both fibroblast lines.
+- **miR-34a UP, miR-155 DOWN, miR-16 DOWN, miR-92a DOWN, miR-17 DOWN** - all validated across both fibroblast lines.
 - These 5 miRNAs represent the **core replicative senescence fibroblast signature** that is reproducible across independent cell lines.
 
 **Key discordances:**
@@ -115,18 +115,18 @@ Both MRC-5 and WI-38 are human fetal lung fibroblasts, yet miR-21 and miR-22 beh
 ## 5. Limitations
 
 1. **Precursor miRNA IDs only.** Cannot distinguish -5p and -3p strand changes. For most candidates, one strand dominates (e.g., miR-34a-5p), so this is a minor issue.
-2. **No treatment control.** This is pure replicative senescence with no young-passage control held at the same culture time — the "young" samples (PD32) were harvested earlier. Time-in-culture effects cannot be distinguished from passage effects.
+2. **No treatment control.** This is pure replicative senescence with no young-passage control held at the same culture time - the "young" samples (PD32) were harvested earlier. Time-in-culture effects cannot be distinguished from passage effects.
 3. **Single cell type.** MRC-5 fibroblasts only.
 4. **n=3 replicates per timepoint.** Adequate but not large.
 
 ## 6. Conclusions
 
 1. **miR-34a is validated as UP (2.8x) in MRC-5 replicative senescence**, with a progressive trajectory that accelerates at late passages. This is now confirmed in 8 independent analyses.
-2. **miR-155 is validated as DOWN (10x)** — the strongest decline in any dataset, with progressive kinetics from PD42 onward.
-3. **miR-16 is validated as DOWN (0.53x)** — fourth human validation (WI-38 DXR, WI-38 RS, HUVEC RS, now MRC-5 RS).
+2. **miR-155 is validated as DOWN (10x)** - the strongest decline in any dataset, with progressive kinetics from PD42 onward.
+3. **miR-16 is validated as DOWN (0.53x)** - fourth human validation (WI-38 DXR, WI-38 RS, HUVEC RS, now MRC-5 RS).
 4. **miR-92a shows the most progressive decline** (0.32x, steady from PD32 to PD72), qualifying as an additional OFF-switch candidate for fibroblast circuits.
 5. A **five-miRNA core senescence signature** (miR-34a UP; miR-155, miR-16, miR-92a, miR-17 DOWN) is reproducible across two independent human fibroblast lines.
-6. **miR-21 and miR-22 are NOT part of the core signature** — they change in WI-38 but not MRC-5, indicating cell-line-specific behavior.
+6. **miR-21 and miR-22 are NOT part of the core signature** - they change in WI-38 but not MRC-5, indicating cell-line-specific behavior.
 
 ---
 

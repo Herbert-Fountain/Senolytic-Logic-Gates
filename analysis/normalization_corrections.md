@@ -82,8 +82,8 @@ This corrects for differences in sequencing depth while preserving the compositi
 | miR-22-3p | 0.32x DOWN | **0.65x DOWN** | Less dramatic but still DOWN | Holds |
 | **miR-155-5p** | 0.90x STABLE | **1.81x UP** | **DIRECTION REVERSED** | **No longer a valid OFF-switch in HUVECs** |
 | miR-16-5p | 0.43x DOWN | **0.89x STABLE** | **Direction weakened** | **Uncertain in HUVECs** |
-| miR-92a-3p | 2.61x UP | **5.14x UP** | Enhanced | — |
-| miR-17-5p | 5.88x UP | **10.99x UP** | Enhanced | — |
+| miR-92a-3p | 2.61x UP | **5.14x UP** | Enhanced | - |
+| miR-17-5p | 5.88x UP | **10.99x UP** | Enhanced | - |
 
 ## 5. Impact on Key Conclusions
 
@@ -101,7 +101,7 @@ This corrects for differences in sequencing depth while preserving the compositi
 
 2. **miR-21-5p is effectively stable** in DXR senescence (CPM FC = 1.09x). Its raw 1.8x increase was inflated. miR-21-5p should not be considered a senescence-upregulated miRNA in WI-38 fibroblasts.
 
-3. **miR-155-5p is UP (1.81x) in senescent HUVECs after normalization** — the raw data suggested stability (0.90x). This changes the inflammaging interpretation: miR-155-5p may genuinely increase in some senescent cell types (endothelial), not just through immune cell infiltration. The OFF-switch recommendation for miR-155-5p now applies only to fibroblasts, not endothelial cells.
+3. **miR-155-5p is UP (1.81x) in senescent HUVECs after normalization** - the raw data suggested stability (0.90x). This changes the inflammaging interpretation: miR-155-5p may genuinely increase in some senescent cell types (endothelial), not just through immune cell infiltration. The OFF-switch recommendation for miR-155-5p now applies only to fibroblasts, not endothelial cells.
 
 4. **miR-16-5p decline in HUVECs is less certain** (CPM FC = 0.89x vs raw 0.43x). The dramatic raw decline was largely a library size artifact. miR-16-5p may not be a reliable OFF-switch in endothelial cells.
 
@@ -115,14 +115,14 @@ This corrects for differences in sequencing depth while preserving the compositi
 |------|-------|-------------|----------------------|------------|
 | **1** | **miR-34a-5p** | 1.50x | 558 CPM | Only consistent ON candidate; modest FC |
 | 2 | miR-22-3p | 1.74x | 15,543 CPM | Higher FC, high counts, fibroblast-specific |
-| ~~3~~ | ~~miR-29a-3p~~ | ~~0.96x~~ | — | **ELIMINATED — no change after normalization** |
-| ~~4~~ | ~~miR-21-5p~~ | ~~1.09x~~ | — | **ELIMINATED — no change after normalization** |
+| ~~3~~ | ~~miR-29a-3p~~ | ~~0.96x~~ | - | **ELIMINATED - no change after normalization** |
+| ~~4~~ | ~~miR-21-5p~~ | ~~1.09x~~ | - | **ELIMINATED - no change after normalization** |
 
 ### OFF-Switch Candidates (CPM-corrected, STRENGTHENED)
 
 | Rank | miRNA | CPM FC (DXR) | CPM Level (healthy) | Assessment |
 |------|-------|-------------|---------------------|------------|
-| **1** | **miR-155-5p** | **0.09x** | 9,887 CPM | 11x decline — strongest OFF-switch |
+| **1** | **miR-155-5p** | **0.09x** | 9,887 CPM | 11x decline - strongest OFF-switch |
 | **2** | **miR-92a-3p** | **0.26x** | 23,101 CPM | 3.8x decline, highest expression |
 | **3** | **miR-16-5p** | **0.37x** | 3,172 CPM | 2.7x decline |
 | **4** | **miR-17-5p** | **0.19x** | 472 CPM | 5.3x decline, lower expression |
@@ -135,16 +135,16 @@ The following datasets provided pre-normalized data and are NOT affected by this
 - **GSE136926** (normalized by original authors)
 
 The following datasets use raw counts and SHOULD be CPM-corrected:
-- **GSE172269** (rat BodyMap) — correction pending
-- **GSE111281/GSE111174** (JenAge skin/blood) — precursor IDs, correction pending
-- **GSE117818** (MRC-5) — precursor IDs, correction pending
-- **GSE200330** (EV miRNAs) — per-sample RPM already provided
+- **GSE172269** (rat BodyMap) - correction pending
+- **GSE111281/GSE111174** (JenAge skin/blood) - precursor IDs, correction pending
+- **GSE117818** (MRC-5) - precursor IDs, correction pending
+- **GSE200330** (EV miRNAs) - per-sample RPM already provided
 
 ## 8. Lessons Learned
 
 1. **Always normalize before computing fold changes.** This is standard practice in RNA-seq analysis but was not applied in our initial exploratory analyses. The raw count comparisons were useful for identifying candidate directions but the magnitudes were unreliable.
 
-2. **Library size biases can be systematic.** In GSE299871, all treated groups had larger libraries than controls — possibly because senescent cells produce more total miRNA, or because more RNA was extracted from those samples. This creates a consistent bias that inflates all apparent upregulation and hides all downregulation.
+2. **Library size biases can be systematic.** In GSE299871, all treated groups had larger libraries than controls - possibly because senescent cells produce more total miRNA, or because more RNA was extracted from those samples. This creates a consistent bias that inflates all apparent upregulation and hides all downregulation.
 
 3. **The direction of change is more robust than the magnitude.** After CPM correction, most directional conclusions held (7/9 miRNAs kept the same direction in DXR). But magnitudes changed substantially, and two miRNAs lost their signal entirely.
 

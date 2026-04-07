@@ -13,36 +13,36 @@
 
 ## Confirmed Small RNA-Seq Datasets
 
-### GSE94410 — HUVEC Replicative Senescence *(Already analyzed)*
+### GSE94410 - HUVEC Replicative Senescence *(Already analyzed)*
 
 | Parameter | Details |
 |-----------|---------|
 | Cell type | HUVECs |
 | Inducer | Replicative |
 | Samples | 15 (4 passage stages) |
-| Count data | YES — raw counts available |
+| Count data | YES - raw counts available |
 | Status | **Downloaded and analyzed** |
 
 See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 
 ---
 
-### GSE27404 — IMR90 Replicative Senescence
+### GSE27404 - IMR90 Replicative Senescence
 
 | Parameter | Details |
 |-----------|---------|
 | Cell type | IMR90 human lung fibroblasts |
 | Inducer | Replicative (passage 14 vs 34) |
-| Samples | 2 (young vs senescent) — **n=1 per condition** |
+| Samples | 2 (young vs senescent) - **n=1 per condition** |
 | Count data | Only BedGraph genomic coordinates; miRNA counts in paper supplementary tables (DOC format, behind PMC paywall) |
 | Citation | Dhahbi et al. *PLoS ONE*. 2011;6(5):e20509. PMID: [21637828](https://pubmed.ncbi.nlm.nih.gov/21637828/) |
-| Status | **Downloaded but count table not extracted** — BedGraph files need re-processing or supplementary DOC needs manual extraction |
+| Status | **Downloaded but count table not extracted** - BedGraph files need re-processing or supplementary DOC needs manual extraction |
 
 **Limitation:** n=1 per condition. No biological replicates.
 
 ---
 
-### GSE189209 — Prostate Epithelial Cell Replicative Senescence
+### GSE189209 - Prostate Epithelial Cell Replicative Senescence
 
 | Parameter | Details |
 |-----------|---------|
@@ -50,16 +50,16 @@ See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 | Inducer | Replicative (passage 1 proliferative vs passage 7 senescent) |
 | Samples | 4 miRNA-seq (2 active + 2 senescent) + 4 mRNA-seq |
 | Method | TruSeq Small RNA Library, HiSeq2500, SE50 |
-| Count data | **NO processed count files on GEO** — only raw SRA reads. Would need FASTQ → alignment → counting pipeline |
+| Count data | **NO processed count files on GEO** - only raw SRA reads. Would need FASTQ → alignment → counting pipeline |
 | Citation | Protopopov et al. *Genes*. 2022;13(2):208. PMID: [35205253](https://pubmed.ncbi.nlm.nih.gov/35205253/). PMC: [PMC8872619](https://pmc.ncbi.nlm.nih.gov/articles/PMC8872619/) |
 | Key findings | 97 differentially expressed miRNAs |
-| Status | **Not downloaded** — requires re-processing from raw FASTQ |
+| Status | **Not downloaded** - requires re-processing from raw FASTQ |
 
 **Note:** This is one of the few datasets from epithelial cells (not fibroblasts or endothelial). Epithelial senescence may have different miRNA profiles.
 
 ---
 
-### GSE200330 — Irradiation-Induced Senescence in Synovial Fibroblasts (EV miRNAs)
+### GSE200330 - Irradiation-Induced Senescence in Synovial Fibroblasts (EV miRNAs)
 
 | Parameter | Details |
 |-----------|---------|
@@ -77,32 +77,32 @@ See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 
 ## Confirmed mRNA-Seq Datasets (NOT miRNA-seq, but relevant context)
 
-### GSE130727 — Multi-Model Senescence Transcriptome
+### GSE130727 - Multi-Model Senescence Transcriptome
 
 | Parameter | Details |
 |-----------|---------|
 | Cell types | WI-38, IMR-90 fibroblasts; HUVECs, HAECs |
 | Inducers | Replicative, ionizing radiation, **doxorubicin**, oncogene (HRAS-G12V) |
-| Method | Total RNA-seq (rRNA-depleted) — **NOT small RNA-seq** |
+| Method | Total RNA-seq (rRNA-depleted) - **NOT small RNA-seq** |
 | GEO | [GSE130727](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130727) |
 | Citation | Casella et al. *Nucleic Acids Res*. 2019;47(14):7294-7305. PMID: [31251810](https://pubmed.ncbi.nlm.nih.gov/31251810/) |
 
-**Why this matters:** Includes doxorubicin-induced senescence in fibroblasts — the same conditions Herbert plans. While it's mRNA-seq (not miRNA), the transcriptome data could validate predicted miRNA targets.
+**Why this matters:** Includes doxorubicin-induced senescence in fibroblasts - the same conditions the investigator plans. While it's mRNA-seq (not miRNA), the transcriptome data could validate predicted miRNA targets.
 
-### GSE280381 — Doxorubicin Therapy-Induced Senescence in Breast Cancer
+### GSE280381 - Doxorubicin Therapy-Induced Senescence in Breast Cancer
 
 | Parameter | Details |
 |-----------|---------|
 | Cell types | MCF7, T47D, MDA-MB-231, Hs578T |
 | Inducer | High-dose doxorubicin |
-| Method | Bulk RNA-seq + scRNA-seq — **NOT small RNA-seq** |
+| Method | Bulk RNA-seq + scRNA-seq - **NOT small RNA-seq** |
 | GEO | [GSE280381](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE280381) |
 
 ---
 
 ## Human Aging Tissue miRNA-Seq Datasets
 
-### GSE55164 — Human Skeletal Muscle Aging
+### GSE55164 - Human Skeletal Muscle Aging
 
 | Parameter | Details |
 |-----------|---------|
@@ -127,7 +127,7 @@ See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 
 ## Datasets Previously Misidentified as Small RNA-Seq
 
-### GSE64553 — HFF/MRC5 Replicative Senescence Time Course
+### GSE64553 - HFF/MRC5 Replicative Senescence Time Course
 
 **This was initially identified as small RNA-seq but is actually mRNA-seq.** Contains protein-coding gene expression from HFF fibroblasts at 6 population doublings and MRC5 fibroblasts at 4 population doublings, with/without rotenone treatment. Despite being mRNA-seq, the time course design (PD22→PD74 for HFF) with 3 replicates per condition is valuable for understanding gene expression trajectories during senescence.
 
@@ -135,7 +135,7 @@ See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 |-----------|---------|
 | GEO | [GSE64553](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64553) |
 | Cell types | HFF (human foreskin fibroblasts), MRC5 (human lung fibroblasts) |
-| Method | **mRNA-seq** (HiSeq2000, 50bp SE) — NOT small RNA-seq |
+| Method | **mRNA-seq** (HiSeq2000, 50bp SE) - NOT small RNA-seq |
 | Citation | Marthandan et al. *PLoS ONE*. 2016. PMID: [27128674](https://pubmed.ncbi.nlm.nih.gov/27128674/) |
 
 ---
@@ -148,9 +148,9 @@ See: [analysis/GSE94410_analysis.md](../analysis/GSE94410_analysis.md)
 | **2** | GSE189209 | Prostate epithelial | Replicative | Raw FASTQ only | Needs processing |
 | **3** | GSE27404 | IMR90 fibroblast | Replicative | BedGraph only (n=1) | Needs processing |
 | **4** | GSE200330 | Synovial fibroblast EVs | Irradiation | On GEO | Not downloaded |
-| — | **None** | **Any** | **Doxorubicin** | — | **DOES NOT EXIST** |
+| - | **None** | **Any** | **Doxorubicin** | - | **DOES NOT EXIST** |
 
-**The critical gap remains: there is no public small RNA-seq dataset for doxorubicin-induced senescence in any human cell type.** Herbert's planned experiment will be the first.
+**The critical gap remains: there is no public small RNA-seq dataset for doxorubicin-induced senescence in any human cell type.** The planned experiment will be the first.
 
 ---
 

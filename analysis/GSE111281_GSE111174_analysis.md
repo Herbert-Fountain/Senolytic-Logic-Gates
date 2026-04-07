@@ -1,5 +1,5 @@
 # GSE111281 / GSE111174 Analysis Report
-## Human Skin and Blood Aging — JenAge Small RNA-seq (Ages 24-80)
+## Human Skin and Blood Aging - JenAge Small RNA-seq (Ages 24-80)
 
 *Analysis date: 2026-04-07*
 
@@ -11,7 +11,7 @@
 |-----------|-----------------|-------------------|
 | **GEO Accession** | [GSE111281](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE111281) | [GSE111174](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE111174) |
 | **Source** | JenAge/Jena Centre for Systems Biology of Ageing ([jenage.de](https://www.jenage.de)) |
-| **Institution** | Leibniz Institute for Age Research — Fritz Lipmann Institute (FLI), Jena, Germany |
+| **Institution** | Leibniz Institute for Age Research - Fritz Lipmann Institute (FLI), Jena, Germany |
 | **Organism** | *Homo sapiens* |
 | **Tissue** | Skin biopsy | Whole blood |
 | **Age groups** | 24-29yr (n=6), 45-50yr (n=9), 60-65yr (n=7), 75-80yr (n=8) | 24-29yr (n=7), 45-50yr (n=9), 60-65yr (n=7), 75-80yr (n=7) |
@@ -49,7 +49,7 @@ These paired skin + blood datasets from the **same age cohorts** at the same ins
 | miRNA (precursor) | Young (24-29yr) | Old (75-80yr) | FC | Level | Interpretation |
 |-------------------|----------------|---------------|-----|-------|---------------|
 | hsa-mir-34a | 2 | 2 | 1.33x | NEGLIGIBLE | **Not expressed in blood** |
-| hsa-mir-21 | 6,947 | 4,820 | **0.69x DOWN** | HIGH | DOWN — opposite of tissue |
+| hsa-mir-21 | 6,947 | 4,820 | **0.69x DOWN** | HIGH | DOWN - opposite of tissue |
 | hsa-mir-22 | 563,414 | 434,837 | **0.77x DOWN** | HIGH | DOWN in blood |
 | hsa-mir-29c | 501 | 416 | 0.83x | MED | DOWN in blood |
 | hsa-mir-29a | 418 | 281 | **0.67x DOWN** | MED | DOWN in blood |
@@ -79,16 +79,16 @@ A striking and important finding: **most miRNAs DECLINE in aged blood but are ST
 
 Only miR-17 and miR-92a (both members of the miR-17~92 cluster) decline in both skin and blood. All other miRNAs show opposite or divergent patterns.
 
-**Mechanistic explanation:** Blood is composed primarily of immune cells (lymphocytes, monocytes, neutrophils). Aged blood has fewer proliferative lymphocytes due to immunosenescence — thymic involution reduces naive T cell output, and the lymphocyte pool contracts (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). Since lymphocytes are major miRNA producers in blood, the global decline in blood miRNAs likely reflects reduced lymphocyte numbers and proliferative capacity rather than cell-autonomous miRNA regulation.
+**Mechanistic explanation:** Blood is composed primarily of immune cells (lymphocytes, monocytes, neutrophils). Aged blood has fewer proliferative lymphocytes due to immunosenescence - thymic involution reduces naive T cell output, and the lymphocyte pool contracts (Goronzy & Weyand, *Nat Immunol*, 2013, PMID: 24048120). Since lymphocytes are major miRNA producers in blood, the global decline in blood miRNAs likely reflects reduced lymphocyte numbers and proliferative capacity rather than cell-autonomous miRNA regulation.
 
-**This means blood/serum/plasma miRNA aging studies cannot be used to infer tissue-level miRNA changes.** A circulating miRNA biomarker of aging may have no relevance to the intracellular miRNA landscape within a solid tissue — which is what the circuit senses.
+**This means blood/serum/plasma miRNA aging studies cannot be used to infer tissue-level miRNA changes.** A circulating miRNA biomarker of aging may have no relevance to the intracellular miRNA landscape within a solid tissue - which is what the circuit senses.
 
 ### 4.2 miR-34a-5p: Not a Blood Biomarker
 
 miR-34a has only **2 counts** in blood at any age. This is an important negative finding: despite being the most consistent tissue/cell senescence marker, miR-34a-5p is essentially undetectable in circulating blood. This means:
 - Blood-based diagnostic tests for senescent cell burden cannot use miR-34a
 - Studies that profiled only blood miRNAs would have missed miR-34a entirely
-- The circuit is designed to sense intracellular miRNA in tissue-resident cells, not circulating miRNA — so blood absence does not affect circuit design
+- The circuit is designed to sense intracellular miRNA in tissue-resident cells, not circulating miRNA - so blood absence does not affect circuit design
 
 ### 4.3 miR-16-5p: Human In Vivo OFF-Switch Validation
 
@@ -103,11 +103,11 @@ miR-16 declines **0.61x** (68,945→41,870) in aged human blood. This is now the
 | 5 | GSE172269 | Rat kidney (aging) | Rat | 0.58x |
 | 6 | **GSE111174** | **Human blood (aging)** | **Human** | **0.61x** |
 
-However, miR-16 is **stable** in aged skin (1.05x) and heart (1.23x). The decline appears specific to proliferative cell types (fibroblasts in culture, endothelial cells, blood cells) and does not occur in post-mitotic or slowly dividing tissue. This is mechanistically consistent with miR-16's role as a cell cycle regulator (Linsley et al., *RNA*, 2007, PMID: 17210802) — in quiescent or post-mitotic tissue, cell cycle regulation is less relevant.
+However, miR-16 is **stable** in aged skin (1.05x) and heart (1.23x). The decline appears specific to proliferative cell types (fibroblasts in culture, endothelial cells, blood cells) and does not occur in post-mitotic or slowly dividing tissue. This is mechanistically consistent with miR-16's role as a cell cycle regulator (Linsley et al., *RNA*, 2007, PMID: 17210802) - in quiescent or post-mitotic tissue, cell cycle regulation is less relevant.
 
 ### 4.4 miR-92a: Most Consistent OFF-Switch Across Human Tissues
 
-miR-92a-1 declines in aged human skin (0.75x), blood (0.71x), AND heart (0.76x) — the only miRNA that is DOWN across all three human tissues analyzed:
+miR-92a-1 declines in aged human skin (0.75x), blood (0.71x), AND heart (0.76x) - the only miRNA that is DOWN across all three human tissues analyzed:
 
 | Tissue | FC | Counts (young→old) |
 |--------|-----|-------------------|
@@ -130,10 +130,10 @@ miR-92a-3p is a member of the miR-17~92 cluster (also known as OncomiR-1), which
 
 ## 6. Conclusions
 
-1. **miR-34a-5p is UP 1.25x in aged human skin** — modest but maintains the correct direction. It is not expressed in blood (2 counts), making it undetectable by circulating miRNA studies.
-2. **miR-16 is DOWN 0.61x in aged human blood** — sixth independent validation as OFF-switch, but specific to proliferative cell types (stable in skin and heart).
-3. **miR-92a is DOWN in all three human tissues** (blood 0.71x, skin 0.75x, heart 0.76x) — the most consistent cross-tissue OFF-switch candidate in human aging data.
-4. **Blood and tissue miRNA aging patterns diverge dramatically** — global decline in blood (immunosenescence) vs. stability/modest increase in tissue. Blood miRNA studies cannot be used to infer tissue-level changes.
+1. **miR-34a-5p is UP 1.25x in aged human skin** - modest but maintains the correct direction. It is not expressed in blood (2 counts), making it undetectable by circulating miRNA studies.
+2. **miR-16 is DOWN 0.61x in aged human blood** - sixth independent validation as OFF-switch, but specific to proliferative cell types (stable in skin and heart).
+3. **miR-92a is DOWN in all three human tissues** (blood 0.71x, skin 0.75x, heart 0.76x) - the most consistent cross-tissue OFF-switch candidate in human aging data.
+4. **Blood and tissue miRNA aging patterns diverge dramatically** - global decline in blood (immunosenescence) vs. stability/modest increase in tissue. Blood miRNA studies cannot be used to infer tissue-level changes.
 5. The miR-17~92 cluster (miR-17, miR-92a) shows the only consistent decline across both blood and tissue, supporting its mechanistic role in aging via proliferative program silencing.
 
 ---

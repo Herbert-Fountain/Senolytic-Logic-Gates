@@ -4,7 +4,7 @@ This directory contains publicly available datasets used for senescence miRNA an
 
 ---
 
-## GSE94410 — HUVEC Replicative Senescence miRNA-seq
+## GSE94410 - HUVEC Replicative Senescence miRNA-seq
 
 **Publication:** Terlecki-Zaniewicz L et al. MicroRNAs mediate the senescence-associated decline of NRF2 in endothelial cells. *Redox Biology*. 2018;18:77-83. PMC: [PMC6037909](https://pmc.ncbi.nlm.nih.gov/articles/PMC6037909/)
 
@@ -83,7 +83,7 @@ gunzip GSE94410_CountTable.txt.gz
 
 ---
 
-## GSE27404 — IMR90 Replicative Senescence miRNA Deep Sequencing
+## GSE27404 - IMR90 Replicative Senescence miRNA Deep Sequencing
 
 **Publication:** Dhahbi JM et al. Deep Sequencing Reveals Novel MicroRNAs and Regulation of MicroRNA Expression during Cell Senescence. *PLoS ONE*. 2011;6(5):e20509. PMID: [21637828](https://pubmed.ncbi.nlm.nih.gov/21637828/)
 
@@ -109,21 +109,21 @@ gunzip GSE94410_CountTable.txt.gz
 
 ## Planned Datasets
 
-### Herbert Fountain Lab — Doxorubicin-Induced Senescence in Mice
+### the investigator Fountain Lab - Doxorubicin-Induced Senescence in Mice
 - **Organism:** *Mus musculus*
 - **Inducer:** Doxorubicin (in vivo injection)
 - **Tissues:** Multiple organs
 - **Method:** Small RNA-seq
 - **Status:** Planned, not yet performed
 
-### Herbert Fountain Lab — Doxorubicin-Induced Senescence in Human pHDFs
+### the investigator Fountain Lab - Doxorubicin-Induced Senescence in Human pHDFs
 - **Organism:** *Homo sapiens*
 - **Cell type:** Primary human dermal fibroblasts
 - **Inducer:** Doxorubicin (in vitro)
 - **Method:** Small RNA-seq
 - **Status:** Planned, not yet performed
 
-## Additional Datasets — Provenance Summary
+## Additional Datasets - Provenance Summary
 
 All datasets below were downloaded from NCBI GEO between 2026-04-06 and 2026-04-07.
 
@@ -155,16 +155,16 @@ All datasets below were downloaded from NCBI GEO between 2026-04-06 and 2026-04-
 
 | Dataset | PMID | Citation |
 |---------|------|---------|
-| GSE299871 | — | RNA Biology 2025. DOI: 10.1080/15476286.2025.2551299 |
+| GSE299871 | - | RNA Biology 2025. DOI: 10.1080/15476286.2025.2551299 |
 | GSE94410 | 29980056 | Terlecki-Zaniewicz et al. Redox Biology. 2018;18:77-83 |
 | GSE202120 | 36402833 | Engel et al. Scientific Reports. 2022 |
-| GSE117818 | — | JenAge Consortium, Leibniz Institute on Aging |
+| GSE117818 | - | JenAge Consortium, Leibniz Institute on Aging |
 | GSE200330 | 36213127 | Peiris et al. Front Mol Biosci. 2022 |
 | GSE217458 | 37106037 | Wagner et al. Nature Biotechnology. 2024;42:109-118 |
 | GSE55164 | 25063768 | Kim et al. Aging. 2014;6(7):524-544 |
 | GSE172269 | 35551205 | Bushel et al. Scientific Data. 2022;9:252 |
 | GSE136926 | 31607954 | Ma et al. Front Physiol. 2019;10:1226 |
-| GSE111281 | — | JenAge Consortium, Leibniz Institute on Aging |
-| GSE111174 | — | JenAge Consortium, Leibniz Institute on Aging |
-| GSE182598 | — | To be confirmed |
+| GSE111281 | - | JenAge Consortium, Leibniz Institute on Aging |
+| GSE111174 | - | JenAge Consortium, Leibniz Institute on Aging |
+| GSE182598 | - | To be confirmed |
 | GSE27404 | 21637828 | Dhahbi et al. PLoS ONE. 2011;6(5):e20509 |

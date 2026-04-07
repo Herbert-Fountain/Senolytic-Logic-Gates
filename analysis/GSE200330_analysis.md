@@ -1,5 +1,5 @@
 # GSE200330 Analysis Report
-## Irradiation-Induced Senescence — Synovial Fibroblast Extracellular Vesicle miRNAs
+## Irradiation-Induced Senescence - Synovial Fibroblast Extracellular Vesicle miRNAs
 
 *Analysis date: 2026-04-06*
 
@@ -14,7 +14,7 @@
 | **Organism** | *Homo sapiens* |
 | **Cell type** | Primary synovial fibroblasts (from osteoarthritis patients undergoing joint replacement) |
 | **Senescence inducer** | Ionizing radiation (10 Gy gamma irradiation), 18 days post-irradiation |
-| **What was sequenced** | **Extracellular vesicle (EV) small RNA** — NOT intracellular |
+| **What was sequenced** | **Extracellular vesicle (EV) small RNA** - NOT intracellular |
 | **Platform** | Illumina NovaSeq 6000, 100bp SE |
 | **Total miRNAs** | 2,659 |
 | **Data format** | Per-sample CSV with raw reads and RPM |
@@ -33,7 +33,7 @@
 | miRNA | Control (reads) | Senescent (reads) | FC | EV Level | Interpretation |
 |-------|----------------|-------------------|-----|----------|---------------|
 | hsa-miR-21-5p | 596 | 570 | 1.0x | HIGH | Abundant in EVs regardless of senescence |
-| hsa-miR-22-3p | 459 | 294 | **0.6x DOWN** | HIGH | Less exported in senescent EVs — retained intracellularly? |
+| hsa-miR-22-3p | 459 | 294 | **0.6x DOWN** | HIGH | Less exported in senescent EVs - retained intracellularly? |
 | hsa-miR-122-5p | 34 | 36 | 1.1x | MED | Stable |
 | hsa-miR-29a-3p | 29 | 28 | 1.0x | MED | No change in EV export |
 | hsa-miR-155-5p | 28 | 7 | **0.2x DOWN** | LOW | Strongly reduced in senescent EVs |
@@ -42,9 +42,9 @@
 | hsa-miR-21-3p | 6 | 8 | 1.4x | LOW | Low in EVs (consistent with intracellular retention) |
 | hsa-miR-29c-3p | 5 | 8 | 1.5x | LOW | Low in EVs |
 | hsa-miR-215-5p | 4 | 0 | DOWN | LOW | Nearly absent |
-| hsa-miR-184 | 0 | 1 | — | NEGLIGIBLE | Not in EVs |
-| hsa-miR-96-5p | 0 | 0 | — | NEGLIGIBLE | Not in EVs |
-| hsa-miR-17-5p | 0 | 0 | — | NEGLIGIBLE | Not in EVs |
+| hsa-miR-184 | 0 | 1 | - | NEGLIGIBLE | Not in EVs |
+| hsa-miR-96-5p | 0 | 0 | - | NEGLIGIBLE | Not in EVs |
+| hsa-miR-17-5p | 0 | 0 | - | NEGLIGIBLE | Not in EVs |
 
 ## 4. Discussion
 
@@ -70,8 +70,8 @@ The Terlecki-Zaniewicz 2019 study (PMID: 29779019) found that miR-21-3p and miR-
 
 ## 5. Conclusions
 
-1. The EV miRNA landscape during senescence is largely unchanged for our candidate miRNAs — most show no significant export difference.
-2. The reduction of miR-155-5p in senescent EVs is interesting and warrants further investigation — it may indicate intracellular accumulation.
+1. The EV miRNA landscape during senescence is largely unchanged for our candidate miRNAs - most show no significant export difference.
+2. The reduction of miR-155-5p in senescent EVs is interesting and warrants further investigation - it may indicate intracellular accumulation.
 3. This dataset's primary value is as negative evidence: miRNAs that are absent or unchanged in EVs (like miR-34a, miR-29c, miR-146a) are likely intracellularly retained, which is favorable for circuit sensing.
 
 ---

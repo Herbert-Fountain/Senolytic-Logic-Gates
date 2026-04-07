@@ -8,15 +8,15 @@
 ## Purpose
 
 To compare miRNA expression changes during natural aging (in vivo, mixed cell populations) with chemotherapy-induced senescence (in vitro, pure senescent populations). This comparison helps distinguish:
-- **Universal aging/senescence miRNAs** — changed in both contexts
-- **Senescence-specific miRNAs** — changed only in pure senescent cells, diluted in bulk tissue
-- **Tissue aging miRNAs** — changed in aging tissue but driven by non-senescent cell composition shifts
+- **Universal aging/senescence miRNAs** - changed in both contexts
+- **Senescence-specific miRNAs** - changed only in pure senescent cells, diluted in bulk tissue
+- **Tissue aging miRNAs** - changed in aging tissue but driven by non-senescent cell composition shifts
 
 ---
 
 ## Tier 1: Highest Priority
 
-### GSE217458 / GSE222857 — Body-Wide ncRNA Aging Atlas (16 Mouse Tissues)
+### GSE217458 / GSE222857 - Body-Wide ncRNA Aging Atlas (16 Mouse Tissues)
 
 **Citation:** Wagner V, Kern F, Hahn O, Schaum N, Ludwig N, Fehlmann T, Engel A, Henn D, Rishik S, Isakova A, Tan M, Sit R, Neff N, Hart M, Meese E, Quake S, Wyss-Coray T, Keller A. Characterizing expression changes in noncoding RNAs during aging and heterochronic parabiosis across mouse tissues. *Nature Biotechnology*. 2024;42:109-118.
 
@@ -51,7 +51,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ---
 
-### GSE119661 — Mouse Tissue Atlas of Small Noncoding RNA (11 Tissues, Baseline)
+### GSE119661 - Mouse Tissue Atlas of Small Noncoding RNA (11 Tissues, Baseline)
 
 **Citation:** Isakova A et al. A mouse tissue atlas of small noncoding RNA. *PNAS*. 2020;117(41):25634-25645.
 
@@ -70,7 +70,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ## Tier 2: Tissue-Specific Mouse Aging
 
-### GSE55164 — Skeletal Muscle Aging miRNA-seq
+### GSE55164 - Skeletal Muscle Aging miRNA-seq
 
 **Citation:** Kim JY et al. Genome-wide profiling of the microRNA-mRNA regulatory network in skeletal muscle with aging. *Aging*. 2014;6(7):524-544.
 
@@ -88,7 +88,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ---
 
-### GSE124087 — Mouse Heart Aging RNA-seq
+### GSE124087 - Mouse Heart Aging RNA-seq
 
 **Citation:** Hasanpourghadi M et al. Dichotomy between the transcriptomic landscape of naturally versus accelerated aged murine hearts. *Scientific Reports*. 2020.
 
@@ -124,7 +124,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ## Tier 4: Human Aging
 
-### EGAS00001008117 — Rotterdam Study Plasma miRNA Aging
+### EGAS00001008117 - Rotterdam Study Plasma miRNA Aging
 
 **Citation:** Plasma microRNA signatures of aging and their links to health outcomes and mortality. *Genome Medicine*. 2025.
 
@@ -141,7 +141,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ---
 
-### GSE32493 — Human Centenarian B-Cell miRNA-seq
+### GSE32493 - Human Centenarian B-Cell miRNA-seq
 
 **Citation:** Serna E et al. Comprehensive microRNA profiling in B-cells of human centenarians by massively parallel sequencing. *BMC Genomics*. 2012;13:353.
 
@@ -160,7 +160,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ## Tier 5: Cross-Species Reference
 
-### GSE172269 — Rat miRNA-seq BodyMap (11 Organs, 4 Ages, 2 Sexes)
+### GSE172269 - Rat miRNA-seq BodyMap (11 Organs, 4 Ages, 2 Sexes)
 
 **Citation:** Bushel PR et al. Comprehensive microRNA-seq transcriptomic profiling across 11 organs, 4 ages, and 2 sexes of Fischer 344 rats. *Scientific Data*. 2022;9:252.
 
@@ -179,7 +179,7 @@ To compare miRNA expression changes during natural aging (in vivo, mixed cell po
 
 ## Cross-Dataset miRNA Comparison
 
-miRNAs recurring across multiple aging datasets — candidates for comparison with chemo-induced senescence:
+miRNAs recurring across multiple aging datasets - candidates for comparison with chemo-induced senescence:
 
 | miRNA | Natural Aging | In Vitro Senescence | In Vivo Dox Senescence | EV/Circulating |
 |-------|--------------|--------------------|-----------------------|---------------|
@@ -201,9 +201,9 @@ miRNAs recurring across multiple aging datasets — candidates for comparison wi
 ## Recommended Analysis Plan
 
 1. **Download GSE217458/GSE222857** count data for heart, kidney, liver, lung, spleen, skin (overlapping with our tissue pilot data)
-2. **Extract expression of senescence candidate miRNAs** across ages — do they change with natural aging in the same direction as in vitro senescence?
-3. **Identify miRNAs that are UP in aging across tissues** but have LOW baseline expression in young tissue — these would be ideal ON-switch candidates
-4. **Compare with Herbert's future dox small RNA-seq data** when available
+2. **Extract expression of senescence candidate miRNAs** across ages - do they change with natural aging in the same direction as in vitro senescence?
+3. **Identify miRNAs that are UP in aging across tissues** but have LOW baseline expression in young tissue - these would be ideal ON-switch candidates
+4. **Compare with The investigator's future dox small RNA-seq data** when available
 5. **Cross-reference with rat BodyMap** (GSE172269) for conservation validation
 
 ---

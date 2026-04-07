@@ -24,7 +24,7 @@ Our analysis has two goals:
 
 - **Cross-dataset quantitative comparison of absolute expression levels.** Different datasets used different library preparation kits, sequencing platforms, read depths, alignment tools, and normalization methods. Absolute miRNA counts are not comparable across datasets. We compare **directions of change** and **relative expression tiers** (high/medium/low/negligible), not absolute values.
 
-- **Formal meta-analysis.** True meta-analysis requires either combining p-values (Fisher's method) or effect sizes (random-effects model) with study as a covariate. This requires consistent effect size estimates, which our heterogeneous dataset collection does not support. Our approach is a systematic **concordance analysis** — testing whether each candidate changes in the same direction across independent experiments.
+- **Formal meta-analysis.** True meta-analysis requires either combining p-values (Fisher's method) or effect sizes (random-effects model) with study as a covariate. This requires consistent effect size estimates, which our heterogeneous dataset collection does not support. Our approach is a systematic **concordance analysis** - testing whether each candidate changes in the same direction across independent experiments.
 
 These limitations are inherent to secondary analysis of published data and are standard in the field (Rossi et al., *PLoS Comput Biol*, 2021, DOI: 10.1371/journal.pcbi.1008608).
 
@@ -37,7 +37,7 @@ Published absolute quantification studies provide calibration points:
 - miR-16 has been estimated at **~10,000-50,000 copies per cell** in lymphocytes (Lim et al., *Nucleic Acids Res*, 2011)
 - Total miRNA content is estimated at **~100,000-200,000 copies per cell** in most cell types
 
-In GSE299871 (WI-38 fibroblasts), miR-21-5p has ~66,000 CPM in controls. If this represents ~5,000 copies per cell (midpoint of published estimates), then 1 CPM ≈ 0.08 copies per cell. Under this rough calibration, miR-34a-5p at 558 CPM in DXR-senescent WI-38 cells would correspond to **~45 copies per cell** — substantially lower than the ~250 raw counts originally reported and potentially too few for reliable switch activation.
+In GSE299871 (WI-38 fibroblasts), miR-21-5p has ~66,000 CPM in controls. If this represents ~5,000 copies per cell (midpoint of published estimates), then 1 CPM ≈ 0.08 copies per cell. Under this rough calibration, miR-34a-5p at 558 CPM in DXR-senescent WI-38 cells would correspond to **~45 copies per cell** - substantially lower than the ~250 raw counts originally reported and potentially too few for reliable switch activation.
 
 **This calibration is approximate** and varies by cell type, RNA extraction method, and library prep. It should not be treated as precise. However, it underscores that the absolute copy number question is even more challenging than raw count analysis suggests.
 
@@ -98,17 +98,17 @@ Schurch et al. (*RNA*, 2016, PMID: 27022035) established that:
 
 | Dataset | Replicates per Group | Formal DE Feasible? | Notes |
 |---------|---------------------|--------------------|----|
-| GSE299871 | n=2 | **Marginal** — DESeq2 can run but severely underpowered. Only largest effects detectable. | n=2 is below the Schurch et al. minimum of 3 |
-| GSE94410 | n=3-4 | **Yes** — meets minimum threshold | S0 has 3, S1-S3 have 4 donors |
-| GSE202120 | n=3 | **Yes** — meets minimum threshold | 3 replicates per dose/timepoint |
-| GSE117818 | n=3 | **Yes** — meets minimum threshold | 3 replicates per PD stage |
-| GSE172269 | n=8 (4M+4F) | **Yes** — well-powered | Could model sex as covariate |
-| GSE111281 | n=6-9 | **Yes** — adequately powered | 4 age groups |
-| GSE111174 | n=7 | **Yes** — adequately powered | 4 age groups |
-| GSE136926 | n=3 | **Yes** — meets minimum threshold | 4 age groups |
-| GSE217458 | n=up to 6/tissue/age | **Yes** — well-powered | 771 samples total |
-| GSE200330 | n=3 | **Yes** — meets minimum threshold | 3 senescent + 3 control |
-| GSE55164 | n=6 | **Yes** — adequately powered | 6 young + 6 aged |
+| GSE299871 | n=2 | **Marginal** - DESeq2 can run but severely underpowered. Only largest effects detectable. | n=2 is below the Schurch et al. minimum of 3 |
+| GSE94410 | n=3-4 | **Yes** - meets minimum threshold | S0 has 3, S1-S3 have 4 donors |
+| GSE202120 | n=3 | **Yes** - meets minimum threshold | 3 replicates per dose/timepoint |
+| GSE117818 | n=3 | **Yes** - meets minimum threshold | 3 replicates per PD stage |
+| GSE172269 | n=8 (4M+4F) | **Yes** - well-powered | Could model sex as covariate |
+| GSE111281 | n=6-9 | **Yes** - adequately powered | 4 age groups |
+| GSE111174 | n=7 | **Yes** - adequately powered | 4 age groups |
+| GSE136926 | n=3 | **Yes** - meets minimum threshold | 4 age groups |
+| GSE217458 | n=up to 6/tissue/age | **Yes** - well-powered | 771 samples total |
+| GSE200330 | n=3 | **Yes** - meets minimum threshold | 3 senescent + 3 control |
+| GSE55164 | n=6 | **Yes** - adequately powered | 6 young + 6 aged |
 
 ### 4.3 What We Will Report
 
@@ -130,7 +130,7 @@ For within-dataset DE analysis, DESeq2 applies **Benjamini-Hochberg** FDR correc
 For the cross-dataset concordance analysis (testing whether a miRNA is consistently UP or DOWN across datasets), we do NOT apply formal multiple testing correction because:
 1. This is a hypothesis-generating analysis, not a hypothesis-testing one
 2. Each dataset is independent, so the concordance pattern itself provides replication
-3. A miRNA that is UP in 14/14 independent analyses does not require a p-value to be considered robust — the consistency IS the evidence
+3. A miRNA that is UP in 14/14 independent analyses does not require a p-value to be considered robust - the consistency IS the evidence
 
 ## 5. Cross-Dataset Concordance Analysis
 
@@ -138,8 +138,8 @@ For the cross-dataset concordance analysis (testing whether a miRNA is consisten
 
 For each candidate miRNA, we assess:
 1. **Direction of change** in each dataset (UP / DOWN / STABLE, using CPM-normalized fold change where available)
-2. **Consistency across datasets** — what fraction of analyses show the same direction?
-3. **Absolute expression tier** — categorized as HIGH (>1,000 CPM), MEDIUM (100-1,000 CPM), LOW (10-100 CPM), or NEGLIGIBLE (<10 CPM)
+2. **Consistency across datasets** - what fraction of analyses show the same direction?
+3. **Absolute expression tier** - categorized as HIGH (>1,000 CPM), MEDIUM (100-1,000 CPM), LOW (10-100 CPM), or NEGLIGIBLE (<10 CPM)
 
 We explicitly do NOT:
 - Average fold changes across datasets

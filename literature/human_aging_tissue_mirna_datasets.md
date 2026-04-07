@@ -9,13 +9,13 @@
 
 While large human miRNA-seq resources exist, **there is no large-scale human TISSUE small RNA-seq study specifically designed for aging** (i.e., young vs. old biopsies from the same organ with dedicated small RNA library prep). The closest resources are GTEx V10 (which includes small RNA-seq across ages 21-70 but was not designed as an aging study) and organ-specific small-N studies.
 
-**No human liver or kidney aging miRNA-seq dataset exists** — a critical gap given that LNPs accumulate in liver.
+**No human liver or kidney aging miRNA-seq dataset exists** - a critical gap given that LNPs accumulate in liver.
 
 ---
 
 ## Tier 1: Large-Scale Resources
 
-### GTEx V10 — Small RNA-seq Across 54 Human Tissues
+### GTEx V10 - Small RNA-seq Across 54 Human Tissues
 
 | Parameter | Details |
 |-----------|---------|
@@ -48,7 +48,7 @@ A comprehensive meta-resource rather than a primary dataset. Could be valuable f
 
 ## Tier 2: Organ-Specific Human Aging miRNA-Seq
 
-### GSE136930 — Human Right Atrial Tissue Aging
+### GSE136930 - Human Right Atrial Tissue Aging
 
 | Parameter | Details |
 |-----------|---------|
@@ -57,14 +57,14 @@ A comprehensive meta-resource rather than a primary dataset. Could be valuable f
 | **Age groups** | 4 groups: 38-42, 48-52, 58-62, 68-72 years |
 | **Method** | NEBNext Small RNA Library Prep, Illumina HiSeq2500, ~10M reads/sample |
 | **Samples** | 12 (3 per age group) |
-| **Key finding** | **miR-34a-5p upregulated with age** — validates our top ON-switch candidate in human cardiac tissue |
+| **Key finding** | **miR-34a-5p upregulated with age** - validates our top ON-switch candidate in human cardiac tissue |
 | **Citation** | Ma et al. *Front Physiol*. 2019. PMID: [31607954](https://pubmed.ncbi.nlm.nih.gov/31607954/) |
 
 **This is the only human tissue aging small RNA-seq study that directly validates miR-34a-5p as age-upregulated.** The finding of miR-34a-5p increasing with age in human atrial tissue is consistent with all of our other datasets (WI-38, MRC-5, HUVEC, HAEC, mouse 16-tissue, mouse muscle, rat liver/kidney/lung/spleen).
 
 ---
 
-### de Vries et al. (2019) — Human Bronchial Biopsy Aging
+### de Vries et al. (2019) - Human Bronchial Biopsy Aging
 
 | Parameter | Details |
 |-----------|---------|
@@ -75,13 +75,13 @@ A comprehensive meta-resource rather than a primary dataset. Could be valuable f
 | **Data availability** | **NOT confirmed as publicly deposited.** GEO accession not found in publication. |
 | **Key finding** | 27 age-related miRNAs. miR-146a-5p, miR-146b-5p, miR-142-5p LOWER with increasing age. |
 
-Relevant finding: miR-146a-5p declines with age in human bronchial tissue — **opposite** of what we see in mouse aging tissues (UP 1.3-2.5x in GSE217458, GSE172269). This may reflect tissue-specific biology (airway vs. other organs) or species differences.
+Relevant finding: miR-146a-5p declines with age in human bronchial tissue - **opposite** of what we see in mouse aging tissues (UP 1.3-2.5x in GSE217458, GSE172269). This may reflect tissue-specific biology (airway vs. other organs) or species differences.
 
 ---
 
 ## Tier 3: Human Blood/Serum/Plasma Aging miRNA-Seq
 
-### GSE53439 — HANDLS Study Serum miRNA-Seq
+### GSE53439 - HANDLS Study Serum miRNA-Seq
 
 | Parameter | Details |
 |-----------|---------|
@@ -93,7 +93,7 @@ Relevant finding: miR-146a-5p declines with age in human bronchial tissue — **
 | **Key findings** | miR-151a-5p, miR-181a-5p, miR-1248 significantly DECREASED with age |
 | **Citation** | Noren Hooten et al. *Aging*. 2013. PMID: [24088671](https://pubmed.ncbi.nlm.nih.gov/24088671/) |
 
-### Rotterdam Study — Plasma miRNA-Seq (Largest Human Cohort)
+### Rotterdam Study - Plasma miRNA-Seq (Largest Human Cohort)
 
 | Parameter | Details |
 |-----------|---------|
@@ -103,7 +103,7 @@ Relevant finding: miR-146a-5p declines with age in human bronchial tissue — **
 | **Key findings** | Composite miRNA aging biomarkers predict health outcomes and mortality |
 | **Citation** | *Genome Medicine*. 2025 |
 
-### Framingham Heart Study — Plasma exRNA
+### Framingham Heart Study - Plasma exRNA
 
 | Parameter | Details |
 |-----------|---------|
@@ -116,7 +116,7 @@ Relevant finding: miR-146a-5p declines with age in human bronchial tissue — **
 
 ## Tier 4: Centenarian/Longevity Studies
 
-### GSE32493 — Centenarian B-Cell miRNA-Seq
+### GSE32493 - Centenarian B-Cell miRNA-Seq
 
 | Parameter | Details |
 |-----------|---------|
@@ -150,7 +150,7 @@ These are not usable for our count-based analyses but are referenced for complet
 1. **No human liver aging miRNA-seq dataset exists.** This is the most critical gap for LNP-based senolytic circuit design.
 2. **No human kidney aging miRNA-seq dataset exists.**
 3. **No human skin aging miRNA-seq dataset exists** (all published skin aging miRNA studies used microarrays).
-4. **GTEx V10 caps at age 70** — the most relevant age range for senescent cell accumulation (>70) is not represented.
+4. **GTEx V10 caps at age 70** - the most relevant age range for senescent cell accumulation (>70) is not represented.
 5. **Centenarian data is limited to 3 B-cell samples** (GSE32493). No centenarian tissue miRNA-seq exists.
 6. **Most large cohort studies** (Rotterdam, Framingham) used controlled-access data that requires institutional agreements.
 
@@ -159,8 +159,8 @@ These are not usable for our count-based analyses but are referenced for complet
 ## Recommendations
 
 1. **Download and analyze GTEx V10 open-access small RNA expression data** for our candidate miRNAs across human tissues stratified by age (21-40 vs 50-70). This is feasible immediately and would provide the first systematic view of our candidates in human tissue aging.
-2. **GSE136930** (human cardiac aging) directly validates miR-34a-5p — should be cited in our synthesis as the only human tissue confirmation.
-3. **GSE32493** (centenarian B-cells) is small but novel — worth analyzing to see if our candidates show patterns in extreme aging.
+2. **GSE136930** (human cardiac aging) directly validates miR-34a-5p - should be cited in our synthesis as the only human tissue confirmation.
+3. **GSE32493** (centenarian B-cells) is small but novel - worth analyzing to see if our candidates show patterns in extreme aging.
 
 ---
 

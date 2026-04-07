@@ -1,5 +1,5 @@
 # GSE299871 Analysis Report
-## Doxorubicin-Induced Senescence — WI-38 Human Fibroblast miRNA Time Course
+## Doxorubicin-Induced Senescence - WI-38 Human Fibroblast miRNA Time Course
 
 *Analysis date: 2026-04-06*
 
@@ -42,7 +42,7 @@ The inclusion of PMD-Sen alongside DXR and replicative senescence in the same ce
 
 ## 3. Results
 
-### 3.1 Doxorubicin Time Course — Candidate miRNAs
+### 3.1 Doxorubicin Time Course - Candidate miRNAs
 
 | miRNA | Ctrl | DXR D1 | DXR D4 | DXR D8 | DXR D16 | FC (D16/Ctrl) | RS | SDS D16 |
 |-------|------|--------|--------|--------|---------|---------------|-----|---------|
@@ -55,10 +55,10 @@ The inclusion of PMD-Sen alongside DXR and replicative senescence in the same ce
 | hsa-miR-146a-5p | 12 | 58 | 8 | 9 | 14 | 1.2x | 8 | 20 |
 | **hsa-miR-155-5p** | 2,760 | 3,992 | 1,407 | 960 | **396** | **0.1x DOWN** | 530 | 2,738 |
 | hsa-miR-184 | 0 | 6 | 8 | 10 | 8 | inf (from 0) | 8 | 4 |
-| hsa-miR-96-5p | 0 | 0 | 0 | 0 | 0 | — | 1 | 2 |
+| hsa-miR-96-5p | 0 | 0 | 0 | 0 | 0 | - | 1 | 2 |
 | hsa-miR-17-5p | 134 | 232 | 62 | 56 | **40** | **0.3x DOWN** | 35 | 193 |
 | hsa-miR-122-5p | 14 | 96 | 15 | 16 | 18 | 1.3x | 38 | 16 |
-| hsa-miR-215-5p | 0 | 2 | 0 | 1 | 1 | — | 0 | 0 |
+| hsa-miR-215-5p | 0 | 2 | 0 | 1 | 1 | - | 0 | 0 |
 
 ### 3.2 Key Observations
 
@@ -88,7 +88,7 @@ However, in the Wagner mouse aging data, miR-29c-3p has much higher expression (
 
 #### miR-22-3p: UP in Doxorubicin Senescence, DOWN in Replicative Senescence
 
-miR-22-3p increases **2.8-fold** (2,484→7,025) in DXR-treated WI-38 cells but was DOWN 3-fold in replicatively senescent HUVECs (GSE94410). This is a clear **inducer-specific** response — doxorubicin and replicative exhaustion produce opposite miR-22-3p patterns. This has important implications: a circuit using miR-22 as input would activate in doxorubicin-senescent cells but NOT in replicatively senescent cells.
+miR-22-3p increases **2.8-fold** (2,484→7,025) in DXR-treated WI-38 cells but was DOWN 3-fold in replicatively senescent HUVECs (GSE94410). This is a clear **inducer-specific** response - doxorubicin and replicative exhaustion produce opposite miR-22-3p patterns. This has important implications: a circuit using miR-22 as input would activate in doxorubicin-senescent cells but NOT in replicatively senescent cells.
 
 #### miR-155-5p: Strongly DOWN in Doxorubicin Senescence
 
@@ -97,7 +97,7 @@ miR-155-5p drops from 2,760 to 396 counts (7-fold decrease) over the DXR time co
 - Immune cell infiltration driving the in vivo increase (miR-155 is an immune miRNA)
 - Cell-autonomous response (DOWN) being masked by non-cell-autonomous signals (UP) in vivo
 
-**For circuit design: miR-155-5p is a potential OFF-switch/de-targeting candidate — its dramatic decline in senescent cells means it could be used to PROTECT non-senescent cells (if miR-155 is present → suppress payload).**
+**For circuit design: miR-155-5p is a potential OFF-switch/de-targeting candidate - its dramatic decline in senescent cells means it could be used to PROTECT non-senescent cells (if miR-155 is present → suppress payload).**
 
 #### miR-17-5p: DOWN in All Senescence Types
 
@@ -107,16 +107,16 @@ miR-17-5p declines from 134 to 40 counts (3.3-fold) in DXR senescence and is sim
 
 | miRNA | DXR D16 vs Ctrl | SDS D16 vs Ctrl | RS vs Ctrl | Consistent? |
 |-------|-----------------|-----------------|------------|-------------|
-| miR-34a-5p | 2.5x UP | **7.2x UP** | 3.0x UP | **YES — UP in all three** |
-| miR-21-5p | 1.8x UP | **5.8x UP** | 2.2x UP | YES — UP in all |
-| miR-22-3p | 2.8x UP | **6.1x UP** | 2.7x UP | YES — UP in all |
-| miR-29a-3p | 1.6x UP | **6.2x UP** | 1.6x UP | YES — UP in all |
+| miR-34a-5p | 2.5x UP | **7.2x UP** | 3.0x UP | **YES - UP in all three** |
+| miR-21-5p | 1.8x UP | **5.8x UP** | 2.2x UP | YES - UP in all |
+| miR-22-3p | 2.8x UP | **6.1x UP** | 2.7x UP | YES - UP in all |
+| miR-29a-3p | 1.6x UP | **6.2x UP** | 1.6x UP | YES - UP in all |
 | miR-155-5p | **0.1x DOWN** | 1.0x | 0.2x DOWN | DXR/RS DOWN, SDS no change |
-| miR-17-5p | **0.3x DOWN** | 1.4x UP | 0.3x DOWN | DXR/RS DOWN, SDS UP — **INDUCER SPECIFIC** |
+| miR-17-5p | **0.3x DOWN** | 1.4x UP | 0.3x DOWN | DXR/RS DOWN, SDS UP - **INDUCER SPECIFIC** |
 
 **miR-34a-5p, miR-21-5p, miR-22-3p, and miR-29a-3p are upregulated across ALL THREE senescence inducers.** These are the strongest shared senescence miRNAs.
 
-**miR-155-5p and miR-17-5p show inducer-specific patterns** — down in DXR and RS but not in SDS. This means they cannot be used as universal senescence markers.
+**miR-155-5p and miR-17-5p show inducer-specific patterns** - down in DXR and RS but not in SDS. This means they cannot be used as universal senescence markers.
 
 ### 3.4 Temporal Dynamics
 
@@ -137,9 +137,9 @@ Based on this dataset, our candidate ranking for ON-switch inputs is:
 
 | Rank | miRNA | DXR FC | Absolute Level | Notes |
 |------|-------|--------|---------------|-------|
-| **1** | **miR-155-5p** | 0.14x DOWN | 396 (← from 2,760) | Strongest decline; HIGH in healthy cells. Fibroblast-specific — does not decline in endothelial senescence (GSE94410, GSE202120). In vivo, miR-155 increases in aged tissues due to immune cell (macrophage) infiltration, not cell-autonomous upregulation. |
+| **1** | **miR-155-5p** | 0.14x DOWN | 396 (← from 2,760) | Strongest decline; HIGH in healthy cells. Fibroblast-specific - does not decline in endothelial senescence (GSE94410, GSE202120). In vivo, miR-155 increases in aged tissues due to immune cell (macrophage) infiltration, not cell-autonomous upregulation. |
 | **2** | **miR-92a-3p** | 0.42x DOWN | 2,676 (← from 6,428) | Highest absolute counts among downregulated candidates. Fibroblast-specific (UP in HUVECs). |
-| **3** | **miR-16-5p** | 0.61x DOWN | 535 (← from 882) | Modest decline but the ONLY miRNA also DOWN in HUVECs (0.43x, GSE94410) — potential cross-cell-type OFF-switch. Mechanistically linked to cell cycle arrest via cyclin/CDK targeting (Linsley et al., *RNA*, 2007, PMID: 17210802). |
+| **3** | **miR-16-5p** | 0.61x DOWN | 535 (← from 882) | Modest decline but the ONLY miRNA also DOWN in HUVECs (0.43x, GSE94410) - potential cross-cell-type OFF-switch. Mechanistically linked to cell cycle arrest via cyclin/CDK targeting (Linsley et al., *RNA*, 2007, PMID: 17210802). |
 | **4** | **miR-17-5p** | 0.30x DOWN | 40 (← from 134) | Strong decline but LOW absolute counts. Also DOWN in irradiated HAECs (0.68x, GSE202120), but UP in HUVECs. |
 | **5** | **miR-7-5p** | 0.34x DOWN | 152 (← from 452) | DOWN in DXR/RS fibroblasts and irradiated HAECs. UP in HUVECs. |
 
@@ -148,7 +148,7 @@ Based on this dataset, our candidate ranking for ON-switch inputs is:
 1. **n=2 per condition per timepoint.** No biological replicates in the traditional sense (only technical duplicates). Statistical power is limited.
 2. **WI-38 fibroblasts only.** Single cell type. Other cell types may respond differently.
 3. **Raw counts without normalization.** Library size differences between samples may bias fold changes.
-4. **Doxorubicin dose/duration not confirmed** from our analysis — need to check the paper for treatment protocol details.
+4. **Doxorubicin dose/duration not confirmed** from our analysis - need to check the paper for treatment protocol details.
 5. **The transient D1 spike** in many miRNAs may reflect acute stress response rather than senescence-specific changes.
 
 ## 6. Conclusions
@@ -159,7 +159,7 @@ Based on this dataset, our candidate ranking for ON-switch inputs is:
 
 3. **miR-29c-3p, despite being the strongest aging signal in mouse tissues, has negligible expression (2-9 counts) in WI-38 fibroblasts.** It cannot be used as a circuit input in this cell type. The miR-29 family's viability depends heavily on the target tissue/cell type.
 
-4. **miR-155-5p is a strong OFF-switch candidate** — it drops 7-fold in DXR senescence, providing a potential de-targeting signal (present in healthy cells, absent in senescent cells).
+4. **miR-155-5p is a strong OFF-switch candidate** - it drops 7-fold in DXR senescence, providing a potential de-targeting signal (present in healthy cells, absent in senescent cells).
 
 5. **Three senescence inducers converge on a shared set of upregulated miRNAs** (miR-34a, miR-21, miR-22, miR-29a), suggesting a common downstream program despite different upstream triggers. This supports the feasibility of circuits that detect senescence regardless of the initial cause.
 

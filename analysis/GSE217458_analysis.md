@@ -1,5 +1,5 @@
 # GSE217458 Analysis Report
-## Natural Mouse Aging — miRNA Expression Across 16 Tissues
+## Natural Mouse Aging - miRNA Expression Across 16 Tissues
 
 *Analysis date: 2026-04-06*
 *Dataset: GSE217458 (Wagner et al., Nature Biotechnology, 2024)*
@@ -18,7 +18,7 @@
 | **Ages** | 10 timepoints: 1, 3, 6, 9, 12, 15, 18, 21, 24, 27 months |
 | **Method** | Small RNA-seq |
 | **Samples** | 771 total (up to 6 replicates per tissue per timepoint) |
-| **Data format** | RPMM (reads per million mapped) — normalized expression |
+| **Data format** | RPMM (reads per million mapped) - normalized expression |
 | **Total ncRNAs** | 7,883 (including 1,076 miRBase-annotated miRNAs) |
 | **Additional data** | Plasma, plasma-derived EVs, heterochronic parabiosis rejuvenation |
 
@@ -133,11 +133,11 @@ The mmu-miR-122-5p value in old skin (10,194 RPMM vs. 21.7 in young) is a **470-
 
 | miRNA | GSE94410 (HUVEC in vitro) | GSE217458 (Mouse in vivo) | Concordance |
 |-------|--------------------------|--------------------------|-------------|
-| miR-34a-5p | 5.2x UP (46→239) | 1.2-1.7x UP (500-3800 RPMM) | **YES** — same direction, higher absolute levels in vivo |
-| miR-21-5p | 2.6x UP (408K→1.1M) | 1.0-1.8x UP (1.5K-16K RPMM) | **YES** — same direction |
-| miR-22-3p | 0.3x DOWN (59K→19K) | 0.9-1.5x (~stable) | **PARTIAL** — down in vitro, stable in vivo |
-| miR-146a-5p | 1.0x (no change) | 1.0-2.3x (variable) | **PARTIAL** — no change in HUVEC, modest UP in some mouse tissues |
-| miR-17-5p | 5.9x UP (1.5K→9K) | 0.9-1.2x (~stable) | **NO** — up in HUVEC, stable in mouse |
+| miR-34a-5p | 5.2x UP (46→239) | 1.2-1.7x UP (500-3800 RPMM) | **YES** - same direction, higher absolute levels in vivo |
+| miR-21-5p | 2.6x UP (408K→1.1M) | 1.0-1.8x UP (1.5K-16K RPMM) | **YES** - same direction |
+| miR-22-3p | 0.3x DOWN (59K→19K) | 0.9-1.5x (~stable) | **PARTIAL** - down in vitro, stable in vivo |
+| miR-146a-5p | 1.0x (no change) | 1.0-2.3x (variable) | **PARTIAL** - no change in HUVEC, modest UP in some mouse tissues |
+| miR-17-5p | 5.9x UP (1.5K→9K) | 0.9-1.2x (~stable) | **NO** - up in HUVEC, stable in mouse |
 | miR-181a-5p | 0.2x DOWN (30K→5K) | Not shown here | N/A |
 
 **Interpretation:** The modest in vivo aging changes (1.2-1.8x) compared to larger in vitro senescence changes (2-6x) are expected. Aged tissue is a mixture of senescent and non-senescent cells; if senescent cells comprise 10-20% of an aged tissue, a miRNA that's 10x higher in senescent cells would appear only 1.9-2.8x higher in bulk tissue. The direction of change is more informative than the magnitude when comparing these two data types.
@@ -156,17 +156,17 @@ However, we cannot confirm from this data alone that miR-29 upregulation is driv
 - Systemic signaling changes
 - Cell-autonomous aging in multiple cell types
 
-**This must be tested in Herbert's planned doxorubicin senescence experiment.**
+**This must be tested in The planned doxorubicin senescence experiment.**
 
 ### 5.3 miR-184-3p: Pan-Tissue Aging Marker but Impractical for Circuits
 
-Wagner et al. (2024) identified miR-184-3p as one of 8 broadly deregulated aging miRNAs. Our analysis confirms it increases with age in most tissues (1.1-2.7x). However, the absolute expression is **1-6 RPMM** — far too low for circuit applications. This illustrates a fundamental disconnect between biomarker discovery (where any detectable change is informative) and circuit engineering (where absolute molecule count determines function).
+Wagner et al. (2024) identified miR-184-3p as one of 8 broadly deregulated aging miRNAs. Our analysis confirms it increases with age in most tissues (1.1-2.7x). However, the absolute expression is **1-6 RPMM** - far too low for circuit applications. This illustrates a fundamental disconnect between biomarker discovery (where any detectable change is informative) and circuit engineering (where absolute molecule count determines function).
 
-### 5.4 miR-155-5p: The Inflammaging Paradox — A Novel Synthesis
+### 5.4 miR-155-5p: The Inflammaging Paradox - A Novel Synthesis
 
 miR-155-5p shows the largest fold changes in aged liver (4.2x, 21→89 RPMM) and lung (3.8x, 122→457 RPMM). This is **paradoxical** because in pure senescent cell populations in vitro, miR-155-5p is strongly DOWN: 0.14x in DXR-senescent WI-38 fibroblasts (GSE299871), 0.19x in replicatively senescent WI-38 fibroblasts, and confirmed downregulated in senescent IMR90 fibroblasts (Faraonio et al., *Cell Death Differ*, 2012, PMID: 22052189).
 
-We propose that this apparent contradiction is explained by **immune cell infiltration into aged tissues**, a phenomenon central to the concept of "inflammaging" — the chronic, low-grade inflammation that accompanies aging (Franceschi et al., *Ann N Y Acad Sci*, 2000, PMID: 10911963). The evidence supporting this explanation comes from multiple independent lines:
+We propose that this apparent contradiction is explained by **immune cell infiltration into aged tissues**, a phenomenon central to the concept of "inflammaging" - the chronic, low-grade inflammation that accompanies aging (Franceschi et al., *Ann N Y Acad Sci*, 2000, PMID: 10911963). The evidence supporting this explanation comes from multiple independent lines:
 
 1. **miR-155 is one of the most enriched miRNAs in activated macrophages.** It is induced >100-fold in M1-polarized macrophages (Mann et al., *PLoS One*, 2017, PMID: 27447824) and is the primary miRNA induced by TLR ligands and IFN-β in the macrophage inflammatory response (O'Connell et al., *PNAS*, 2007, PMID: 17242365). It is essential for normal immune function, as demonstrated by miR-155 knockout mice (Rodriguez et al., *Science*, 2007, PMID: 17463290).
 

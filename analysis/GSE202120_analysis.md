@@ -1,5 +1,5 @@
 # GSE202120 Analysis Report
-## Irradiation Dose-Response — Human Aortic Endothelial Cell miRNA Profiling
+## Irradiation Dose-Response - Human Aortic Endothelial Cell miRNA Profiling
 
 *Analysis date: 2026-04-07*
 
@@ -28,17 +28,17 @@ This dataset provides a unique **dose-response** perspective on radiation-induce
 | Dose | Expected Biology |
 |------|-----------------|
 | 0 Gy | Untreated control |
-| 1 Gy | Sublethal — DNA repair, transient stress |
-| 2 Gy | Low-dose — some persistent damage |
-| 4 Gy | Moderate — significant DNA damage |
-| 8 Gy | High — senescence-inducing range |
-| 10 Gy | High — senescence-inducing range |
+| 1 Gy | Sublethal - DNA repair, transient stress |
+| 2 Gy | Low-dose - some persistent damage |
+| 4 Gy | Moderate - significant DNA damage |
+| 8 Gy | High - senescence-inducing range |
+| 10 Gy | High - senescence-inducing range |
 
 **Note:** The study was designed to profile radiation response broadly, not specifically to study senescence. Senescence markers (SA-β-gal, p21, p16) were not measured. We infer senescence induction at high doses based on established radiobiology (Serrano et al., *Cell*, 1997, PMID: 9054499; Di Leonardo et al., *Genes Dev*, 1994, PMID: 7798313).
 
 ## 3. Results
 
-### 3.1 24h Post-Irradiation — Acute Response
+### 3.1 24h Post-Irradiation - Acute Response
 
 | miRNA | 0 Gy | 1 Gy | 2 Gy | 4 Gy | 8 Gy | 10 Gy | FC (10/0) | Pattern |
 |-------|------|------|------|------|------|-------|-----------|---------|
@@ -53,7 +53,7 @@ This dataset provides a unique **dose-response** perspective on radiation-induce
 
 **At 24h, miRNA changes are minimal.** The acute DNA damage response does not dramatically alter the miRNA landscape. The largest effect is miR-34a-5p at 8 Gy (2,111, +47% over control), consistent with rapid p53-mediated miR-34a induction.
 
-### 3.2 72h Post-Irradiation — Emerging Senescence Response
+### 3.2 72h Post-Irradiation - Emerging Senescence Response
 
 | miRNA | 0 Gy | 1 Gy | 2 Gy | 4 Gy | 8 Gy | 10 Gy | FC (10/0) | Pattern |
 |-------|------|------|------|------|------|-------|-----------|---------|
@@ -136,15 +136,15 @@ This dataset provides the first look at baseline miRNA abundance in aortic endot
 
 **Caveat on comparing raw counts:** These two datasets used different library preparation methods and sequencing depths, so the absolute count differences may partly reflect technical factors. However, the consistent >10x differences across most miRNAs suggest genuine biological differences in miRNA abundance between cell types.
 
-### 3.4 Downregulated miRNAs — OFF-Switch Candidates in Irradiated HAECs
+### 3.4 Downregulated miRNAs - OFF-Switch Candidates in Irradiated HAECs
 
 At 72h post-irradiation (10 Gy), the following miRNAs show dose-dependent decline:
 
 | miRNA | 0 Gy | 10 Gy (72h) | FC | Also DOWN in fibroblasts? |
 |-------|------|------------|-----|--------------------------|
-| **miR-17-5p** | 5,156 | 3,481 | **0.68x** | YES — 0.30x in WI-38 DXR (GSE299871) |
-| **miR-7-5p** | 33,299 | 11,222 | **0.34x** | YES — 0.34x in WI-38 DXR (GSE299871) |
-| **miR-16-5p** | 1,542 | 1,347 | 0.87x | YES — 0.61x WI-38, **0.43x HUVEC** (GSE94410) |
+| **miR-17-5p** | 5,156 | 3,481 | **0.68x** | YES - 0.30x in WI-38 DXR (GSE299871) |
+| **miR-7-5p** | 33,299 | 11,222 | **0.34x** | YES - 0.34x in WI-38 DXR (GSE299871) |
+| **miR-16-5p** | 1,542 | 1,347 | 0.87x | YES - 0.61x WI-38, **0.43x HUVEC** (GSE94410) |
 | miR-155-5p | 14,815 | 13,597 | 0.92x | YES in fibroblasts (0.14x), but stable here |
 | miR-15b-5p | 335 | 271 | 0.81x | Modest decline |
 

@@ -1,5 +1,5 @@
 # GSE55164 Analysis Report
-## Mouse Skeletal Muscle Aging — miRNA Expression Profiling
+## Mouse Skeletal Muscle Aging - miRNA Expression Profiling
 
 *Analysis date: 2026-04-06*
 
@@ -32,18 +32,18 @@ Values are log2 normalized. Linear fold change estimated as 2^(aged - young).
 
 | miRNA | Young (log2) | Aged (log2) | FC (linear) | Direction | Concordance with Other Data |
 |-------|-------------|-------------|-------------|-----------|---------------------------|
-| mmu-miR-34a-5p | 9.30 | 10.62 | **2.49x UP** | UP | **YES** — consistent across all datasets |
-| mmu-miR-146a-5p | 11.47 | 12.77 | **2.45x UP** | UP | **PARTIAL** — UP here and in some mouse tissues (GSE217458), but no change in HUVECs (GSE94410) |
+| mmu-miR-34a-5p | 9.30 | 10.62 | **2.49x UP** | UP | **YES** - consistent across all datasets |
+| mmu-miR-146a-5p | 11.47 | 12.77 | **2.45x UP** | UP | **PARTIAL** - UP here and in some mouse tissues (GSE217458), but no change in HUVECs (GSE94410) |
 | mmu-miR-184-3p | 0.73 | 2.76 | **4.07x UP** | UP | Direction matches Wagner 2024, but baseline is near-zero (~1.7 linear counts) |
-| mmu-miR-155-5p | 9.33 | 10.09 | **1.69x UP** | UP | **YES** — consistent with GSE217458 aging data |
-| mmu-miR-29a-3p | 16.01 | 16.30 | 1.22x | Modest UP | **YES** — matches GSE217458 direction but smaller magnitude |
-| mmu-miR-29c-3p | 14.20 | 14.41 | 1.16x | Modest UP | **YES** — matches but smaller than in other tissues |
-| mmu-miR-22-3p | 22.14 | 22.15 | 1.00x | No change | Neutral — no change in muscle; DOWN in HUVECs; stable in most GSE217458 tissues |
+| mmu-miR-155-5p | 9.33 | 10.09 | **1.69x UP** | UP | **YES** - consistent with GSE217458 aging data |
+| mmu-miR-29a-3p | 16.01 | 16.30 | 1.22x | Modest UP | **YES** - matches GSE217458 direction but smaller magnitude |
+| mmu-miR-29c-3p | 14.20 | 14.41 | 1.16x | Modest UP | **YES** - matches but smaller than in other tissues |
+| mmu-miR-22-3p | 22.14 | 22.15 | 1.00x | No change | Neutral - no change in muscle; DOWN in HUVECs; stable in most GSE217458 tissues |
 | mmu-miR-21a-5p | 16.58 | 16.67 | 1.06x | No change | Neutral in muscle; modestly UP in other aging contexts |
 | mmu-miR-21a-3p | 10.98 | 10.97 | 0.99x | No change | No change here or in HUVECs |
-| mmu-miR-96-5p | 3.96 | 1.27 | **0.16x DOWN** | DOWN | Declining — consistent with low/absent expression trend |
-| mmu-miR-17-5p | 9.18 | 8.91 | 0.83x | Slight DOWN | **YES** — modestly DOWN, consistent with miR-17 family decline |
-| mmu-miR-122-5p | 0.00 | 1.64 | 3.13x UP | UP from zero | Not meaningful — baseline is 0 (not expressed in muscle) |
+| mmu-miR-96-5p | 3.96 | 1.27 | **0.16x DOWN** | DOWN | Declining - consistent with low/absent expression trend |
+| mmu-miR-17-5p | 9.18 | 8.91 | 0.83x | Slight DOWN | **YES** - modestly DOWN, consistent with miR-17 family decline |
+| mmu-miR-122-5p | 0.00 | 1.64 | 3.13x UP | UP from zero | Not meaningful - baseline is 0 (not expressed in muscle) |
 
 ### 3.2 Notable Findings
 
@@ -78,7 +78,7 @@ This pattern suggests miR-146a-5p upregulation may be driven by inflammatory inf
 1. miR-34a-5p is consistently UP 2.5x in aged muscle, adding another tissue/context to its track record as the most reliable aging/senescence marker.
 2. miR-146a-5p upregulation in aged muscle but not in cultured cells suggests it may be driven by tissue-level inflammation (immune cell infiltration) rather than cell-autonomous senescence.
 3. The miR-29 family shows only modest changes in muscle (1.2x) compared to the larger changes seen across 16 tissues in GSE217458. Muscle may not be the primary tissue driving the pan-tissue miR-29 aging signal.
-4. miR-184-3p continues to show upward trends from near-zero baselines — statistically detectable but practically irrelevant for circuit applications.
+4. miR-184-3p continues to show upward trends from near-zero baselines - statistically detectable but practically irrelevant for circuit applications.
 
 ---
 

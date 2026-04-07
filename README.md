@@ -60,7 +60,7 @@ Senolytic-Logic-Gates/
 │   ├── GSE136926_analysis.md                # Human cardiac aging analysis
 │   └── GSE111281_GSE111174_analysis.md      # Human skin + blood aging analysis
 └── tools/
-    └── (circuit design tools — in development)
+    └── (circuit design tools - in development)
 ```
 
 ## Key Findings So Far
@@ -103,4 +103,4 @@ This project is for academic research purposes.
 
 ## Contact
 
-Herbert Fountain — Cornell University
+Herbert Fountain - Cornell University

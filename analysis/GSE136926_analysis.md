@@ -1,5 +1,5 @@
 # GSE136926 Analysis Report
-## Human Right Atrial Tissue Aging — miRNA Expression Profiling
+## Human Right Atrial Tissue Aging - miRNA Expression Profiling
 
 *Analysis date: 2026-04-07*
 
@@ -31,8 +31,8 @@ The companion mRNA-seq dataset (GSE136928) from the same samples enables integra
 
 | miRNA | SR40 (38-42yr) | SR70 (68-72yr) | FC | Direction | Concordance with Other Data |
 |-------|---------------|---------------|-----|-----------|---------------------------|
-| **hsa-miR-34a-5p** | 770.8 | **1,958.5** | **2.54x UP** | UP | **YES — consistent across ALL datasets** |
-| hsa-miR-21-5p | 116,779 | 187,442 | 1.61x UP | UP | YES — consistent |
+| **hsa-miR-34a-5p** | 770.8 | **1,958.5** | **2.54x UP** | UP | **YES - consistent across ALL datasets** |
+| hsa-miR-21-5p | 116,779 | 187,442 | 1.61x UP | UP | YES - consistent |
 | hsa-miR-146a-5p | 2,262 | **5,062** | **2.24x UP** | UP | Tissue-variable in other data |
 | hsa-miR-155-5p | 1,126 | 1,577 | 1.40x UP | UP | **OPPOSITE of in vitro** (DOWN in senescent fibroblasts) |
 | hsa-miR-22-3p | 50,030 | 55,040 | 1.10x | Stable | Consistent with mouse tissue aging (stable) |
@@ -67,11 +67,11 @@ miR-34a-5p increases **2.54-fold** in human atrial tissue between the 40s and 70
 
 **miR-34a-5p is now confirmed UP in 12 independent human analyses (6 in vitro, 2 in vivo) plus 4 rodent analyses = 16 total.** No other miRNA in the senescence/aging literature has this breadth of validation.
 
-The absolute count in human atrial tissue (1,959 in aged samples) is notably higher than in human fibroblasts in vitro (239-310). This is encouraging for circuit design in cardiac contexts — the stoichiometric margin for switch activation would be better in heart tissue than in fibroblasts.
+The absolute count in human atrial tissue (1,959 in aged samples) is notably higher than in human fibroblasts in vitro (239-310). This is encouraging for circuit design in cardiac contexts - the stoichiometric margin for switch activation would be better in heart tissue than in fibroblasts.
 
 #### miR-146a-5p: Strong in Human Heart
 
-miR-146a-5p increases 2.24x (2,262→5,062) in aged atrial tissue. This is consistent with the radiation-induced increase in HAECs (2.2x, GSE202120) and the increase in aged mouse muscle (2.5x, GSE55164). However, miR-146a showed no change in HUVEC replicative senescence (GSE94410) or WI-38 DXR senescence (GSE299871). The pattern suggests miR-146a-5p upregulation may be driven by immune/inflammatory components of cardiac aging rather than cell-autonomous senescence — consistent with its role as an NF-κB target and inflammation modulator (Taganov et al., *PNAS*, 2006, PMID: 16885212).
+miR-146a-5p increases 2.24x (2,262→5,062) in aged atrial tissue. This is consistent with the radiation-induced increase in HAECs (2.2x, GSE202120) and the increase in aged mouse muscle (2.5x, GSE55164). However, miR-146a showed no change in HUVEC replicative senescence (GSE94410) or WI-38 DXR senescence (GSE299871). The pattern suggests miR-146a-5p upregulation may be driven by immune/inflammatory components of cardiac aging rather than cell-autonomous senescence - consistent with its role as an NF-κB target and inflammation modulator (Taganov et al., *PNAS*, 2006, PMID: 16885212).
 
 #### miR-155-5p: The Inflammaging Artifact Confirmed in Human Heart
 
@@ -79,7 +79,7 @@ miR-155-5p increases 1.40x in aged atrial tissue. Since miR-155 **declines** 7-1
 
 #### miR-29a-3p: Down in Human Heart, Up in Rodent Tissues
 
-miR-29a-3p **declines** 0.79x in aged human heart — opposite of the consistent 1.5-3.6x increase seen in aged mouse and rat tissues (GSE217458, GSE172269). This species discrepancy is notable and could reflect:
+miR-29a-3p **declines** 0.79x in aged human heart - opposite of the consistent 1.5-3.6x increase seen in aged mouse and rat tissues (GSE217458, GSE172269). This species discrepancy is notable and could reflect:
 - Genuine human-rodent differences in cardiac miR-29 regulation
 - Different age ranges (human 38-72 vs. rodent young-to-2yr representing proportionally more of the lifespan)
 - Cardiac-specific biology (miR-29 regulates cardiac fibrosis; van Rooij et al., *PNAS*, 2008, PMID: 18591254)
@@ -97,10 +97,10 @@ This means miR-29a-3p cannot be relied upon as a universal aging/senescence mark
 
 ## 5. Conclusions
 
-1. **miR-34a-5p is confirmed UP 2.54x in aged human cardiac tissue** — the first human tissue in vivo validation of our top ON-switch candidate. Absolute expression (1,959) is adequate for potential circuit activation.
-2. **The inflammaging artifact for miR-155-5p is confirmed in human heart** — UP 1.40x in vivo despite being DOWN 7-10x in vitro, consistent with macrophage infiltration in aged myocardium.
-3. **miR-29a-3p shows opposite direction in human heart vs. rodent tissues** — declining in human heart but increasing in mouse/rat organs. This species/tissue discrepancy limits its universal utility.
-4. **miR-92a-3p declines 0.76x** — consistent with the decline in human blood (0.71x) and skin (0.75x), validating it as a potential OFF-switch across human tissues.
+1. **miR-34a-5p is confirmed UP 2.54x in aged human cardiac tissue** - the first human tissue in vivo validation of our top ON-switch candidate. Absolute expression (1,959) is adequate for potential circuit activation.
+2. **The inflammaging artifact for miR-155-5p is confirmed in human heart** - UP 1.40x in vivo despite being DOWN 7-10x in vitro, consistent with macrophage infiltration in aged myocardium.
+3. **miR-29a-3p shows opposite direction in human heart vs. rodent tissues** - declining in human heart but increasing in mouse/rat organs. This species/tissue discrepancy limits its universal utility.
+4. **miR-92a-3p declines 0.76x** - consistent with the decline in human blood (0.71x) and skin (0.75x), validating it as a potential OFF-switch across human tissues.
 
 ---
 

@@ -7,13 +7,13 @@
 
 ## Key Finding
 
-**Genuine small RNA-seq datasets with paired pre/post-chemotherapy blood samples from patients are extremely rare in public repositories.** Most chemotherapy-miRNA studies used microarrays or qPCR panels, not sequencing. Among those that used small RNA-seq, most did not deposit data publicly. This represents a significant gap in the field — there is effectively no publicly available small RNA-seq dataset capturing therapy-induced senescence in human patients in vivo.
+**Genuine small RNA-seq datasets with paired pre/post-chemotherapy blood samples from patients are extremely rare in public repositories.** Most chemotherapy-miRNA studies used microarrays or qPCR panels, not sequencing. Among those that used small RNA-seq, most did not deposit data publicly. This represents a significant gap in the field - there is effectively no publicly available small RNA-seq dataset capturing therapy-induced senescence in human patients in vivo.
 
 ---
 
 ## Tier 1: Small RNA-Seq with Longitudinal Pre/Post-Chemotherapy Design
 
-### Mikulski, Fendler et al. (2024) — Autologous Stem Cell Transplantation Serum miRNA-seq
+### Mikulski, Fendler et al. (2024) - Autologous Stem Cell Transplantation Serum miRNA-seq
 
 | Parameter | Details |
 |-----------|---------|
@@ -26,15 +26,15 @@
 | **Sample sizes** | Discovery: 10 patients × 4 timepoints = 40 samples; Validation (qPCR): 67 patients |
 | **Data availability** | **NOT in GEO.** Supplementary files only. |
 
-**This is the single most relevant dataset for our project.** The conditioning regimens are extremely cytotoxic (myeloablative doses), which would induce massive therapy-induced senescence in surviving normal tissues. The 4-timepoint longitudinal design captures the kinetic response. However, the data is not publicly deposited — it would need to be requested from the corresponding author (Wojciech Fendler, Medical University of Lodz, Poland).
+**This is the single most relevant dataset for our project.** The conditioning regimens are extremely cytotoxic (myeloablative doses), which would induce massive therapy-induced senescence in surviving normal tissues. The 4-timepoint longitudinal design captures the kinetic response. However, the data is not publicly deposited - it would need to be requested from the corresponding author (Wojciech Fendler, Medical University of Lodz, Poland).
 
 **Related findings from the same research group:**
-- miR-122-5p and miR-125a-5p predict **hepatotoxicity** in ASCT patients (PMID: [38556255](https://pubmed.ncbi.nlm.nih.gov/38556255/)) — directly relevant to LNP liver tropism concern
+- miR-122-5p and miR-125a-5p predict **hepatotoxicity** in ASCT patients (PMID: [38556255](https://pubmed.ncbi.nlm.nih.gov/38556255/)) - directly relevant to LNP liver tropism concern
 - miR-223-3p predicts complete response in MM after ASCT (PMID: [37829335](https://pubmed.ncbi.nlm.nih.gov/37829335/))
 
 ---
 
-### Ju, Jang et al. (2024) — FOLFOX Chemotherapy Neuropathy miRNA-seq
+### Ju, Jang et al. (2024) - FOLFOX Chemotherapy Neuropathy miRNA-seq
 
 | Parameter | Details |
 |-----------|---------|
@@ -51,7 +51,7 @@
 
 ## Tier 2: Chemotherapy-Induced Organ Damage miRNA-seq
 
-### Anthracycline-Induced Liver Injury — Exosomal miRNA-seq
+### Anthracycline-Induced Liver Injury - Exosomal miRNA-seq
 
 | Parameter | Details |
 |-----------|---------|
@@ -69,7 +69,7 @@
 
 ## Tier 3: Microarray/qPCR (NOT sequencing) But Highly Relevant Design
 
-### GSE70754 — Breast Cancer NAC with 4-Timepoint Serum Design
+### GSE70754 - Breast Cancer NAC with 4-Timepoint Serum Design
 
 | Parameter | Details |
 |-----------|---------|
@@ -80,7 +80,7 @@
 | **Sample type** | Tissue biopsies AND serum |
 | **Timepoints** | 4: diagnosis, after 1st cycle AC, after 4th cycle AC, after 4th cycle docetaxel |
 | **Citation** | PMID: [27064979](https://pubmed.ncbi.nlm.nih.gov/27064979/) |
-| **Data availability** | YES — 35.5 MB XLSX on GEO |
+| **Data availability** | YES - 35.5 MB XLSX on GEO |
 
 **Although this is microarray data (not sequencing), the experimental design is exactly what we need:** paired serum samples from the same patients before and during doxorubicin/cyclophosphamide treatment. This is the closest thing to a human equivalent of our WI-38 doxorubicin senescence model. The microarray data cannot provide absolute counts but can identify miRNAs that change with chemotherapy, which we can cross-reference with our sequencing-based count data from in vitro studies.
 
@@ -101,9 +101,9 @@
 
 **No publicly deposited small RNA-seq datasets exist for:**
 
-1. **Childhood cancer survivors with accelerated aging** — Despite extensive epigenetic aging (DNA methylation clock) data from the CCSS and St. Jude LIFE cohorts, no small RNA-seq has been published.
-2. **Chemotherapy-induced cardiotoxicity** — Only qPCR panel studies (miR-1, let-7f, miR-126)
-3. **Cisplatin nephrotoxicity in patients** — Animal models exist but no human small RNA-seq
+1. **Childhood cancer survivors with accelerated aging** - Despite extensive epigenetic aging (DNA methylation clock) data from the CCSS and St. Jude LIFE cohorts, no small RNA-seq has been published.
+2. **Chemotherapy-induced cardiotoxicity** - Only qPCR panel studies (miR-1, let-7f, miR-126)
+3. **Cisplatin nephrotoxicity in patients** - Animal models exist but no human small RNA-seq
 4. **Any therapy-induced senescence study with paired pre/post miRNA-seq and public data deposition**
 
 ---
@@ -114,9 +114,9 @@ The absence of public small RNA-seq data from chemotherapy patients is both a ga
 
 1. **For our project:** We cannot directly validate our candidate miRNAs (miR-34a, miR-16, miR-155, etc.) in human in vivo chemotherapy-induced senescence using existing public data. The GSE70754 microarray data is the best available proxy for doxorubicin-treated patients.
 
-2. **For the field:** Herbert's planned doxorubicin small RNA-seq experiment in mice and human primary fibroblasts would contribute important data. A future clinical study profiling serum miRNAs before and after chemotherapy (with modern small RNA-seq) would be highly impactful.
+2. **For the field:** The planned doxorubicin small RNA-seq experiment in mice and human primary fibroblasts would contribute important data. A future clinical study profiling serum miRNAs before and after chemotherapy (with modern small RNA-seq) would be highly impactful.
 
-3. **Circulating miRNA ≠ intracellular miRNA:** Even if we had patient serum miRNA-seq data, it would reflect the circulating pool (secreted + EV-associated), not the intracellular pool that the circuit senses. The same inflammaging/cell-composition confounds we identified for bulk tissue would apply to serum — circulating miRNAs come from all cell types, and changes could reflect immune activation, tissue damage, or tumor response rather than senescence per se.
+3. **Circulating miRNA ≠ intracellular miRNA:** Even if we had patient serum miRNA-seq data, it would reflect the circulating pool (secreted + EV-associated), not the intracellular pool that the circuit senses. The same inflammaging/cell-composition confounds we identified for bulk tissue would apply to serum - circulating miRNAs come from all cell types, and changes could reflect immune activation, tissue damage, or tumor response rather than senescence per se.
 
 ---
 

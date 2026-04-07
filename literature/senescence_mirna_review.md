@@ -22,7 +22,7 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 ## 2. Tier 1: Highest Priority Studies
 
-### 2.1 Weigl, Grillari et al. (2024) — Doxorubicin-Induced Senescence Across 5 Human Cell Types
+### 2.1 Weigl, Grillari et al. (2024) - Doxorubicin-Induced Senescence Across 5 Human Cell Types
 
 **Citation:** Weigl M, Krammer TL, Pultar M, Wieser M, Chaib S, Suda M, Diendorfer A, Khamina-Kotisch K, Giorgadze N, Pirtskhalava T, Johnson KO, Inman CL, Xue A, Lammermann I, Meixner B, Wang L, Xu M, Grillari R, Ogrodnik M, Tchkonia T, Hackl M, Kirkland JL, Grillari J. Profiling microRNA expression during senescence and aging: mining for a diagnostic tool of senescent-cell burden. *bioRxiv*. 2024.
 
@@ -46,7 +46,7 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 **Method:** Small RNA-seq and mRNA-seq (both transcriptomics layers)
 
-**Raw Data:** GEO accession not confirmed from preprint search — **must check data availability section of full preprint**. The Grillari/Hackl laboratory (TAmiRNA GmbH) has a strong track record of data deposition.
+**Raw Data:** GEO accession not confirmed from preprint search - **must check data availability section of full preprint**. The Grillari/Hackl laboratory (TAmiRNA GmbH) has a strong track record of data deposition.
 
 **Expression Data Format:** Likely normalized counts from small RNA-seq pipeline (to be confirmed).
 
@@ -54,15 +54,15 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 - **Commonly upregulated across multiple cell types:** miR-215-5p, miR-184
 - **22 candidate "senomiRs"** identified as potential circulating biomarkers of senescent cell burden
 
-**Critical Finding for Our Project:** miRNA expression changes during senescence are **highly cell-type specific**. The majority of regulated miRNAs were unique to individual cell types, with very few showing consistent changes across all 5 types. This has profound implications for the goal of building a tissue-agnostic senolytic circuit — it may not be possible to identify a single miRNA input that reliably distinguishes senescent from non-senescent cells across all tissue contexts.
+**Critical Finding for Our Project:** miRNA expression changes during senescence are **highly cell-type specific**. The majority of regulated miRNAs were unique to individual cell types, with very few showing consistent changes across all 5 types. This has profound implications for the goal of building a tissue-agnostic senolytic circuit - it may not be possible to identify a single miRNA input that reliably distinguishes senescent from non-senescent cells across all tissue contexts.
 
 **Sample Sizes:** 5 cell types × 2 conditions (senescent vs. control); exact replicate numbers to be confirmed from full paper.
 
-**Priority:** **HIGHEST.** This is the single most relevant study for our project — doxorubicin inducer, small RNA-seq, multiple human primary cell types, systematic approach. Should attempt to obtain raw data or contact authors.
+**Priority:** **HIGHEST.** This is the single most relevant study for our project - doxorubicin inducer, small RNA-seq, multiple human primary cell types, systematic approach. Should attempt to obtain raw data or contact authors.
 
 ---
 
-### 2.2 Devrukhkar et al. (2024/2025) — Doxorubicin-Induced Senescence in Human Ovary
+### 2.2 Devrukhkar et al. (2024/2025) - Doxorubicin-Induced Senescence in Human Ovary
 
 **Citation:** Devrukhkar A et al. A Comprehensive Multiomics Signature of Doxorubicin-Induced Cellular Senescence in the Postmenopausal Human Ovary. *Aging Cell*. 2025.
 
@@ -88,7 +88,7 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 ## 3. Tier 2: Important Studies with Deposited Small RNA-Seq Data
 
-### 3.1 Dhahbi et al. (2011) — Replicative Senescence, IMR90 Fibroblasts
+### 3.1 Dhahbi et al. (2011) - Replicative Senescence, IMR90 Fibroblasts
 
 **Citation:** Dhahbi JM, Atamna H, Boffelli D, Magis W, Spindler SR, Martin DIK. Deep Sequencing Reveals Novel MicroRNAs and Regulation of MicroRNA Expression during Cell Senescence. *PLoS ONE*. 2011;6(5):e20509.
 
@@ -105,15 +105,15 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 **Expression Data Format:** Absolute read counts. 11.4 million reads (young, passage ~30) and 9.1 million reads (senescent, passage ~55). 452 known miRNAs detected; 272 differentially expressed.
 
-**Key miRNAs:** Detailed lists in Supplementary Tables S2 (known miRNAs with read counts) and S4 (novel miRNAs). Specific names not fully extracted — need to download supplementary data.
+**Key miRNAs:** Detailed lists in Supplementary Tables S2 (known miRNAs with read counts) and S4 (novel miRNAs). Specific names not fully extracted - need to download supplementary data.
 
-**Sample Sizes:** n=1 per condition (young vs. senescent). **This is a major limitation** — no biological replicates for statistical analysis.
+**Sample Sizes:** n=1 per condition (young vs. senescent). **This is a major limitation** - no biological replicates for statistical analysis.
 
 **Priority:** HIGH for data availability (confirmed GEO deposit with raw counts), LOW for statistical rigor (n=1). Useful as a reference but insufficient alone for circuit design decisions.
 
 ---
 
-### 3.2 Terlecki-Zaniewicz et al. (2018) — Replicative Senescence, HUVECs
+### 3.2 Terlecki-Zaniewicz et al. (2018) - Replicative Senescence, HUVECs
 
 **Citation:** Terlecki-Zaniewicz L et al. MicroRNAs mediate the senescence-associated decline of NRF2 in endothelial cells. *Redox Biology*. 2018;18:77-83.
 
@@ -139,14 +139,14 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 ---
 
-### 3.3 Terlecki-Zaniewicz et al. (2018/2019) — SASP Extracellular Vesicle miRNA Cargo
+### 3.3 Terlecki-Zaniewicz et al. (2018/2019) - SASP Extracellular Vesicle miRNA Cargo
 
 **Citation:** Terlecki-Zaniewicz L, Lammermann I, Latreille J, Bobbili MR, Pils V, Schosserer M, Weinmullner R, Dellago H, Skalicky S, Pum D, Higareda Almaraz JC, Scheideler M, Morizot F, Hackl M, Gruber F, Grillari J. Small extracellular vesicles and their miRNA cargo are anti-apoptotic members of the senescence-associated secretory phenotype. *Aging*. 2018;10(5):1103-1132.
 
 **PMID:** [29779019](https://pubmed.ncbi.nlm.nih.gov/29779019/)
 **PMC:** [PMC5990398](https://pmc.ncbi.nlm.nih.gov/articles/PMC5990398/)
 
-**Senescence Inducer:** Stress-induced premature senescence (SIPS) — UVB irradiation and mitomycin C; also quiescence controls
+**Senescence Inducer:** Stress-induced premature senescence (SIPS) - UVB irradiation and mitomycin C; also quiescence controls
 
 **Cell Type:** Human dermal fibroblasts (HDF), three different donor strains
 
@@ -154,9 +154,9 @@ The goal is to identify candidate miRNAs for use as ON-switch inputs (upregulate
 
 **Raw Data:** GEO accession not confirmed. Check published paper supplementary materials.
 
-**Expression Data Format:** **Tags per million (TPM)** — this is absolute quantification and directly usable for expression level comparisons.
+**Expression Data Format:** **Tags per million (TPM)** - this is absolute quantification and directly usable for expression level comparisons.
 
-**Key Findings — Intracellular vs. Extracellular:**
+**Key Findings - Intracellular vs. Extracellular:**
 This study is **uniquely valuable** because it separately profiled intracellular and small extracellular vesicle (sEV) miRNA pools:
 
 - **Four-fold increase** in sEV secretion from senescent cells compared to quiescent controls.
@@ -178,7 +178,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 ## 4. Tier 3: Supporting Studies (Microarray/qPCR, Important for Candidate Lists)
 
-### 4.1 Yang et al. (2012) — Doxorubicin-Induced Senescence, K562
+### 4.1 Yang et al. (2012) - Doxorubicin-Induced Senescence, K562
 
 **Citation:** Yang MY, Lin PM, Liu YC, Hsiao HH, Yang WC, Hsu JF, et al. Induction of Cellular Senescence by Doxorubicin Is Associated with Upregulated miR-375 and Induction of Autophagy in K562 Cells. *PLoS ONE*. 2012;7(5):e37205.
 
@@ -207,8 +207,8 @@ This study is **uniquely valuable** because it separately profiled intracellular
 **Sample Sizes:** 3 independent experiments.
 
 **Limitations:**
-- Cancer cell line (K562), not primary cells — p53 and p16 are null, so the senescence pathway is atypical
-- Microarray, not sequencing — limited dynamic range and no novel miRNA discovery
+- Cancer cell line (K562), not primary cells - p53 and p16 are null, so the senescence pathway is atypical
+- Microarray, not sequencing - limited dynamic range and no novel miRNA discovery
 - No raw data deposited
 - Fold changes only, no absolute expression levels
 
@@ -216,7 +216,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 ---
 
-### 4.2 Faraonio et al. (2012) — Multiple Senescence Inducers, IMR90
+### 4.2 Faraonio et al. (2012) - Multiple Senescence Inducers, IMR90
 
 **Citation:** Faraonio R, Salerno P, Passaro F, Sedia C, Iaccio A, Nassa G, et al. A set of miRNAs participates in the cellular senescence program in human diploid fibroblasts. *Cell Death & Differentiation*. 2012;19(4):616-624.
 
@@ -234,9 +234,9 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 **Key Findings:**
 - 14 miRNAs upregulated (>2-fold) and 10 downregulated (>2-fold) in senescent vs. young cells.
-- **4 downregulated miRNAs were from the miR-17 family** — consistent with the Terlecki-Zaniewicz finding of miR-17-3p being retained intracellularly in senescent cells (the -3p strand accumulates because the -5p strand processing/activity changes).
+- **4 downregulated miRNAs were from the miR-17 family** - consistent with the Terlecki-Zaniewicz finding of miR-17-3p being retained intracellularly in senescent cells (the -3p strand accumulates because the -5p strand processing/activity changes).
 - **7 upregulated miRNAs were functionally validated**: their overexpression was sufficient to induce SA-β-gal activity and senescence-associated heterochromatin foci (SAHF).
-- Importantly, some miRNAs were specific to certain inducers, while others were shared — providing evidence for both universal and inducer-specific components of the senescence miRNA program.
+- Importantly, some miRNAs were specific to certain inducers, while others were shared - providing evidence for both universal and inducer-specific components of the senescence miRNA program.
 
 **Sample Sizes:** Not confirmed.
 
@@ -244,7 +244,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 ---
 
-### 4.3 Bonifacio & Jarstfer (2010) — Replicative Senescence, BJ Fibroblasts
+### 4.3 Bonifacio & Jarstfer (2010) - Replicative Senescence, BJ Fibroblasts
 
 **Citation:** Bonifacio LN, Jarstfer MB. MiRNA Profile Associated with Replicative Senescence, Extended Cell Culture, and Ectopic Telomerase Expression in Human Foreskin Fibroblasts. *PLoS ONE*. 2010;5(9):e12519.
 
@@ -264,7 +264,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 ---
 
-### 4.4 Santiago et al. (2024) — miR-96-5p Sufficient to Induce Senescence
+### 4.4 Santiago et al. (2024) - miR-96-5p Sufficient to Induce Senescence
 
 **Citation:** Santiago FE, Adige T, Mahmud S, Dong X, Niedernhofer LJ, Robbins PD. miR-96-5p expression is sufficient to induce and maintain the senescent cell fate in the absence of stress. *Proceedings of the National Academy of Sciences*. 2024;121(40):e2321182121.
 
@@ -279,13 +279,13 @@ This study is **uniquely valuable** because it separately profiled intracellular
 - Genome-wide heterochromatin changes
 - Epigenetic activation of p16INK4a, p21CIP1, and SASP genes
 
-**Why This Matters:** If a single miRNA can drive the entire senescence program, it may be a reliable sensor for detecting the senescent state. However, causality ≠ biomarker — miR-96-5p being sufficient to induce senescence doesn't guarantee it's always upregulated in all forms of senescence. Need to check its expression levels in doxorubicin-induced and other senescence models.
+**Why This Matters:** If a single miRNA can drive the entire senescence program, it may be a reliable sensor for detecting the senescent state. However, causality ≠ biomarker - miR-96-5p being sufficient to induce senescence doesn't guarantee it's always upregulated in all forms of senescence. Need to check its expression levels in doxorubicin-induced and other senescence models.
 
 **Priority:** MODERATE-HIGH. Important mechanistic finding, but need quantitative expression data from senescence models (not just overexpression).
 
 ---
 
-### 4.5 Henriques et al. (2023) — Therapy-Induced Senescence in Melanoma
+### 4.5 Henriques et al. (2023) - Therapy-Induced Senescence in Melanoma
 
 **Citation:** Henriques V et al. A multi-omics integrative approach unravels novel genes and pathways associated with senescence escape after targeted therapy in NRAS mutant melanoma. *Cancer Gene Therapy*. 2023.
 
@@ -295,7 +295,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 **Cell Type:** Three NRAS-mutant human melanoma cell lines (SKMEL30, IPC298, others)
 
-**Method:** Total RNA-seq, small RNA-seq, qCLASH (crosslinking and sequencing of hybrids), kinome profiling — comprehensive multi-omics.
+**Method:** Total RNA-seq, small RNA-seq, qCLASH (crosslinking and sequencing of hybrids), kinome profiling - comprehensive multi-omics.
 
 **Raw Data:** Not confirmed. Check paper.
 
@@ -309,7 +309,7 @@ This study is **uniquely valuable** because it separately profiled intracellular
 
 ## 5. Tier 4: Reference Datasets (mRNA-seq, Not miRNA-Specific)
 
-### 5.1 Casella et al. (2019) — Transcriptome Signature of Cellular Senescence
+### 5.1 Casella et al. (2019) - Transcriptome Signature of Cellular Senescence
 
 **Citation:** Casella G, Munk R, Kim KM, Piao Y, De S, Abdelmohsen K, Gorospe M. Transcriptome signature of cellular senescence. *Nucleic Acids Research*. 2019;47(14):7294-7305.
 
@@ -365,7 +365,7 @@ The closest resource is the review by Munk et al. (2017, PMID: [28838538](https:
 | miRNA | Direction in Senescence | # Studies | Inducers | Cell Types | Intracellular? | Notes |
 |-------|------------------------|-----------|----------|------------|---------------|-------|
 | **miR-34a-5p** | UP | 3+ | Replicative, SIPS | HUVECs, IMR90, HDFs | Yes | Targets SIRT1; established marker |
-| **miR-21-3p** | UP (intracellular) | 2 | SIPS | HDFs | **Yes — retained** | NOT secreted via EVs; ideal for intracellular sensing |
+| **miR-21-3p** | UP (intracellular) | 2 | SIPS | HDFs | **Yes - retained** | NOT secreted via EVs; ideal for intracellular sensing |
 | **miR-22** | UP | 2+ | Doxorubicin, replicative | K562, IMR90 | Presumed | Targets SIRT1; dox-relevant |
 | **miR-146a/b** | UP | 3+ | Replicative, various | BJ, IMR90, HDFs | Yes | SASP regulator (IRAK1) |
 | **miR-215-5p** | UP | 1 | **Doxorubicin** | 5 human cell types | Unknown | Common across cell types (Weigl 2024) |
@@ -375,8 +375,8 @@ The closest resource is the review by Munk et al. (2017, PMID: [28838538](https:
 | **miR-181a** | UP | 2+ | Replicative | HUVECs, various | Yes | Targets SIRT1 |
 | **miR-217** | UP | 1+ | Replicative | HUVECs | Unknown | Targets SIRT1 |
 | **miR-17 family** | DOWN | 2+ | Replicative, SIPS | IMR90, HDFs | **miR-17-3p retained** | Potential OFF-switch candidate |
-| **miR-15b-5p** | UP (secreted) | 1 | SIPS | HDFs | **No — secreted via EVs** | Poor ON-switch candidate |
-| **miR-30a-3p** | UP (secreted) | 1 | SIPS | HDFs | **No — secreted via EVs** | Poor ON-switch candidate |
+| **miR-15b-5p** | UP (secreted) | 1 | SIPS | HDFs | **No - secreted via EVs** | Poor ON-switch candidate |
+| **miR-30a-3p** | UP (secreted) | 1 | SIPS | HDFs | **No - secreted via EVs** | Poor ON-switch candidate |
 | **miR-199a-3p** | DOWN | 1 | Dox (cardiotoxicity) | Cardiac | Unknown | Targets GATA4; anti-senescent |
 
 ---
@@ -386,23 +386,23 @@ The closest resource is the review by Munk et al. (2017, PMID: [28838538](https:
 ### 8.1 Data Gaps
 1. **No single study provides everything we need:** doxorubicin inducer + multiple cell types + small RNA-seq + absolute counts + deposited raw data. The Weigl/Grillari 2024 study comes closest but is a preprint with unconfirmed data availability.
 2. **Intracellular vs. secreted distinction** is available from only one study (Terlecki-Zaniewicz 2019) and uses SIPS, not doxorubicin.
-3. **No mouse in vivo doxorubicin senescence miRNA-seq study found.** Herbert's planned experiment would be the first.
+3. **No mouse in vivo doxorubicin senescence miRNA-seq study found.** The planned experiment would be the first.
 
 ### 8.2 Recommended Actions
-1. **Obtain Weigl/Grillari 2024 raw data** — contact authors if not deposited. This is the single most impactful dataset for our project.
+1. **Obtain Weigl/Grillari 2024 raw data** - contact authors if not deposited. This is the single most impactful dataset for our project.
 2. **Download and re-analyze GSE27404** (Dhahbi, replicative senescence, IMR90) and **GSE94410** (Terlecki-Zaniewicz, replicative senescence, HUVECs) to establish baseline count data.
-3. **Herbert's doxorubicin small RNA-seq experiment is essential** and should be prioritized. The literature alone is insufficient for confident circuit design.
+3. **The investigator's doxorubicin small RNA-seq experiment is essential** and should be prioritized. The literature alone is insufficient for confident circuit design.
 4. **Consider aging databases and bulk tissue aging studies** as supplementary data, keeping in mind that aging ≠ senescence (aged tissue contains a mix of senescent and non-senescent cells).
 
 ### 8.3 Strongest ON-Switch Candidates (Current Evidence)
 Based on cross-study support, intracellular retention, and mechanistic plausibility:
 
-1. **miR-21-3p** — upregulated in senescence AND selectively retained intracellularly (not secreted via EVs). Strongest candidate for intracellular sensing.
-2. **miR-34a-5p** — most consistently reported across studies and senescence types. Established marker.
-3. **miR-215-5p** — upregulated across 5 cell types in doxorubicin-specific senescence (Weigl 2024), but only one study.
+1. **miR-21-3p** - upregulated in senescence AND selectively retained intracellularly (not secreted via EVs). Strongest candidate for intracellular sensing.
+2. **miR-34a-5p** - most consistently reported across studies and senescence types. Established marker.
+3. **miR-215-5p** - upregulated across 5 cell types in doxorubicin-specific senescence (Weigl 2024), but only one study.
 
 ### 8.4 Potential OFF-Switch / De-Targeting Candidates
-- **miR-17 family members** — downregulated in senescence across multiple studies. If these are highly expressed in healthy cells and low in senescent cells, they could serve as de-targeting elements.
+- **miR-17 family members** - downregulated in senescence across multiple studies. If these are highly expressed in healthy cells and low in senescent cells, they could serve as de-targeting elements.
 
 ---
 
@@ -426,7 +426,7 @@ Based on cross-study support, intracellular retention, and mechanistic plausibil
 
 ## ADDENDUM: Natural Aging miRNA Datasets (Added 2026-04-06)
 
-### Wagner et al. (2024) — Body-Wide ncRNA Aging Map (16 Mouse Tissues)
+### Wagner et al. (2024) - Body-Wide ncRNA Aging Map (16 Mouse Tissues)
 
 **Citation:** Wagner V, Kern F, Hahn O, Schaum N, Ludwig N, Fehlmann T, Engel A, Henn D, Rishik S, Isakova A, Tan M, Sit R, Neff N, Hart M, Meese E, Quake S, Wyss-Coray T, Keller A. Characterizing expression changes in noncoding RNAs during aging and heterochronic parabiosis across mouse tissues. *Nature Biotechnology*. 2024;42:109-118.
 
@@ -444,7 +444,7 @@ Based on cross-study support, intracellular retention, and mechanistic plausibil
 
 **Method:** Small RNA-seq; 771 samples; reads annotated to 87,590 RNA reference sequences across 8 RNA classes
 
-**Cohort:** Tabula Muris Senis (TMS) — publicly available aging atlas
+**Cohort:** Tabula Muris Senis (TMS) - publicly available aging atlas
 
 **Key Findings:**
 - Molecular aging trajectories are largely **tissue-specific**
