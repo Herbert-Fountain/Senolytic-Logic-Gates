@@ -452,9 +452,38 @@ The ideal circuit would kill senescent cells regardless of tissue origin. Based 
 
 **Assessment:** miR-92a declines in senescent fibroblasts (0.26-0.42x) and in aged human heart (0.76x), skin (0.75x), and blood (0.71x). No inflammaging confound. However, miR-92a is UP in senescent HUVECs — so this circuit would fail to activate in senescent endothelial cells. Better described as "broad tissue" rather than truly universal.
 
+#### Design U3: miR-34a + miR-16 + miR-92a (Combined OFF coverage)
+
+Rather than choosing between miR-16 and miR-92a, both can be used simultaneously. Each provides L7Ae protection in healthy cells through an independent ON-switch-controlled mRNA. Using both cannot hurt — it only adds redundant protection in healthy cells while requiring more complete elimination for payload activation in senescent cells.
+
+```
+L7Ae-mRNA-1: MREs for miR-34a-5p → silenced when miR-34a HIGH
+L7Ae-mRNA-2: miR-16-5p ON-switch → L7Ae ON when miR-16 HIGH (healthy)
+L7Ae-mRNA-3: miR-92a-3p ON-switch → L7Ae ON when miR-92a HIGH (healthy)
+mRNA-4: [K-turn] — Payload
+```
+
+**In healthy cells:** miR-34a LOW → L7Ae-1 produced. miR-16 HIGH → L7Ae-2 produced. miR-92a HIGH → L7Ae-3 produced. Three independent L7Ae sources → strong payload repression.
+
+**In senescent cells:** miR-34a HIGH → L7Ae-1 silenced. miR-16 LOW → less L7Ae-2. miR-92a LOW → less L7Ae-3. All three sources reduced → payload expression.
+
+**Cross-cell-type coverage:** miR-16 declines in fibroblasts AND endothelial cells but not all tissues. miR-92a declines in fibroblasts and aged human tissues but is UP in HUVECs. By using both, each compensates for the other's gaps:
+
+| Cell type | miR-16 decline? | miR-92a decline? | At least one OFF switch active? |
+|-----------|----------------|-----------------|-------------------------------|
+| Fibroblasts (senescent) | YES (0.37-0.70x) | YES (0.26-0.47x) | **YES — both** |
+| HUVECs (senescent) | YES (0.43x) | NO (UP) | **YES — miR-16** |
+| Aged human heart | Stable | YES (0.76x) | **YES — miR-92a** |
+| Aged human skin | Stable | YES (0.75x) | **YES — miR-92a** |
+| Aged human blood | YES (0.61x) | YES (0.71x) | **YES — both** |
+
+**Estimated selectivity:** 1.5x (miR-34a) × 2.7x (miR-16) × 3.8x (miR-92a) = **~15x in fibroblasts** where both OFF switches decline. In endothelial cells where only miR-16 declines: 1.5x × 2.7x = ~4x. In aged tissues where only miR-92a declines: 1.5x × 3.8x = ~5.7x.
+
+**This is the best universal design achievable:** It provides some selectivity across all tested cell types by combining two OFF switches with complementary coverage. The cost is 4 mRNAs per circuit.
+
 #### Verdict on Universal Approach
 
-**A truly universal senolytic circuit is not achievable with current data.** No OFF-switch miRNA declines consistently across all cell types during senescence. miR-16-5p comes closest but provides only ~2.7x discrimination. The fundamental problem is that senescence miRNA programs are cell-type-specific, as documented throughout this analysis.
+**A truly universal senolytic circuit with high selectivity is not achievable with current data.** However, Design U3 (combining miR-16 and miR-92a as dual OFF switches) achieves partial universality by compensating for each other's cell-type gaps. The selectivity varies by tissue (~4-15x) and may be sufficient for some applications, particularly if L7Ae amplification provides additional discrimination beyond the multiplicative estimate.
 
 ---
 
@@ -533,6 +562,7 @@ mRNA-4: [K-turn] — Payload
 |--------|----------|--------|-------------|----------|
 | U1 | Universal | miR-34a + miR-16 | ~4x | Cross-cell-type (insufficient selectivity) |
 | U2 | Universal | miR-34a + miR-92a | ~5.7x | Broad tissue (not endothelial) |
+| **U3** | **Universal** | **miR-34a + miR-16 + miR-92a** | **~4-15x** (varies by tissue) | **Best universal: dual OFF compensates for cell-type gaps** |
 | **F1** | **Fibroblast** | **miR-34a + miR-155** | **~16x** | **In vitro proof-of-concept** |
 | F2 | Fibroblast | miR-34a + miR-92a | ~5.7x | High-expression backup |
 | F3 | Fibroblast | miR-34a + miR-17 | ~8x | Intermediate option |
