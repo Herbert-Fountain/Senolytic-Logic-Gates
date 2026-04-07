@@ -171,11 +171,19 @@ elif page == 'Optimize Ratio':
         total_ng = st.number_input('Total mRNA per well (ng)', 50, 500, 200)
         objective = st.selectbox('Optimization objective', [
             'balanced', 'selectivity', 'activation'])
+        cells_per_well = st.number_input(
+            'Cells seeded per well', 1000, 200000, 30000, 1000,
+            help='Affects mRNA copies per cell. Standard: 30,000 (96-well)')
     with col2:
         on_cell = st.selectbox('ON cell (has miRNA)', cell_names,
                                 index=len(cell_names)-1)
         off_cell = st.selectbox('OFF cell (lacks miRNA)', cell_names,
                                  index=0)
+
+    copies_per_ng_val = 20 * (30000 / cells_per_well)
+    st.caption(f'At {cells_per_well:,} cells/well: {copies_per_ng_val:.1f} '
+               f'copies/ng/cell ({total_ng * copies_per_ng_val:.0f} total '
+               f'copies at {total_ng}ng)')
 
     if st.button('Run Optimization', type='primary'):
         p = get_params(L7Ae_repression_fold=1000, t_max_hr=24)
@@ -188,7 +196,8 @@ elif page == 'Optimize Ratio':
 
         with st.spinner('Running optimization sweep (this takes ~1 min)...'):
             result = opt.optimize_ratio(
-                total_ng, use_profiles, objective=objective, n_cells=15000)
+                total_ng, use_profiles, objective=objective,
+                cells_per_well=cells_per_well, n_cells=15000)
 
         # Results table
         rows = []
@@ -252,6 +261,9 @@ elif page == 'Design Experiment':
         cell_selection = st.multiselect(
             'Cell lines', list(profiles.keys()),
             default=list(profiles.keys()))
+        design_cells_per_well = st.number_input(
+            'Cells per well', 1000, 200000, 30000, 1000,
+            key='design_cpw')
 
     if st.button('Generate Experiment Plan', type='primary'):
         sensor_list = [float(x.strip()) for x in sensor_input.split(',')]
@@ -265,7 +277,8 @@ elif page == 'Design Experiment':
         with st.spinner('Computing predictions...'):
             design = designer.design_titration(
                 use_profiles, payload_ng=payload_ng,
-                sensor_ng_list=sensor_list, replicates=replicates)
+                sensor_ng_list=sensor_list, replicates=replicates,
+                total_cells_per_well=design_cells_per_well)
 
         # Show predictions
         st.subheader('Predicted Results')

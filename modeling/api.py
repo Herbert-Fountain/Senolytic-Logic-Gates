@@ -131,6 +131,7 @@ def simulate(params):
     parameters={
         'total_mRNA_ng': 'float: total mRNA per well in ng (default: 200)',
         'objective': 'str: selectivity|activation|balanced (default: balanced)',
+        'cells_per_well': 'int: cells seeded per well (default: 30000)',
         'on_cell': 'dict: {mirna_mean, mirna_cv, transfection_efficiency, expression_factor}',
         'off_cell': 'dict: {mirna_mean, mirna_cv, transfection_efficiency, expression_factor}',
     },
@@ -149,12 +150,13 @@ def optimize(params):
         'transfection_efficiency': 0.31, 'expression_factor': 1.0,
     })
 
+    cpw = params.get('cells_per_well', 30000)
     profiles = {'OFF_cell': off_cell, 'ON_cell': on_cell}
 
     p = get_params(L7Ae_repression_fold=1000, t_max_hr=24)
     opt = CircuitOptimizer(p)
     result = opt.optimize_ratio(total, profiles, objective=objective,
-                                 n_cells=10000)
+                                 cells_per_well=cpw, n_cells=10000)
 
     # Simplify for JSON
     sweep = [{

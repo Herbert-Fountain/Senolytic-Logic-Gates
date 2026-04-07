@@ -162,7 +162,8 @@ class CircuitOptimizer:
         return results, thresh
 
     def optimize_ratio(self, total_mRNA_ng, cell_profiles,
-                       copies_per_ng=20, objective='selectivity',
+                       copies_per_ng=None, cells_per_well=30000,
+                       objective='selectivity',
                        sp_ratios=None, n_cells=20000, seed=42):
         """Find optimal sensor:payload ratio for a given total mRNA dose.
 
@@ -172,8 +173,11 @@ class CircuitOptimizer:
             Total mRNA per well (ng). Split between sensor and payload.
         cell_profiles : dict
             Cell type definitions (see _simulate_population)
-        copies_per_ng : float
-            mRNA copies delivered per ng per cell (default: 20 at 30K cells/well)
+        copies_per_ng : float, optional
+            mRNA copies per ng per cell. If None, computed from cells_per_well.
+        cells_per_well : int
+            Number of cells seeded per well (default: 30000).
+            Used to compute copies_per_ng if not provided directly.
         objective : str
             'selectivity': maximize ON:OFF ratio
             'activation': maximize ON-cell % positive
@@ -187,6 +191,8 @@ class CircuitOptimizer:
         -------
         dict with optimization results and recommendations
         """
+        if copies_per_ng is None:
+            copies_per_ng = 20 * (30000 / cells_per_well)
         total_copies = total_mRNA_ng * copies_per_ng
 
         if sp_ratios is None:
@@ -249,7 +255,8 @@ class CircuitOptimizer:
         }
 
     def dose_sweep(self, cell_profiles, sensor_ng_range, payload_ng,
-                   copies_per_ng=20, n_cells=20000, seed=42):
+                   copies_per_ng=None, cells_per_well=30000,
+                   n_cells=20000, seed=42):
         """Sweep sensor dose at fixed payload dose.
 
         Parameters
@@ -259,7 +266,10 @@ class CircuitOptimizer:
             Range of sensor mRNA amounts (ng) to test
         payload_ng : float
             Fixed payload amount (ng)
-        copies_per_ng : float
+        copies_per_ng : float, optional
+            If None, computed from cells_per_well.
+        cells_per_well : int
+            Cells seeded per well (default: 30000)
         n_cells : int
         seed : int
 
@@ -267,6 +277,8 @@ class CircuitOptimizer:
         -------
         dict with sweep results
         """
+        if copies_per_ng is None:
+            copies_per_ng = 20 * (30000 / cells_per_well)
         cell_names = list(cell_profiles.keys())
         on_cell = max(cell_names,
                       key=lambda c: cell_profiles[c].get('mirna_mean', 0))

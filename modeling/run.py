@@ -85,8 +85,13 @@ def cmd_optimize(args):
 
     profiles = DEFAULT_CELL_PROFILES.copy()
 
+    cpw = args.cells_per_well
+    cpn = 20 * (30000 / cpw)
+
     print(f'Optimizing sensor:payload ratio')
     print(f'  Total mRNA: {args.total_ng}ng')
+    print(f'  Cells per well: {cpw:,}')
+    print(f'  Copies/ng/cell: {cpn:.1f}')
     print(f'  Objective: {args.objective}')
     print(f'  Cell lines: {", ".join(profiles.keys())}')
     print()
@@ -94,6 +99,7 @@ def cmd_optimize(args):
     result = opt.optimize_ratio(
         args.total_ng, profiles,
         objective=args.objective,
+        cells_per_well=cpw,
         n_cells=args.n_cells,
     )
 
@@ -236,6 +242,8 @@ def main():
     p_opt.add_argument('--objective', choices=['selectivity', 'activation',
                        'balanced'], default='balanced',
                        help='Optimization objective (default: balanced)')
+    p_opt.add_argument('--cells-per-well', type=int, default=30000,
+                       help='Cells seeded per well (default: 30000)')
     p_opt.add_argument('--n-cells', type=int, default=20000,
                        help='Simulated cells per condition (default: 20000)')
 

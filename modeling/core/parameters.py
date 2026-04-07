@@ -121,9 +121,13 @@ DEFAULT_PARAMS = {
     # ================================================================
     # Transfection Parameters
     # ================================================================
-    # mRNA copies delivered per transfected cell
-    # Estimated from 100ng/well, 30,000 cells/well, MW ~10^6
-    # ~2000 copies per transfected cell at 100ng dose
+    # Cells seeded per well (user should set this per experiment)
+    # Standard: 30,000 for 96-well, 10,000 for 384-well
+    'cells_per_well': 30000,
+
+    # mRNA copies delivered per transfected cell at reference conditions
+    # At 100ng/well and 30,000 cells: ~2000 copies per transfected cell
+    # Scales inversely with cells_per_well: copies = 2000 * (30000/cells)
     # Source: Cohen et al., 2009, PMC: 2765102; experimental calibration
     'mRNA_delivered_per_cell': 2000,
 
@@ -192,4 +196,27 @@ def get_params(**overrides):
     # L7Ae KD in molecules
     params['Kd_L7Ae_molecules'] = nM_to_molecules(params['Kd_L7Ae_nM'])
 
+    # Copies per ng: scales with cells_per_well
+    # Reference: 20 copies/ng at 30,000 cells/well (= 2000 copies at 100ng)
+    params['copies_per_ng'] = 20 * (30000 / params['cells_per_well'])
+
     return params
+
+
+def copies_per_ng(cells_per_well=30000):
+    """Compute mRNA copies delivered per ng per transfected cell.
+
+    At the reference condition (30,000 cells/well), 100ng of mRNA
+    delivers ~2,000 copies per transfected cell (20 copies/ng).
+    This scales inversely with cell count.
+
+    Parameters
+    ----------
+    cells_per_well : int
+        Number of cells seeded per well
+
+    Returns
+    -------
+    float : copies per ng per cell
+    """
+    return 20 * (30000 / cells_per_well)
