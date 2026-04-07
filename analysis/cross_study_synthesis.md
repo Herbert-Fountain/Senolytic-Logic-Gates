@@ -396,7 +396,25 @@ From the Saito lab:
 - Single miRNA OFF switch: resolves <2-fold differences (Endo et al., *Sci Rep*, 2016, PMID: 26902536)
 - Hybrid ON+OFF switch: up to 16-fold (Saito lab, *Mol Ther Nucleic Acids*, 2025)
 
-For an AND gate using two L7Ae mRNAs with different MREs, the expected selectivity is **multiplicative**: if miRNA-A provides X-fold discrimination and miRNA-B provides Y-fold, the combined selectivity is ~X × Y.
+### 6.2.1 How We Estimate Selectivity (and Why It's Approximate)
+
+For each miRNA input, we define **discrimination** as the ratio of the miRNA's ability to silence L7Ae in a senescent cell vs. a healthy cell. For an ON-switch input (miRNA UP in senescence), this equals the fold change: a miRNA that is 1.5x higher in senescent cells provides ~1.5x discrimination. For an OFF-switch input (miRNA DOWN in senescence), the discrimination is the inverse of the fold change: a miRNA that drops 11x provides ~11x discrimination (because L7Ae is produced 11x more efficiently in healthy cells than senescent cells).
+
+For a 2-input AND gate, we assume the discriminations are **multiplicative** — if miRNA-A provides X-fold and miRNA-B provides Y-fold, the combined selectivity is ~X × Y. This assumption requires that:
+
+1. **The two miRNA inputs act independently** — silencing of L7Ae-mRNA-1 by miRNA-A does not affect silencing of L7Ae-mRNA-2 by miRNA-B
+2. **The relationship between miRNA concentration and L7Ae silencing is linear** — a 2x change in miRNA produces a 2x change in L7Ae output
+3. **L7Ae protein from either mRNA source is equally effective** at repressing the payload
+
+**All three assumptions are likely oversimplifications:**
+
+- **Assumption 1** is probably reasonable if the two L7Ae mRNAs have different MRE sequences (no cross-reactivity).
+- **Assumption 2** is almost certainly wrong. miRNA-mediated silencing follows a **sigmoidal, threshold-like response** (Mukherji et al., *Nature*, 2011, PMID: 21753848). Below a threshold miRNA:mRNA ratio, silencing is minimal; above it, silencing is nearly complete. This means small fold changes (1.5x for miR-34a) may produce either no functional difference (if both healthy and senescent levels are on the same side of the threshold) or a near-binary switch (if the threshold falls between them). **We cannot predict which scenario applies without knowing the threshold, which depends on the number of MREs, LNP delivery dose, and cell-type-specific RISC loading efficiency.**
+- **Assumption 3** is reasonable as long as both L7Ae mRNAs produce the same protein, but expression levels may differ depending on 5'/3' UTR context.
+
+**Therefore, our selectivity estimates (e.g., "~16x" for Architecture F1) are order-of-magnitude approximations, not engineering specifications.** The actual selectivity could be substantially higher (if threshold effects create near-binary switching) or lower (if stoichiometric saturation causes both inputs to fail). The estimates are useful for **ranking** architectures relative to each other but should not be treated as predictions of in vivo performance.
+
+**The only way to determine actual selectivity is empirical testing** — transfecting senescent vs. healthy cells with the circuit mRNAs and measuring payload expression (e.g., using a fluorescent reporter before switching to a cytotoxic payload).
 
 ### 6.3 Approach 1 — Universal Senolytic Circuit (All Cell Types)
 
