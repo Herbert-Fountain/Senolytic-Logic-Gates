@@ -156,23 +156,26 @@ class AutoProtocolExporter:
             })
 
         # Build plate layout (96 wells)
-        # Layout strategy: each cell type gets consecutive columns,
-        # each dose combo gets consecutive rows within that cell type block
+        # Layout: each group gets a column, replicates fill down rows.
+        # Cell types get separate blocks of columns.
         plateMRNA = [-1] * 96
         plateCells = [-1] * 96
 
-        n_groups = len(groups)
-        n_cell_types = len(cell_type_list)
+        col = 0
+        row_offset = 0
 
-        # Assign wells: for each cell type, for each group, assign replicates
-        well_idx = 0
         for ct_idx, ct_name in enumerate(cell_types_in_design):
             for g_idx, group in enumerate(groups):
+                if col >= 12:
+                    col = 0
+                    row_offset += replicates
                 for rep in range(replicates):
-                    if well_idx < 96:
+                    row = row_offset + rep
+                    if row < 8 and col < 12:
+                        well_idx = row * 12 + col
                         plateMRNA[well_idx] = g_idx
                         plateCells[well_idx] = ct_idx
-                        well_idx += 1
+                col += 1
 
         state = {
             'v': 1,
@@ -283,18 +286,25 @@ class AutoProtocolExporter:
         cell_type_list = [{'name': n, 'density': cells_per_well}
                           for n in cell_names]
 
-        # Plate layout
+        # Plate layout: groups in columns, replicates down rows
         plateMRNA = [-1] * 96
         plateCells = [-1] * 96
-        well_idx = 0
+
+        col = 0
+        row_offset = 0
 
         for ct_idx in range(len(cell_names)):
             for g_idx in range(len(groups)):
+                if col >= 12:
+                    col = 0
+                    row_offset += replicates
                 for rep in range(replicates):
-                    if well_idx < 96:
+                    row = row_offset + rep
+                    if row < 8 and col < 12:
+                        well_idx = row * 12 + col
                         plateMRNA[well_idx] = g_idx
                         plateCells[well_idx] = ct_idx
-                        well_idx += 1
+                col += 1
 
         return {
             'v': 1,

@@ -341,8 +341,9 @@ def compress_well_list(wells):
 def auto_assign_plate(groups, cell_types, replicates=3):
     """Auto-assign wells to groups and cell types.
 
-    Layout: each cell type gets a block of rows, each group gets
-    consecutive wells within that block.
+    Layout: each group gets a column, replicates fill down rows.
+    Cell types get separate blocks of columns. When columns are
+    exhausted, wraps to the next block of rows.
 
     Returns
     -------
@@ -351,14 +352,21 @@ def auto_assign_plate(groups, cell_types, replicates=3):
     plate_mrna = [-1] * 96
     plate_cells = [-1] * 96
 
-    well_idx = 0
+    col = 0
+    row_offset = 0
+
     for ct_idx in range(len(cell_types)):
         for g_idx in range(len(groups)):
+            if col >= 12:
+                col = 0
+                row_offset += replicates
             for rep in range(replicates):
-                if well_idx < 96:
+                row = row_offset + rep
+                if row < 8 and col < 12:
+                    well_idx = row * 12 + col
                     plate_mrna[well_idx] = g_idx
                     plate_cells[well_idx] = ct_idx
-                    well_idx += 1
+            col += 1
 
     return plate_mrna, plate_cells
 

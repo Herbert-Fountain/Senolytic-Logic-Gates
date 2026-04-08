@@ -132,37 +132,32 @@ class ExperimentDesigner:
                 'expected': '~0% sfGFP+',
             })
 
-        # Plate layout
+        # Plate layout: each condition gets a column, replicates fill down rows
         rows = 'ABCDEFGH'
         cols = list(range(1, 13)) if plate_format == 96 else list(range(1, 25))
         plate_map = []
-        well_idx = 0
 
-        for cond in controls:
-            for rep in range(replicates):
-                if well_idx < len(rows) * len(cols):
-                    row = rows[well_idx // len(cols)]
-                    col = cols[well_idx % len(cols)]
-                    plate_map.append({
-                        'well': f'{row}{col}',
-                        'condition': cond['label'],
-                        'replicate': rep + 1,
-                        'type': 'control',
-                    })
-                    well_idx += 1
+        all_entries = [(c, c['label'], 'control') for c in controls] + \
+                      [(c, c['condition_label'], 'experimental')
+                       for c in conditions]
 
-        for cond in conditions:
+        col_idx = 0
+        row_offset = 0
+
+        for entry, label, entry_type in all_entries:
+            if col_idx >= len(cols):
+                col_idx = 0
+                row_offset += replicates
             for rep in range(replicates):
-                if well_idx < len(rows) * len(cols):
-                    row = rows[well_idx // len(cols)]
-                    col = cols[well_idx % len(cols)]
+                row_idx = row_offset + rep
+                if row_idx < len(rows) and col_idx < len(cols):
                     plate_map.append({
-                        'well': f'{row}{col}',
-                        'condition': cond['condition_label'],
+                        'well': f'{rows[row_idx]}{cols[col_idx]}',
+                        'condition': label,
                         'replicate': rep + 1,
-                        'type': 'experimental',
+                        'type': entry_type,
                     })
-                    well_idx += 1
+            col_idx += 1
 
         # Key predictions to test
         predictions = []
