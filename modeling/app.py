@@ -304,7 +304,7 @@ elif page == 'Optimize Ratio':
         rows = []
         for r in result['sweep']:
             rows.append({
-                'S:P Ratio': f'{r["sp_ratio"]:.2f}',
+                'SP Ratio': f'{r["sp_ratio"]:.2f}',
                 'Sensor (ng)': f'{r["sensor_ng"]:.0f}',
                 'Payload (ng)': f'{r["payload_ng"]:.0f}',
                 f'{on_cell} sfGFP+ %': f'{r["on_pct"]:.1f}',
@@ -314,7 +314,7 @@ elif page == 'Optimize Ratio':
         df = pd.DataFrame(rows)
         st.dataframe(df, use_container_width=True)
         st.caption(
-            '**S:P Ratio** = sensor ng / payload ng. '
+            '**SP Ratio** = sensor ng / payload ng. '
             f'**{on_cell} sfGFP+ %** = predicted fraction of {on_cell} cells '
             f'expressing sfGFP (want this HIGH). '
             f'**{off_cell} sfGFP+ %** = predicted off-target leakage '
@@ -349,12 +349,12 @@ elif page == 'Optimize Ratio':
         off_vals = [r['off_pct'] for r in result['sweep']]
 
         chart_df = pd.DataFrame({
-            'S:P Ratio': sp_vals,
+            'SP Ratio': sp_vals,
             f'{on_cell} % positive': on_vals,
             f'{off_cell} % positive': off_vals,
         })
         st.subheader('Predicted Activation vs Sensor:Payload Ratio')
-        st.line_chart(chart_df, x='S:P Ratio')
+        st.line_chart(chart_df, x='SP Ratio')
         st.caption(
             'As the sensor:payload ratio increases (more sensor, less payload), '
             f'{on_cell} activation drops because excess sensor creates an L7Ae '
