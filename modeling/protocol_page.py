@@ -368,6 +368,10 @@ def render_protocol_page(history, get_cell_profiles):
     # ============================================================
     st.subheader('Plate Layout')
 
+    # Version counter for syncing component state on external updates
+    if 'plate_version' not in st.session_state:
+        st.session_state.plate_version = 0
+
     # -- Paint mode controls --
     pc1, pc2 = st.columns([1, 1])
     with pc1:
@@ -399,6 +403,7 @@ def render_protocol_page(history, get_cell_profiles):
             else:
                 st.session_state.proto_plate_cells = [-1] * 96
                 plate_cells = st.session_state.proto_plate_cells
+            st.session_state.plate_version += 1
             st.rerun()
     with ec3:
         replicates = st.number_input('Replicates', 1, 8, 3,
@@ -409,50 +414,31 @@ def render_protocol_page(history, get_cell_profiles):
                 groups, cell_types, replicates)
             st.session_state.proto_plate_mrna = plate_mrna
             st.session_state.proto_plate_cells = plate_cells
+            st.session_state.plate_version += 1
             st.rerun()
 
-    # -- Plate visualization (colored circles) --
-    plate_html = _render_plate_html(plate_mrna, plate_cells,
-                                     groups, cell_types)
-    st.markdown(plate_html, unsafe_allow_html=True)
+    # -- Interactive plate component --
+    from modeling.components.plate_painter import plate_painter
 
-    # -- Well selection for painting --
-    ws1, ws2, ws3 = st.columns([1, 1, 2])
-    with ws1:
-        sel_rows = st.multiselect(
-            'Rows', list(_PLATE_ROWS), key='sel_rows')
-    with ws2:
-        sel_cols = st.multiselect(
-            'Columns', list(range(1, 13)), key='sel_cols')
-    with ws3:
-        well_text = st.text_input(
-            'Or type wells (e.g. A1-A6, B2, C3-D6)',
-            key='well_text_input')
+    result = plate_painter(
+        plate_mrna=plate_mrna,
+        plate_cells=plate_cells,
+        groups=groups,
+        cell_types=cell_types,
+        paint_mode='mrna' if paint_mode == 'Paint mRNA Groups' else 'cells',
+        active_idx=active_paint_idx,
+        eraser=eraser,
+        group_colors=list(_GROUP_COLORS),
+        cell_colors=list(_CELL_COLORS),
+        plate_version=st.session_state.plate_version,
+        key='plate_painter',
+    )
 
-    if st.button('Paint selected wells'):
-        wells_to_paint = set()
-        for r in sel_rows:
-            for c in sel_cols:
-                wells_to_paint.add(_PLATE_ROWS.index(r) * 12 + (c - 1))
-        if well_text.strip():
-            wells_to_paint.update(_parse_well_input(well_text))
-
-        for wi in wells_to_paint:
-            if 0 <= wi < 96:
-                if eraser:
-                    if paint_mode == 'Paint mRNA Groups':
-                        plate_mrna[wi] = -1
-                    else:
-                        plate_cells[wi] = -1
-                else:
-                    if paint_mode == 'Paint mRNA Groups':
-                        plate_mrna[wi] = active_paint_idx
-                    else:
-                        plate_cells[wi] = active_paint_idx
-
+    if result is not None:
+        plate_mrna = result['plate_mrna']
+        plate_cells = result['plate_cells']
         st.session_state.proto_plate_mrna = plate_mrna
         st.session_state.proto_plate_cells = plate_cells
-        st.rerun()
 
     # -- Legend and summary --
     n_assigned = sum(1 for v in plate_mrna if v >= 0)
@@ -464,7 +450,7 @@ def render_protocol_page(history, get_cell_profiles):
     else:
         st.info(
             'No wells assigned yet. Click **Auto-assign** or '
-            'select wells and click **Paint selected wells**.')
+            'click wells on the plate to paint them.')
 
     # ============================================================
     # Section 5: Master Mix Volumes

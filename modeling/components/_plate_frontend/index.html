@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 6px 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .plate-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .plate-grid {
+    display: inline-grid;
+    grid-template-columns: 28px repeat(12, 58px);
+    gap: 5px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .hdr {
+    font-weight: 700;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .well {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .well:hover {
+    transform: scale(1.12);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  .well:active {
+    transform: scale(0.96);
+  }
+</style>
+</head>
+<body>
+<div class="plate-container">
+  <div class="plate-grid" id="plate"></div>
+</div>
+
+<script>
+  var ROWS = 'ABCDEFGH';
+
+  var DEFAULT_GROUP_COLORS = [
+    '#5b8c78','#c0884a','#7b6ea6','#c26e6e','#4a8fa8',
+    '#a08c5a','#8a6d9e','#5a9a7a','#b07850','#6888a8'
+  ];
+  var DEFAULT_CELL_COLORS = [
+    '#c9b99a','#d4a88c','#8cb4d4','#b4d48c',
+    '#d48cb4','#8cd4b4','#d4b48c','#b48cd4'
+  ];
+
+  var plateMRNA = [];
+  var plateCells = [];
+  var currentVersion = -1;
+  var args = {};
+  var isPainting = false;
+  var wellEls = [];
+
+  /* ---- Streamlit communication ---- */
+
+  function sendMsg(type, data) {
+    var out = {isStreamlitMessage: true, type: type};
+    for (var k in data) out[k] = data[k];
+    window.parent.postMessage(out, "*");
+  }
+
+  function setComponentValue(val) {
+    sendMsg("streamlit:setComponentValue", {value: val});
+  }
+
+  function setFrameHeight(h) {
+    sendMsg("streamlit:setFrameHeight", {height: h});
+  }
+
+  /* ---- Build plate DOM (once) ---- */
+
+  function buildPlate() {
+    var el = document.getElementById('plate');
+    el.innerHTML = '';
+    wellEls = [];
+
+    // Corner cell
+    el.appendChild(mkDiv('', 'hdr'));
+
+    // Column headers
+    for (var c = 1; c <= 12; c++) {
+      el.appendChild(mkDiv(String(c), 'hdr'));
+    }
+
+    for (var r = 0; r < 8; r++) {
+      el.appendChild(mkDiv(ROWS[r], 'hdr'));
+      for (var c2 = 0; c2 < 12; c2++) {
+        var wi = r * 12 + c2;
+        var w = document.createElement('div');
+        w.className = 'well';
+        w.textContent = ROWS[r] + (c2 + 1);
+        w.setAttribute('data-i', String(wi));
+        w.addEventListener('mousedown', onDown);
+        w.addEventListener('mouseenter', onEnter);
+        w.addEventListener('touchstart', onTouchStart, {passive: false});
+        w.addEventListener('touchmove', onTouchMove, {passive: false});
+        el.appendChild(w);
+        wellEls[wi] = w;
+      }
+    }
+
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchend', onUp);
+  }
+
+  /* ---- Update well colors (fast, no DOM rebuild) ---- */
+
+  function updateColors() {
+    var groups = args.groups || [];
+    var cellTypes = args.cell_types || [];
+    var gC = (args.group_colors && args.group_colors.length)
+              ? args.group_colors : DEFAULT_GROUP_COLORS;
+    var cC = (args.cell_colors && args.cell_colors.length)
+              ? args.cell_colors : DEFAULT_CELL_COLORS;
+
+    for (var wi = 0; wi < 96; wi++) {
+      var w = wellEls[wi];
+      if (!w) continue;
+      var gi = plateMRNA[wi];
+      var cti = plateCells[wi];
+
+      if (gi >= 0 && gi < groups.length) {
+        w.style.background = gC[gi % gC.length];
+        w.style.color = '#fff';
+      } else {
+        w.style.background = '#f5f0e8';
+        w.style.color = '#bbb';
+      }
+
+      if (cti >= 0 && cti < cellTypes.length) {
+        w.style.border = '3px solid ' + cC[cti % cC.length];
+      } else {
+        w.style.border = (gi >= 0)
+          ? '2px solid rgba(0,0,0,0.08)'
+          : '2px solid #e0dbd2';
+      }
+    }
+  }
+
+  function mkDiv(txt, cls) {
+    var d = document.createElement('div');
+    if (cls) d.className = cls;
+    d.textContent = txt;
+    return d;
+  }
+
+  /* ---- Paint logic ---- */
+
+  function paint(wi) {
+    var mode = args.paint_mode || 'mrna';
+    var idx = (args.active_idx != null) ? args.active_idx : 0;
+    var eraser = args.eraser || false;
+
+    if (mode === 'mrna') {
+      plateMRNA[wi] = eraser ? -1 : idx;
+    } else {
+      plateCells[wi] = eraser ? -1 : idx;
+    }
+  }
+
+  function onDown(e) {
+    e.preventDefault();
+    isPainting = true;
+    paint(parseInt(e.currentTarget.getAttribute('data-i')));
+    updateColors();
+  }
+
+  function onEnter(e) {
+    if (!isPainting) return;
+    paint(parseInt(e.currentTarget.getAttribute('data-i')));
+    updateColors();
+  }
+
+  function onUp() {
+    if (isPainting) {
+      isPainting = false;
+      setComponentValue({
+        plate_mrna: plateMRNA.slice(),
+        plate_cells: plateCells.slice()
+      });
+    }
+  }
+
+  /* Touch support for tablets */
+  function onTouchStart(e) {
+    e.preventDefault();
+    isPainting = true;
+    var touch = e.touches[0];
+    var el = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (el && el.getAttribute('data-i') != null) {
+      paint(parseInt(el.getAttribute('data-i')));
+      updateColors();
+    }
+  }
+
+  function onTouchMove(e) {
+    e.preventDefault();
+    if (!isPainting) return;
+    var touch = e.touches[0];
+    var el = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (el && el.getAttribute('data-i') != null) {
+      paint(parseInt(el.getAttribute('data-i')));
+      updateColors();
+    }
+  }
+
+  /* ---- Streamlit render handler ---- */
+
+  var built = false;
+
+  window.addEventListener("message", function(event) {
+    if (event.data.type !== "streamlit:render") return;
+    args = event.data.args || {};
+
+    // Only accept incoming plate state when version changes
+    // (external update like auto-assign or clear)
+    var v = (args.plate_version != null) ? args.plate_version : 0;
+    if (v !== currentVersion) {
+      plateMRNA = (args.plate_mrna || []).slice();
+      plateCells = (args.plate_cells || []).slice();
+      // Pad to 96 if needed
+      while (plateMRNA.length < 96) plateMRNA.push(-1);
+      while (plateCells.length < 96) plateCells.push(-1);
+      currentVersion = v;
+    }
+
+    if (!built) {
+      buildPlate();
+      built = true;
+    }
+    updateColors();
+    setFrameHeight(document.body.scrollHeight + 4);
+  });
+
+  // Tell Streamlit we're ready
+  sendMsg("streamlit:componentReady", {apiVersion: 1});
+</script>
+</body>
+</html>
