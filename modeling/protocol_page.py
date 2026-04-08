@@ -11,6 +11,165 @@ import pandas as pd
 import numpy as np
 
 
+# ================================================================
+# Plate visualization constants and helpers
+# ================================================================
+
+_PLATE_ROWS = 'ABCDEFGH'
+
+_GROUP_COLORS = ['#5b8c78', '#c0884a', '#7b6ea6', '#c26e6e',
+                 '#4a8fa8', '#a08c5a', '#8a6d9e', '#5a9a7a',
+                 '#b07850', '#6888a8']
+
+_CELL_COLORS = ['#c9b99a', '#d4a88c', '#8cb4d4', '#b4d48c',
+                '#d48cb4', '#8cd4b4', '#d4b48c', '#b48cd4']
+
+
+def _render_plate_html(plate_mrna, plate_cells, groups, cell_types):
+    """Render 96-well plate as HTML with colored circles."""
+    html = ['<div style="overflow-x: auto;">']
+    html.append(
+        '<div style="display: inline-grid; '
+        'grid-template-columns: 30px repeat(12, 62px); '
+        'gap: 5px; align-items: center; justify-items: center; '
+        'padding: 8px;">')
+
+    # Column header row
+    html.append('<div></div>')
+    for c in range(1, 13):
+        html.append(
+            f'<div style="text-align: center; font-weight: 700; '
+            f'font-size: 14px; color: #555;">{c}</div>')
+
+    for ri in range(8):
+        # Row label
+        html.append(
+            f'<div style="text-align: center; font-weight: 700; '
+            f'font-size: 14px; color: #555;">{_PLATE_ROWS[ri]}</div>')
+
+        for ci in range(12):
+            wi = ri * 12 + ci
+            gi = plate_mrna[wi]
+            cti = plate_cells[wi]
+            name = f'{_PLATE_ROWS[ri]}{ci + 1}'
+
+            if 0 <= gi < len(groups):
+                bg = _GROUP_COLORS[gi % len(_GROUP_COLORS)]
+                fg = '#fff'
+            else:
+                bg = '#f5f0e8'
+                fg = '#bbb'
+
+            if 0 <= cti < len(cell_types):
+                border = f'3px solid {_CELL_COLORS[cti % len(_CELL_COLORS)]}'
+            else:
+                border = '2px solid #e0dbd2'
+
+            html.append(
+                f'<div style="width: 56px; height: 56px; border-radius: 50%; '
+                f'background: {bg}; border: {border}; '
+                f'display: flex; align-items: center; justify-content: center; '
+                f'font-size: 11px; font-weight: 600; color: {fg}; '
+                f'font-family: -apple-system, BlinkMacSystemFont, sans-serif; '
+                f'box-shadow: 0 1px 3px rgba(0,0,0,0.08);">'
+                f'{name}</div>')
+
+    html.append('</div></div>')
+    return '\n'.join(html)
+
+
+def _render_legend_html(groups, plate_mrna, cell_types, plate_cells):
+    """Render color-coded legend for groups and cell types."""
+    html = ['<div style="font-family: -apple-system, sans-serif; '
+            'margin-top: 10px;">']
+
+    # mRNA groups
+    items = []
+    for gi, g in enumerate(groups):
+        wc = sum(1 for v in plate_mrna if v == gi)
+        if wc > 0:
+            color = _GROUP_COLORS[gi % len(_GROUP_COLORS)]
+            gtype = g.get('type', 'experimental')
+            type_str = {'positive': 'pos ctrl',
+                        'negative': 'neg ctrl'}.get(gtype, 'exp')
+            dose_parts = [f'{m["dose"]:.0f}ng'
+                          for m in g.get('mRNAs', [])]
+            dose_str = '+'.join(dose_parts) if dose_parts else ''
+            detail = f' - {dose_str}' if dose_str else ''
+
+            items.append(
+                f'<span style="display: inline-flex; align-items: center; '
+                f'margin: 4px 16px 4px 0;">'
+                f'<span style="width: 18px; height: 18px; border-radius: 50%; '
+                f'background: {color}; display: inline-block; '
+                f'margin-right: 6px; flex-shrink: 0;"></span>'
+                f'<strong>{g["name"]}</strong>'
+                f'<span style="color: #777; margin-left: 6px; font-size: 12px;">'
+                f'({wc}w - {type_str}{detail})</span></span>')
+
+    html.append(
+        '<div style="display: flex; flex-wrap: wrap; margin-bottom: 8px;">')
+    html.append(''.join(items))
+    html.append('</div>')
+
+    # Cell types
+    ct_items = []
+    for ci, ct in enumerate(cell_types):
+        wc = sum(1 for v in plate_cells if v == ci)
+        if wc > 0:
+            color = _CELL_COLORS[ci % len(_CELL_COLORS)]
+            ct_items.append(
+                f'<span style="display: inline-flex; align-items: center; '
+                f'margin: 4px 16px 4px 0;">'
+                f'<span style="width: 18px; height: 18px; border-radius: 50%; '
+                f'border: 3px solid {color}; background: #fff; '
+                f'display: inline-block; margin-right: 6px; '
+                f'flex-shrink: 0;"></span>'
+                f'<strong>{ct["name"]}</strong>'
+                f'<span style="color: #777; margin-left: 6px; font-size: 12px;">'
+                f'({wc}w - {ct["density"]:,}/well)</span></span>')
+
+    if ct_items:
+        html.append(
+            '<div style="display: flex; flex-wrap: wrap;">')
+        html.append(''.join(ct_items))
+        html.append('</div>')
+
+    html.append('</div>')
+    return '\n'.join(html)
+
+
+def _parse_well_input(text):
+    """Parse well input like 'A1-A6, B2, C3-D6' into well indices."""
+    indices = set()
+    for part in text.split(','):
+        part = part.strip().upper()
+        if not part:
+            continue
+        if '-' in part:
+            try:
+                start, end = part.split('-', 1)
+                sr = _PLATE_ROWS.index(start[0])
+                sc = int(start[1:]) - 1
+                er = _PLATE_ROWS.index(end[0])
+                ec = int(end[1:]) - 1
+                for r in range(sr, er + 1):
+                    for c in range(sc, ec + 1):
+                        if 0 <= r < 8 and 0 <= c < 12:
+                            indices.add(r * 12 + c)
+            except (ValueError, IndexError):
+                pass
+        else:
+            try:
+                r = _PLATE_ROWS.index(part[0])
+                c = int(part[1:]) - 1
+                if 0 <= r < 8 and 0 <= c < 12:
+                    indices.add(r * 12 + c)
+            except (ValueError, IndexError):
+                pass
+    return indices
+
+
 def render_protocol_page(history, get_cell_profiles):
     """Render the full Protocol Designer page."""
     from modeling.core.protocol import (
@@ -208,61 +367,104 @@ def render_protocol_page(history, get_cell_profiles):
     # Section 4: Plate Layout
     # ============================================================
     st.subheader('Plate Layout')
-    st.markdown(
-        'Assign groups and cell types to wells. Use **Auto-assign** for '
-        'a standard layout, or manually edit the assignment table.')
 
-    replicates = st.number_input('Replicates per condition', 1, 8, 3,
-                                  key='proto_reps')
+    # -- Paint mode controls --
+    pc1, pc2 = st.columns([1, 1])
+    with pc1:
+        paint_mode = st.radio(
+            'Mode', ['Paint mRNA Groups', 'Paint Cell Types'],
+            horizontal=True, key='paint_mode')
+    with pc2:
+        if paint_mode == 'Paint mRNA Groups':
+            group_names = [g['name'] for g in groups]
+            active_paint_idx = st.selectbox(
+                'Painting', range(len(group_names)),
+                format_func=lambda i: group_names[i],
+                key='active_group_sel') if group_names else 0
+        else:
+            ct_names = [ct['name'] for ct in cell_types]
+            active_paint_idx = st.selectbox(
+                'Painting', range(len(ct_names)),
+                format_func=lambda i: ct_names[i],
+                key='active_ct_sel') if ct_names else 0
 
-    if st.button('Auto-assign plate layout', type='primary'):
-        plate_mrna, plate_cells = auto_assign_plate(
-            groups, cell_types, replicates)
+    ec1, ec2, ec3, ec4 = st.columns(4)
+    with ec1:
+        eraser = st.checkbox('Eraser', key='plate_eraser')
+    with ec2:
+        if st.button('Clear layer'):
+            if paint_mode == 'Paint mRNA Groups':
+                st.session_state.proto_plate_mrna = [-1] * 96
+                plate_mrna = st.session_state.proto_plate_mrna
+            else:
+                st.session_state.proto_plate_cells = [-1] * 96
+                plate_cells = st.session_state.proto_plate_cells
+            st.rerun()
+    with ec3:
+        replicates = st.number_input('Replicates', 1, 8, 3,
+                                      key='proto_reps')
+    with ec4:
+        if st.button('Auto-assign', type='primary'):
+            plate_mrna, plate_cells = auto_assign_plate(
+                groups, cell_types, replicates)
+            st.session_state.proto_plate_mrna = plate_mrna
+            st.session_state.proto_plate_cells = plate_cells
+            st.rerun()
+
+    # -- Plate visualization (colored circles) --
+    plate_html = _render_plate_html(plate_mrna, plate_cells,
+                                     groups, cell_types)
+    st.markdown(plate_html, unsafe_allow_html=True)
+
+    # -- Well selection for painting --
+    ws1, ws2, ws3 = st.columns([1, 1, 2])
+    with ws1:
+        sel_rows = st.multiselect(
+            'Rows', list(_PLATE_ROWS), key='sel_rows')
+    with ws2:
+        sel_cols = st.multiselect(
+            'Columns', list(range(1, 13)), key='sel_cols')
+    with ws3:
+        well_text = st.text_input(
+            'Or type wells (e.g. A1-A6, B2, C3-D6)',
+            key='well_text_input')
+
+    if st.button('Paint selected wells'):
+        wells_to_paint = set()
+        for r in sel_rows:
+            for c in sel_cols:
+                wells_to_paint.add(_PLATE_ROWS.index(r) * 12 + (c - 1))
+        if well_text.strip():
+            wells_to_paint.update(_parse_well_input(well_text))
+
+        for wi in wells_to_paint:
+            if 0 <= wi < 96:
+                if eraser:
+                    if paint_mode == 'Paint mRNA Groups':
+                        plate_mrna[wi] = -1
+                    else:
+                        plate_cells[wi] = -1
+                else:
+                    if paint_mode == 'Paint mRNA Groups':
+                        plate_mrna[wi] = active_paint_idx
+                    else:
+                        plate_cells[wi] = active_paint_idx
+
         st.session_state.proto_plate_mrna = plate_mrna
         st.session_state.proto_plate_cells = plate_cells
         st.rerun()
 
-    # Visualize plate as a grid
+    # -- Legend and summary --
     n_assigned = sum(1 for v in plate_mrna if v >= 0)
     if n_assigned > 0:
-        # Build plate visualization dataframe
-        GROUP_COLORS = ['#5b8c78', '#c0884a', '#7b6ea6', '#c26e6e',
-                        '#4a8fa8', '#a08c5a', '#8a6d9e', '#5a9a7a',
-                        '#b07850', '#6888a8']
-
-        # Create grid display
-        grid_data = []
-        for row_idx in range(8):
-            row_dict = {'Row': ROWS[row_idx]}
-            for col_idx in range(12):
-                well_idx = row_idx * 12 + col_idx
-                gi = plate_mrna[well_idx]
-                ci = plate_cells[well_idx]
-
-                if gi >= 0 and gi < len(groups):
-                    cell_str = ''
-                    if ci >= 0 and ci < len(cell_types):
-                        cell_str = f' [{cell_types[ci]["name"]}]'
-                    row_dict[str(col_idx + 1)] = f'{groups[gi]["name"][:15]}{cell_str}'
-                else:
-                    row_dict[str(col_idx + 1)] = ''
-            grid_data.append(row_dict)
-
-        plate_df = pd.DataFrame(grid_data)
-        st.dataframe(plate_df, use_container_width=True, hide_index=True)
-
-        # Legend
-        st.markdown('**Legend:**')
-        legend_parts = []
-        for gi, g in enumerate(groups):
-            well_count = sum(1 for v in plate_mrna if v == gi)
-            if well_count > 0:
-                legend_parts.append(f'**{g["name"]}** ({well_count} wells)')
-        st.markdown(' | '.join(legend_parts))
-
+        legend_html = _render_legend_html(groups, plate_mrna,
+                                           cell_types, plate_cells)
+        st.markdown(legend_html, unsafe_allow_html=True)
         st.caption(f'{n_assigned} of 96 wells assigned.')
     else:
-        st.info('No wells assigned yet. Click "Auto-assign plate layout" above.')
+        st.info(
+            'No wells assigned yet. Click **Auto-assign** or '
+            'select wells and click **Paint selected wells**.')
 
     # ============================================================
     # Section 5: Master Mix Volumes
